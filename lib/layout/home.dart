@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_golden_time/layout/record_item.dart';
 
 import './background_container.dart';
 import './colored_now_card.dart';
@@ -7,6 +8,7 @@ import './pageIndicator_container.dart';
 import '../constants.dart';
 import '../layout/sj_card.dart';
 import '../util.dart';
+import 'sj_scrolling_moudle.dart';
 
 typedef OnBackgroundChanged = void Function(Brightness brightness);
 
@@ -99,60 +101,221 @@ class _HomePageState extends State<HomePage> {
             selection: _selection,
           )),
           Positioned.fill(
-              child: Container(
-            child: SingleChildScrollView(
-              key: _singleChildScrollViewKey,
-              controller: _controller,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Container(
-                    height: 206.5,
-                    color: Colors.grey.withOpacity(0.5),
-                  ),
-                  Container(
-                    height: 723.0,
-                    color: Colors.grey[600].withOpacity(0.5),
-                  ),
-                  Container(
-                    key: _key,
-                    height: 646.0,
-                    color: Colors.grey.withOpacity(0.5),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Container(
-                    color: Colors.orange.withOpacity(0.5),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Container(
-                          color: Colors.grey,
-                          child: HeadlineHeader(
+            child: Container(
+              child: SingleChildScrollView(
+                key: _singleChildScrollViewKey,
+                controller: _controller,
+                // moduleContainer
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    SJScrollingMoudle(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[],
+                      ),
+                    ),
+                    SJScrollingMoudle(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          HeadlineHeader(
                             title: 'Top Albums',
                             subtitle:
                                 'Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week',
                           ),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        ColoredNowCard(),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        SJCard(),
-                        SizedBox(
-                          height: 8,
-                        ),
-                      ],
+                          Row(
+                            children: <Widget>[
+                              Flexible(
+                                child: ColoredNowCard(),
+                              ),
+                              Flexible(
+                                child: ColoredNowCard(),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Flexible(
+                                child: ColoredNowCard(),
+                              ),
+                              Flexible(
+                                child: ColoredNowCard(),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+
+                    // 右 16， 上 24
+                    SJScrollingMoudle(
+                      key: _key,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          HeadlineHeader(
+                            title: 'Top Albums',
+                            subtitle:
+                                'Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week',
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Flexible(
+                                child: RecordItem(
+                                  url:
+                                      'https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946',
+                                  title:
+                                      'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+                                  subtitle:
+                                      'New Release Radio New Release Radio New Release Radio New Release Radio',
+                                ),
+                              ),
+                              Flexible(
+                                child: RecordItem(
+                                  url:
+                                      'https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946',
+                                  title:
+                                      'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+                                  subtitle:
+                                      'New Release Radio New Release Radio New Release Radio New Release Radio',
+                                ),
+                              ),
+                              Flexible(
+                                child: RecordItem(
+                                  url:
+                                      'https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946',
+                                  title:
+                                      'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+                                  subtitle:
+                                      'New Release Radio New Release Radio New Release Radio New Release Radio',
+                                ),
+                              ),
+                              Flexible(
+                                child: RecordItem(
+                                  url:
+                                      'https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946',
+                                  title:
+                                      'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+                                  subtitle:
+                                      'New Release Radio New Release Radio New Release Radio New Release Radio',
+                                ),
+                              ),
+                              Flexible(
+                                child: RecordItem(
+                                  url:
+                                      'https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946',
+                                  title:
+                                      'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+                                  subtitle:
+                                      'New Release Radio New Release Radio New Release Radio New Release Radio',
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Flexible(
+                                child: RecordItem(
+                                  url:
+                                      'https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946',
+                                  title:
+                                      'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+                                  subtitle:
+                                      'New Release Radio New Release Radio New Release Radio New Release Radio',
+                                ),
+                              ),
+                              Flexible(
+                                child: RecordItem(
+                                  url:
+                                      'https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946',
+                                  title:
+                                      'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+                                  subtitle:
+                                      'New Release Radio New Release Radio New Release Radio New Release Radio',
+                                ),
+                              ),
+                              Flexible(
+                                child: RecordItem(
+                                  url:
+                                      'https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946',
+                                  title:
+                                      'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+                                  subtitle:
+                                      'New Release Radio New Release Radio New Release Radio New Release Radio',
+                                ),
+                              ),
+                              Flexible(
+                                child: RecordItem(
+                                  url:
+                                      'https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946',
+                                  title:
+                                      'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+                                  subtitle:
+                                      'New Release Radio New Release Radio New Release Radio New Release Radio',
+                                ),
+                              ),
+                              Flexible(
+                                child: RecordItem(
+                                  url:
+                                      'https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946',
+                                  title:
+                                      'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+                                  subtitle:
+                                      'New Release Radio New Release Radio New Release Radio New Release Radio',
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    SJScrollingMoudle(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          HeadlineHeader(
+                            title: 'Top Albums',
+                            subtitle:
+                                'Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week',
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Flexible(
+                                child: SJCard4(),
+                              ),
+                              Flexible(
+                                child: SJCard4(),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Flexible(
+                                child: SJCard4(),
+                              ),
+                              Flexible(
+                                child: SJCard4(),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          )),
+          ),
           Positioned(
             top: 0,
             right: 36.0 * scale,

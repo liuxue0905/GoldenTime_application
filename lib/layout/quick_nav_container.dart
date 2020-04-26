@@ -112,9 +112,13 @@ class QuickNavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDark = brightness == Brightness.dark;
 
-    var color_selected = Color.fromRGBO(255, 61, 2, 0.7);
-    var color_normal_light = Color.fromRGBO(0, 0, 0, 0.7);
-    var color_normal_dark = Color.fromRGBO(255, 255, 255, 0.7);
+//    var color_selected = Color.fromRGBO(255, 61, 2, 0.7);
+//    var color_normal_light = Color.fromRGBO(0, 0, 0, 0.7);
+//    var color_normal_dark = Color.fromRGBO(255, 255, 255, 0.7);
+
+    var color_selected = Colors.deepOrange[400];
+    var color_normal_light = Colors.black.withOpacity(0.7);
+    var color_normal_dark = Colors.white.withOpacity(0.7);
 
     var color = selected
         ? color_selected

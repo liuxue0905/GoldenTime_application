@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class SJCard extends StatelessWidget {
-  String title = 'Cinematic Ambience';
-  String description = 'Relaxing film scores for peaceful reflection.';
+class SJCard4 extends StatelessWidget {
+  /*final*/ String title = 'Cinematic Ambience';
+  /*final*/ String description = 'Relaxing film scores for peaceful reflection.';
 
 //  String imageUrl =
 //      'https://lh3.googleusercontent.com/5I7twkpomIJVpEpPEyF2M7ZI-yewpHCnk-ruXIEdlU-VysNbFpWtPDSM=w700-h140-p-e100-rwu-v1';
@@ -10,10 +10,11 @@ class SJCard extends StatelessWidget {
   String imageUrl =
       'https://www.baidu.com/img/dong_96c3c31cae66e61ed02644d732fcd5f8.gif';
 
-  SJCard();
+  SJCard4();
+//  SJCard({this.title, this.description});
 
-  factory SJCard.forDesignTime() {
-    return new SJCard();
+  factory SJCard4.forDesignTime() {
+    return new SJCard4();
   }
 
   @override
