@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 
 class ColoredNowCard extends StatelessWidget {
-  ColoredNowCard();
-
   String header =
       'Recommended new releases Recommended new releases Recommended new releases';
   String reason = 'Popular this week';
   String title = 'Victory Lap Victory Lap Victory Lap Victory Lap';
   String description =
       'Album by Nipsey Hussle • 16 songs Album by Nipsey Hussle • 16 songs Album by Nipsey Hussle • 16 songs Album by Nipsey Hussle • 16 songs';
+
+  String backgroundImage;
+  Color backgroundColor;
+
+  ColoredNowCard(
+      {this.header,
+      this.reason,
+      this.title,
+      this.description,
+      this.backgroundImage,
+      this.backgroundColor});
 
   Color textSeparatorColor = Color.fromARGB(255, 255, 255, 1);
 
@@ -27,20 +36,24 @@ class ColoredNowCard extends StatelessWidget {
           fit: StackFit.expand,
           children: <Widget>[
             Container(
-              child: Image.asset(
-                'images/colored_now_card.jpg',
-                fit: BoxFit.cover,
-              ),
+//              child: Image.asset(
+//                'images/colored_now_card.jpg',
+//                fit: BoxFit.cover,
+//              ),
+              child: Image.network(backgroundImage),
             ),
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      Color.fromRGBO(0, 0, 0, 1.0),
-                      Color.fromRGBO(0, 0, 0, 0.5)
-                    ]),
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+//                      Color.fromRGBO(0, 0, 0, 1.0),
+//                      Color.fromRGBO(0, 0, 0, 0.5)
+                    backgroundColor.withOpacity(1.0),
+                    backgroundColor.withOpacity(0.5),
+                  ],
+                ),
               ),
             ),
             Container(
@@ -52,7 +65,7 @@ class ColoredNowCard extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.only(bottom: 4),
                     child: Text(
-                      header,
+                      header ?? '',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -62,7 +75,7 @@ class ColoredNowCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    reason,
+                    reason ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -80,7 +93,7 @@ class ColoredNowCard extends StatelessWidget {
                     margin: EdgeInsets.only(bottom: 4),
                     padding: EdgeInsets.only(right: 64 * scale),
                     child: Text(
-                      title,
+                      title ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -92,7 +105,7 @@ class ColoredNowCard extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.only(right: 64 * scale),
                     child: Text(
-                      description,
+                      description ?? '',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

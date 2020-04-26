@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import './artist_detail.dart';
 import './artist_item.dart';
-import './gt_grid_view.dart';
+import './gpm-card-grid.dart';
 import './paginated_footer.dart';
 import '../api_service.dart';
 import '../forms.dart';
@@ -183,7 +183,7 @@ class ArtistsListState extends State<ArtistsList> {
                   ],
                 ),
               ),
-              GTGridView(
+              GPMCardGrid(
                 crossAxisCount: _crossAxisCount(),
                 children: artists
                     .map((artist) =>

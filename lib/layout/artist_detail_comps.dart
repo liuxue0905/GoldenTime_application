@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './gt_grid_view.dart';
+import './gpm-card-grid.dart';
 import './paginated_footer.dart';
 import './record_item.dart';
 import '../api_service.dart';
@@ -137,7 +137,7 @@ class ArtistCompsListState extends State<ArtistCompsList> {
         : Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              GTGridView(
+              GPMCardGrid(
                 crossAxisCount: _crossAxisCount(),
                 children: records
                     .map((record) =>

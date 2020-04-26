@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './gt_grid_view.dart';
+import './gpm-card-grid.dart';
 import './record_item_tall.dart';
 import '../api_service.dart';
 import '../forms.dart';
@@ -226,7 +226,7 @@ class _RecordsListState extends State<RecordsList> {
                   ],
                 ),
               ),
-              GTGridView(
+              GPMCardGrid(
                 crossAxisCount: _crossAxisCount(),
                 children: records
                     .map((record) =>

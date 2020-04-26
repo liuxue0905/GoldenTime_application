@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class GTGridView extends StatelessWidget {
+class GPMCardGrid extends StatelessWidget {
   EdgeInsetsGeometry padding;
 
   int crossAxisCount;
   List<Widget> children;
 
-  GTGridView({
+  GPMCardGrid({
     Key key,
     Axis direction = Axis.vertical,
     this.padding,
@@ -17,7 +17,7 @@ class GTGridView extends StatelessWidget {
   })  : crossAxisCount = crossAxisCount,
         children = children;
 
-  GTGridView.count({
+  GPMCardGrid.count({
     Key key,
     Axis direction = Axis.vertical,
     EdgeInsetsGeometry padding,

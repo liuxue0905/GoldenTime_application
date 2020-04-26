@@ -116,7 +116,7 @@ class SJCard4 extends StatelessWidget {
                     style: TextStyle(
                       color: Color.fromRGBO(33, 33, 33, 1),
                       fontSize: 16,
-                      height: 18 / (16 + 18 - 16),
+                      height: 1,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -131,7 +131,7 @@ class SJCard4 extends StatelessWidget {
                     style: TextStyle(
                       color: Color.fromRGBO(117, 117, 117, 1),
                       fontSize: 12,
-                      height: 16 / (12 + 16 - 12),
+                      height: 1,
                     ),
                   ),
                 )
