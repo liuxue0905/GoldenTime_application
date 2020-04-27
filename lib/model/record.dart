@@ -56,6 +56,8 @@ class Record {
   @JsonKey(name: 'songs')
   List<Song> songs;
 
+  int songsCount;
+
   Record(
       {this.id,
       this.title,
@@ -70,7 +72,8 @@ class Record {
       this.description,
       this.artists,
       this.company,
-      this.songs});
+      this.songs,
+      this.songsCount});
 
   String getFormatText() {
     switch (this.format) {

@@ -3,40 +3,28 @@ import 'package:flutter/material.dart';
 class BackgroundContainer extends StatefulWidget {
   BackgroundContainer(
       {Key key,
-      this.backgroundColorList,
-      this.backgroundImagesList,
+      this.backgroundColors,
+      this.backgroundImages,
       this.selection: 0});
 
-  final List<Color> backgroundColorList;
-  final List<String> backgroundImagesList;
+  final List<Color> backgroundColors;
+  final List<String> backgroundImages;
   final int selection;
-
-  factory BackgroundContainer.forDesignTime() {
-    return new BackgroundContainer(selection: 0);
-  }
 
   @override
   State<StatefulWidget> createState() {
     return _BackgroundContainerState();
   }
-
-//  @override
-//  _BackgroundContainerState createState() {
-//    return _BackgroundContainerState();
-//  }
 }
 
 class _BackgroundContainerState extends State<BackgroundContainer> {
   var gradients = [];
 
-  _BackgroundContainerState() {
-
-  }
-
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
 
-    widget.backgroundColorList.map((Color color) {
+    widget.backgroundColors.forEach((Color color) {
       var map = {
         'to top': <Color>[
           Color.fromRGBO(color.red, color.green, color.blue, 1),
@@ -48,7 +36,14 @@ class _BackgroundContainerState extends State<BackgroundContainer> {
         ]
       };
       gradients.add(map);
-    }).toList();
+    });
+
+    print('gradients = ${gradients}');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
 
     Widget gradient = Container(
       child: Stack(
@@ -89,45 +84,52 @@ class _BackgroundContainerState extends State<BackgroundContainer> {
 
     return Container(
       child: Container(
-          child: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          // backgroundColor
-          Positioned.fill(
-            child: Container(
-              color: widget.backgroundColorList[widget.selection],
-            ),
-          ),
-          // backgroundImageContainer
-          Align(
-            alignment: Alignment.topRight,
-            child: Container(
-              width: (MediaQuery.of(context).size.width / 100 * 60)
-                  .roundToDouble(),
-              height: (MediaQuery.of(context).size.width / 100 * 30)
-                  .roundToDouble(),
-              child: Stack(
-                children: <Widget>[
-                  // backgroundImages
-                  Positioned.fill(
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned.fill(
-                            child: Image.asset(
-                                widget.backgroundImagesList[widget.selection],
-                                fit: BoxFit.fill)),
-                      ],
-                    ),
-                  ),
-                  Positioned.fill(
-                    child: gradient,
-                  ),
-                ],
+        child: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            // backgroundColor
+            Positioned.fill(
+              child: Container(
+                color: widget.backgroundColors[widget.selection],
               ),
             ),
-          )
-        ],
-      )),
+            // backgroundImageContainer
+            Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                width: (MediaQuery.of(context).size.width / 100 * 60)
+                    .roundToDouble(),
+                height: (MediaQuery.of(context).size.width / 100 * 30)
+                    .roundToDouble(),
+                child: Stack(
+                  children: <Widget>[
+                    // backgroundImages
+                    Positioned.fill(
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned.fill(
+//                          child: Image.asset(
+//                            widget.backgroundImages[widget.selection] ?? '',
+//                            fit: BoxFit.fill,
+//                          ),
+                            child: Image.network(
+                              widget.backgroundImages[widget.selection] ?? '',
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Positioned.fill(
+                      child: gradient,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

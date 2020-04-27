@@ -32,7 +32,7 @@ class HeadlineHeader extends StatelessWidget {
         children: <Widget>[
           Container(
             child: Text(
-              title,
+              title ?? '',
               maxLines: 1,
               overflow: TextOverflow.clip,
               style: TextStyle(
@@ -56,7 +56,7 @@ class HeadlineHeader extends StatelessWidget {
             margin: EdgeInsets.only(top: 12),
             constraints: BoxConstraints(maxWidth: getSize(context, 384, 'xl')),
             child: Text(
-              subtitle,
+              subtitle ?? '',
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(

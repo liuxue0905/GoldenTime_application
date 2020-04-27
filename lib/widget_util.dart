@@ -112,16 +112,19 @@ void showDialogArtists(BuildContext context, List<Artist> artists) {
 //            ),
 //          ),
 
-          leading: Stack( children: <Widget>[
-            CircleAvatar(
-              backgroundImage: AssetImage('images/illo_default_artistradio_smallcard.png'),
-            ),
-            CircleAvatar(
-              backgroundImage: NetworkImage(
-                getArtistImage(artist),
+          leading: Stack(
+            children: <Widget>[
+              CircleAvatar(
+                backgroundImage:
+                    AssetImage('images/illo_default_artistradio_smallcard.png'),
               ),
-            ),
-          ],),
+              CircleAvatar(
+                backgroundImage: NetworkImage(
+                  getArtistImage(artist),
+                ),
+              ),
+            ],
+          ),
 
           onTap: () {
             Navigator.pop(context, artist);
@@ -205,6 +208,7 @@ String getRecordImage(Record record) {
     "http://p1.music.126.net/x1ftKvF4KL_Jfn-Ti7f9eA==/18351948579947747.jpg?param=120y120",
     "https://p1.music.126.net/_aDUl2D0Z8YACL2fLZOvXg==/569547023195052.jpg?param=177y177",
     "https://www.baidu.com/img/bd_logo1.png?where=super",
+    "https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946",
   ];
 
   var random = new Random();
@@ -217,11 +221,10 @@ String getArtistImage(Artist artist) {
     "http://p1.music.126.net/x1ftKvF4KL_Jfn-Ti7f9eA==/18351948579947747.jpg?param=120y120",
     "https://p1.music.126.net/_aDUl2D0Z8YACL2fLZOvXg==/569547023195052.jpg?param=177y177",
     "https://www.baidu.com/img/bd_logo1.png?where=super",
+    "https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946",
   ];
 
   var random = new Random();
 
   return urls[random.nextInt(urls.length)];
 }
-
-
