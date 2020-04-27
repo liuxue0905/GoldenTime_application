@@ -36,6 +36,7 @@ class Module<T> {
 
   final String backgroundImage;
   final Color backgroundColor;
+  final Color separatorColor;
 
   final List<T> dataList;
 
@@ -46,6 +47,7 @@ class Module<T> {
       this.description,
       this.backgroundImage,
       this.backgroundColor,
+      this.separatorColor,
       this.dataList});
 }
 
@@ -124,6 +126,7 @@ class _HomePageState extends State<HomePage> {
         backgroundImage:
             'https://lh3.googleusercontent.com/f-m-m5tQ9knrY3lPJQgFFhrdeoefL3FzY2SgEQjkxPP2HlcsI1FQd9A-Yxj8_HIOqjYPhrLf=w700-h560-n-e100-rwu-v1',
         backgroundColor: Color.fromRGBO(0, 0, 0, 1),
+        separatorColor: Color.fromRGBO(255,255,255,1),
         dataList: <Record>[
           Record(
               id: 1836,
@@ -175,6 +178,7 @@ class _HomePageState extends State<HomePage> {
         backgroundImage:
             'https://lh3.googleusercontent.com/2j1Cse4obFQSlJjVbNi9FOXNHVgE27NiVccPUCQCdgnThqihDHXboUWqYnpN3qpTFg4HBYN8HA=w700-h560-n-e100-rwu-v1',
         backgroundColor: Color.fromRGBO(22, 17, 16, 1),
+        separatorColor: Color.fromRGBO(109, 197, 131, 1),
         dataList: <Record>[
           Record(
               id: 1836,
@@ -292,13 +296,17 @@ class _HomePageState extends State<HomePage> {
       _backgroundColors.add(Color.fromRGBO(250, 250, 250, 1.0));
     }
     _backgroundColors.add(Color.fromRGBO(250, 250, 250, 1.0));
-    modules.forEach((element) {_backgroundColors.add(element.backgroundColor);});
+    modules.forEach((element) {
+      _backgroundColors.add(element.backgroundColor);
+    });
 
     if (history) {
       _backgroundImages.add(null);
     }
     _backgroundImages.add(null);
-    modules.forEach((element) {_backgroundImages.add(element.backgroundImage);});
+    modules.forEach((element) {
+      _backgroundImages.add(element.backgroundImage);
+    });
 
     print('_backgroundColors = $_backgroundColors');
     print('_backgroundImages = $_backgroundImages');
