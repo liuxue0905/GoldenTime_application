@@ -29,7 +29,7 @@ class ModuleContainer extends StatelessWidget {
 
   Widget _buildSJScrollingMoudleHistory(BuildContext context, Key key) {
     return SJScrollingMoudle(
-      key: key,
+//      key: key,
       clazz: 'mini',
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,7 +58,7 @@ class ModuleContainer extends StatelessWidget {
 
   Widget _buildSJScrollingMoudleNow(BuildContext context, Key key) {
     return SJScrollingMoudle(
-      key: key,
+//      key: key,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
@@ -92,7 +92,7 @@ class ModuleContainer extends StatelessWidget {
       BuildContext context, Key key, Module module) {
     return SJScrollingMoudle(
       // 右 16， 上 24
-      key: key,
+//      key: key,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
@@ -125,7 +125,7 @@ class ModuleContainer extends StatelessWidget {
       BuildContext context, Key key, Module module) {
     return SJScrollingMoudle(
       // 右 16， 上 24
-      key: key,
+//      key: key,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
@@ -156,7 +156,7 @@ class ModuleContainer extends StatelessWidget {
   Widget _buildSJScrollingMoudleHits(
       BuildContext context, Key key, Module<Hits> module) {
     return SJScrollingMoudle(
-      key: key,
+//      key: key,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,

@@ -59,10 +59,47 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final GlobalKey<ScaffoldState> _key4Scaffold = GlobalKey<ScaffoldState>();
 
+  void setSelection(int selection) {
+    setState(() {
+      _selection = selection;
+    });
+  }
+
+  void setBrightness(Brightness brightness) {
+    setState(() {
+      _brightness = brightness;
+    });
+  }
+
+  Widget _buildChild(BuildContext context) {
+    print('_buildChild XXX');
+    Widget child;
+
+    if (_selection == 0) {
+      child = HomePage(onBackgroundChanged: (Brightness brightness) {
+        setBrightness(brightness);
+      });
+    } else if (_selection == 1) {
+      child = RecordsPage();
+    } else if (_selection == 2) {
+      child = ArtistsPage();
+    } else if (_selection == 3) {
+      child = SongsPage();
+    }
+
+    return child;
+  }
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+
     ApiService service = ApiService("http://liujin.jios.org:8888/api/");
     ApiService.instance = service;
+  }
+
+  @override
+  Widget build(BuildContext context) {
 
     List<Item> items = [
       Item(icon: Icons.home, text: '首页'),
@@ -70,33 +107,6 @@ class _MyHomePageState extends State<MyHomePage> {
       Item(icon: Icons.account_box, text: '歌手'),
       Item(icon: Icons.library_music, text: '歌曲'),
     ];
-
-    void setSelection(int selection) {
-      setState(() {
-        _selection = selection;
-      });
-    }
-    
-    Widget _buildChild(BuildContext context) {
-      print('_buildChild XXX');
-      Widget child;
-
-      if (_selection == 0) {
-        child = HomePage(onBackgroundChanged: (Brightness brightness) {
-          setState(() {
-            _brightness = brightness;
-          });
-        });
-      } else if (_selection == 1) {
-        child = RecordsPage();
-      } else if (_selection == 2) {
-        child = ArtistsPage();
-      } else if (_selection == 3) {
-        child = SongsPage();
-      }
-      
-      return child;
-    }
 
     List<Widget> buildListTiles(List<Item> items) {
       List<Widget> children = items.map<Widget>((Item item) {

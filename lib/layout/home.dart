@@ -68,11 +68,11 @@ class _HomePageState extends State<HomePage> {
 
       _backgroundColor = _backgroundColors[_selection];
       _brightness = getBrightness(_backgroundColor);
-
-      if (widget.onBackgroundChanged != null) {
-        widget.onBackgroundChanged(_brightness);
-      }
     });
+
+    if (widget.onBackgroundChanged != null) {
+      widget.onBackgroundChanged(_brightness);
+    }
   }
 
   List<Module> modules;
@@ -114,13 +114,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     double scale = getScale(context, 'xl');
 
-//    Color.fromRGBO(250, 250, 250, 1.0).computeLuminance();
-
     GlobalKey _singleChildScrollViewKey = GlobalKey();
     GlobalKey _key = GlobalKey();
 
     return Container(
-//      color: Colors.grey[100],
       child: Stack(
         children: <Widget>[
           Positioned.fill(

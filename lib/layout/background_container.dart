@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class BackgroundContainer extends StatefulWidget {
+  final List<Color> backgroundColors;
+  final List<String> backgroundImages;
+  final int selection;
+
   BackgroundContainer(
       {Key key,
       this.backgroundColors,
       this.backgroundImages,
-      this.selection: 0});
-
-  final List<Color> backgroundColors;
-  final List<String> backgroundImages;
-  final int selection;
+      this.selection = 0});
 
   @override
   State<StatefulWidget> createState() {
@@ -43,8 +43,6 @@ class _BackgroundContainerState extends State<BackgroundContainer> {
 
   @override
   Widget build(BuildContext context) {
-
-
     Widget gradient = Container(
       child: Stack(
         children: <Widget>[
