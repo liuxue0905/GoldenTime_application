@@ -7,15 +7,13 @@ class SJCard4 extends StatelessWidget {
 //  String imageUrl =
 //      'https://lh3.googleusercontent.com/5I7twkpomIJVpEpPEyF2M7ZI-yewpHCnk-ruXIEdlU-VysNbFpWtPDSM=w700-h140-p-e100-rwu-v1';
 
-  String imageUrl =
+  String image =
       'https://www.baidu.com/img/dong_96c3c31cae66e61ed02644d732fcd5f8.gif';
 
-  SJCard4();
-//  SJCard({this.title, this.description});
 
-  factory SJCard4.forDesignTime() {
-    return new SJCard4();
-  }
+
+//  SJCard4();
+  SJCard4({this.image, this.title, this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +45,7 @@ class SJCard4 extends StatelessWidget {
               child: Stack(
                 children: <Widget>[
                   Positioned.fill(
-                    child: Image.network(imageUrl),
+                    child: Image.network(image),
                   ),
                   Positioned.fill(
                     child: Row(
