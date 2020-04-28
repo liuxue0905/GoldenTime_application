@@ -54,15 +54,15 @@ class Constants {
   // 19ba6a.png         #19ba6a
   // 47c7fe.png         #47c7fe
   // 531e65.png         #531e65                   #fbc737 (251,199,55,1)
-  // 4413ba.png         #4413ba
+  // 4413ba.png         #4413ba                   #e05252 (224,82,82,1)
   // 17316d.png         #17316d
   // 54215f.png         #54215f                   #eb8fed (235,143,237,1)
   // 63230a.png         #63230a                   #f9f26a (249,242,106,1)
   // 392291.png         #392291
   // 512257.png         #512257
-  // 532164.png         #532164
-  // bfb2ff.png         #bfb2ff
-  // c6fbe5.png         #c6fbe5                   #ff3347 (255,51,71,1)
+  // 532164.png         #532164                   #f8ffb8 (248,255,184,1)
+  // bfb2ff.png         #bfb2ff                   #f8ffb8 (255,245,118,1)
+  // c6fbe5.png         #c6fbe5                   #ff3347 (255,51,71,1) #f8ffb8
   // 4bceff.png         #4bceff
   // 12b969.png         #12b969
 
