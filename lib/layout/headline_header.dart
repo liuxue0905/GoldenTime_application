@@ -5,7 +5,7 @@ import '../util.dart';
 class HeadlineHeader extends StatelessWidget {
   HeadlineHeader({
     Key key,
-    this.brightness: Brightness.light,
+    this.brightness = Brightness.light,
     this.title,
     this.subtitle,
   });
@@ -24,7 +24,7 @@ class HeadlineHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDark = brightness == Brightness.dark;
+    final bool dark = brightness == Brightness.dark;
 
     return Container(
       child: Column(
@@ -36,7 +36,7 @@ class HeadlineHeader extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.clip,
               style: TextStyle(
-                color: isDark ? Colors.white : Colors.grey[900],
+                color: dark ? Colors.white : Colors.grey[900],
                 fontSize: 34,
                 fontWeight: FontWeight.w400,
               ),
@@ -55,17 +55,20 @@ class HeadlineHeader extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(top: 12),
             constraints: BoxConstraints(maxWidth: getSize(context, 384, 'xl')),
-            child: Text(
-              subtitle ?? '',
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 13,
-                height: 17 / (13 + 2),
-                fontStyle: FontStyle.italic,
-                color: isDark
-                    ? const Color.fromRGBO(255, 255, 255, 0.7)
-                    : const Color.fromRGBO(0, 0, 0, 0.7),
+            child: Visibility(
+              visible: subtitle?.isNotEmpty ?? false,
+              child: Text(
+                subtitle ?? '',
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 13,
+                  height: 17 / (13 + 2),
+                  fontStyle: FontStyle.italic,
+                  color: dark
+                      ? const Color.fromRGBO(255, 255, 255, 0.7)
+                      : const Color.fromRGBO(0, 0, 0, 0.7),
+                ),
               ),
             ),
           ),

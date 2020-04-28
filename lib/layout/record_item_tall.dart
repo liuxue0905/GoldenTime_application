@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import './overlay_text.dart';
 
 class RecordItemTall extends StatelessWidget {
-
-  Brightness brightness;
+  final Brightness brightness;
 
   final String url;
   final String title;
@@ -17,16 +16,15 @@ class RecordItemTall extends StatelessWidget {
 //
 //  }
 
-  RecordItemTall({
-    Key key,
-    this.brightness: Brightness.dark,
-    this.url,
-    this.title,
-    this.subtitle,
-    this.description,
-    this.tag,
-    this.onTap
-  });
+  RecordItemTall(
+      {Key key,
+      this.brightness = Brightness.dark,
+      this.url,
+      this.title,
+      this.subtitle,
+      this.description,
+      this.tag,
+      this.onTap});
 
 //  factory RecordItemTall.forDesignTime() {
 //    return new RecordItemTall(
@@ -49,7 +47,8 @@ class RecordItemTall extends StatelessWidget {
 //    https://play-music.gstatic.com/fe/b24e511cc6d0cd0ed004b7d9bdfcfb0d/illo_default_artistradio_smallcard.png
 //    https://play-music.gstatic.com/fe/b24e511cc6d0cd0ed004b7d9bdfcfb0d/illo_default_artistradio_smallcard_2x.png
 
-    final bool isDark = brightness == Brightness.dark;
+    final bool light = brightness == Brightness.light;
+    final bool dark = brightness == Brightness.dark;
 
     return GestureDetector(
       onTap: this.onTap,
@@ -94,7 +93,7 @@ class RecordItemTall extends StatelessWidget {
                   title,
                   maxLines: 2,
                   style: TextStyle(
-                    color: isDark
+                    color: dark
                         ? Color.fromRGBO(255, 255, 255, 1.0)
                         : Color.fromRGBO(0, 0, 0, 1.0),
                     fontSize: 14,
@@ -110,7 +109,7 @@ class RecordItemTall extends StatelessWidget {
                     maxLines: 1,
                     softWrap: false,
                     style: TextStyle(
-                      color: isDark
+                      color: dark
                           ? Color.fromRGBO(255, 255, 255, 0.7)
                           : Color.fromRGBO(0, 0, 0, 0.7),
                       fontSize: 12,
@@ -126,7 +125,7 @@ class RecordItemTall extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: TextStyle(
-                      color: isDark
+                      color: dark
                           ? Color.fromRGBO(255, 255, 255, 0.7)
                           : Color.fromRGBO(0, 0, 0, 0.7),
                       fontSize: (12 - 2.0),

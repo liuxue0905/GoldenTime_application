@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../util.dart';
 
 class SJScrollingMoudle extends StatelessWidget {
+
   /// mini huge small medium
   final String clazz;
   final Widget child;

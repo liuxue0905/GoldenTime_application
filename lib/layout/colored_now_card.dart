@@ -11,13 +11,14 @@ class ColoredNowCard extends StatelessWidget {
   String backgroundImage;
   Color backgroundColor;
 
-  ColoredNowCard(
-      {this.header,
-      this.reason,
-      this.title,
-      this.description,
-      this.backgroundImage,
-      this.backgroundColor});
+  ColoredNowCard({
+    this.header,
+    this.reason,
+    this.title,
+    this.description,
+    this.backgroundImage,
+    this.backgroundColor,
+  });
 
   Color textSeparatorColor = Color.fromARGB(255, 255, 255, 1);
 
@@ -27,8 +28,28 @@ class ColoredNowCard extends StatelessWidget {
     return new ColoredNowCard();
   }
 
+  Brightness getBrightness(Color color) {
+    double luminance = color.computeLuminance();
+    if (luminance >= 0.5) {
+      return Brightness.light;
+    } else if (luminance < 0.5) {
+      return Brightness.dark;
+    }
+    return Brightness.light;
+  }
+
   @override
   Widget build(BuildContext context) {
+    Brightness brightness = getBrightness(backgroundColor);
+
+    bool light = brightness == Brightness.light;
+    bool dark = brightness == Brightness.dark;
+
+    print('backgroundColor = ${backgroundColor}');
+    print('brightness = ${brightness}');
+    print('light = ${light}');
+    print('dark = ${dark}');
+
     return Container(
       child: AspectRatio(
         aspectRatio: 100 / 80,
@@ -69,7 +90,9 @@ class ColoredNowCard extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          color: Color.fromRGBO(255, 255, 255, 1),
+                          color: light
+                              ? Color.fromRGBO(0, 0, 0, 1)
+                              : Color.fromRGBO(255, 255, 255, 1),
                           fontSize: 24,
                           fontWeight: FontWeight.w500),
                     ),
@@ -79,7 +102,9 @@ class ColoredNowCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: Color.fromRGBO(255, 255, 255, 0.702),
+                        color: light
+                            ? Color.fromRGBO(0, 0, 0, 0.702)
+                            : Color.fromRGBO(255, 255, 255, 0.702),
                         fontSize: 14,
                         fontStyle: FontStyle.italic),
                   ),
@@ -97,7 +122,9 @@ class ColoredNowCard extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          color: Color.fromRGBO(255, 255, 255, 0.702),
+                          color: light
+                              ? Color.fromRGBO(0, 0, 0, 0.702)
+                              : Color.fromRGBO(255, 255, 255, 0.702),
                           fontWeight: FontWeight.w500,
                           fontSize: 14),
                     ),
@@ -109,7 +136,9 @@ class ColoredNowCard extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          color: Color.fromRGBO(255, 255, 255, 0.702),
+                          color: light
+                              ? Color.fromRGBO(0, 0, 0, 0.702)
+                              : Color.fromRGBO(255, 255, 255, 0.702),
                           fontSize: 12),
                     ),
                   ),

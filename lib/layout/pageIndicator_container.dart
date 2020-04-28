@@ -15,8 +15,8 @@ class PageIndicatorContainer extends StatefulWidget {
       {Key key,
       this.count,
       this.selection: 0,
-      this.brightness: Brightness.light,
-      this.backgroundColor: Colors.white,
+      this.brightness = Brightness.light,
+      this.backgroundColor = Colors.white,
       this.history: false});
 
   factory PageIndicatorContainer.forDesignTime() {
@@ -83,8 +83,8 @@ class PageTab extends StatelessWidget {
     Key key,
     this.selected: false,
     this.history: false,
-    this.brightness: Brightness.light,
-    this.backgroundColor: Colors.white,
+    this.brightness = Brightness.light,
+    this.backgroundColor = Colors.white,
   });
 
   var color_selected = Color(0xFFFF3D02);
@@ -95,17 +95,13 @@ class PageTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDark = brightness == Brightness.dark;
-
-//    print('isDark: $isDark');
-//    print('backgroundColor: $backgroundColor');
-//    print('backgroundColor == Colors.white: ${backgroundColor == Colors.white}');
+    final bool dark = brightness == Brightness.dark;
 
     Widget _icon;
 
     Color _color = selected
         ? color_selected
-        : (isDark
+        : (dark
             ? color_normal_dark
             : (backgroundColor == Color.fromRGBO(250, 250, 250, 1.0)
                 ? color_normal_light_history_and_first

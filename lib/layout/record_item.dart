@@ -6,7 +6,7 @@ class RecordItem extends StatelessWidget {
 
   RecordItem({
     Key key,
-    this.brightness: Brightness.light,
+    this.brightness = Brightness.light,
     this.url,
     this.title,
     this.subtitle,
@@ -14,22 +14,12 @@ class RecordItem extends StatelessWidget {
     this.onTap,
   });
 
-  Brightness brightness;
+  final Brightness brightness;
   final String url;
   final String title;
   final String subtitle;
   final String tag;
   final GestureTapCallback onTap;
-
-  factory RecordItem.forDesignTime() {
-    return new RecordItem(
-        url:
-            'https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946',
-        title:
-            'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
-        subtitle:
-            'New Release Radio New Release Radio New Release Radio New Release Radio');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +31,8 @@ class RecordItem extends StatelessWidget {
 //    https://play-music.gstatic.com/fe/b24e511cc6d0cd0ed004b7d9bdfcfb0d/illo_default_artistradio_smallcard.png
 //    https://play-music.gstatic.com/fe/b24e511cc6d0cd0ed004b7d9bdfcfb0d/illo_default_artistradio_smallcard_2x.png
 
-    final bool isDark = brightness == Brightness.dark;
+    final bool light = brightness == Brightness.light;
+    final bool dark = brightness == Brightness.dark;
 
     return GestureDetector(
       onTap: onTap,
@@ -88,7 +79,7 @@ class RecordItem extends StatelessWidget {
                   title,
                   maxLines: 2,
                   style: TextStyle(
-                    color: isDark
+                    color: dark
                         ? Color.fromRGBO(255, 255, 255, 1.0)
                         : Color.fromRGBO(0, 0, 0, 1.0),
                     fontSize: 14,
@@ -104,7 +95,7 @@ class RecordItem extends StatelessWidget {
                     maxLines: 1,
                     softWrap: false,
                     style: TextStyle(
-                      color: isDark
+                      color: dark
                           ? Color.fromRGBO(255, 255, 255, 0.7)
                           : Color.fromRGBO(0, 0, 0, 0.7),
                       fontSize: 12,

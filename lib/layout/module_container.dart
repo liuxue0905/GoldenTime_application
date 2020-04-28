@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_golden_time/model/hits.dart';
-import 'package:flutter_app_golden_time/model/module.dart';
 
+import '../model/hits.dart';
+import '../model/module.dart';
 import '../widget_util.dart';
 import 'colored_now_card.dart';
 import 'gpm-card-grid.dart';
@@ -13,8 +13,9 @@ import 'sj_scrolling_moudle.dart';
 
 class ModuleContainer extends StatelessWidget {
   final List<Module> modules;
+  final Brightness brightness;
 
-  ModuleContainer({this.modules});
+  ModuleContainer({this.modules, this.brightness = Brightness.light});
 
   GlobalKey _singleChildScrollViewKey = GlobalKey();
 
@@ -23,6 +24,8 @@ class ModuleContainer extends StatelessWidget {
 //    _controller.position.isScrollingNotifier.addListener(() {
 //      print('_controller.position.isScrollingNotifier.value: $_controller.position.isScrollingNotifier.value');
 //    });
+
+  List<Key> keys = [];
 
   Widget _buildSJScrollingMoudleHistory(BuildContext context, Key key) {
     return SJScrollingMoudle(
@@ -55,15 +58,16 @@ class ModuleContainer extends StatelessWidget {
 
   Widget _buildSJScrollingMoudleNow(BuildContext context, Key key) {
     return SJScrollingMoudle(
+      key: key,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           HeadlineHeader(
-            title: 'Top Albums',
-            subtitle:
-                'Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week',
+            brightness: brightness,
+            title: '今日推荐',
+            subtitle: null,
           ),
           GPMCardGrid(
             crossAxisCount: 2,
@@ -86,14 +90,16 @@ class ModuleContainer extends StatelessWidget {
 
   Widget _buildSJScrollingMoudleRecommended(
       BuildContext context, Key key, Module module) {
-    return // 右 16， 上 24
-        SJScrollingMoudle(
+    return SJScrollingMoudle(
+      // 右 16， 上 24
+      key: key,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           HeadlineHeader(
+            brightness: brightness,
             title: module.header,
             subtitle: module.reason,
           ),
@@ -101,10 +107,12 @@ class ModuleContainer extends StatelessWidget {
             crossAxisCount: 4,
             children: module.dataList
                 .map((e) => RecordItemTall(
+                      brightness: brightness,
                       url: getRecordImage(e),
                       title: e.title,
                       subtitle: getArtistsString(e.artists),
                       description: '${e.songsCount}首',
+                      tag: e.getFormatText(),
                     ))
                 .toList(),
           ),
@@ -115,8 +123,8 @@ class ModuleContainer extends StatelessWidget {
 
   Widget _buildSJScrollingMoudleTop(
       BuildContext context, Key key, Module module) {
-    return // 右 16， 上 24
-        SJScrollingMoudle(
+    return SJScrollingMoudle(
+      // 右 16， 上 24
       key: key,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -124,6 +132,7 @@ class ModuleContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           HeadlineHeader(
+            brightness: brightness,
             title: module.header,
             subtitle: module.reason,
           ),
@@ -131,9 +140,11 @@ class ModuleContainer extends StatelessWidget {
             crossAxisCount: 5,
             children: module.dataList
                 .map((e) => RecordItem(
+                      brightness: brightness,
                       url: getRecordImage(e),
                       title: e.title,
                       subtitle: getArtistsString(e.artists),
+                      tag: e.getFormatText(),
                     ))
                 .toList(),
           ),
@@ -145,12 +156,14 @@ class ModuleContainer extends StatelessWidget {
   Widget _buildSJScrollingMoudleHits(
       BuildContext context, Key key, Module<Hits> module) {
     return SJScrollingMoudle(
+      key: key,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           HeadlineHeader(
+            brightness: brightness,
             title: module.header,
             subtitle: module.reason,
           ),
@@ -169,26 +182,48 @@ class ModuleContainer extends StatelessWidget {
     );
   }
 
+  List<Widget> _buildSJScrollingMoudles(BuildContext context) {
+    return modules.map((Module e) {
+      GlobalKey key = GlobalKey();
+      keys.add(key);
+      return _buildSJScrollingMoudle(context, key, e);
+    }).toList();
+  }
+
+  Widget _buildSJScrollingMoudle(BuildContext context, Key key, Module module) {
+    if (module.type == 'recommended') {
+      return _buildSJScrollingMoudleRecommended(context, null, module);
+    }
+    if (module.type == 'top') {
+      return _buildSJScrollingMoudleTop(context, null, module);
+    }
+    if (module.type == 'hits') {
+      return _buildSJScrollingMoudleHits(context, null, module);
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> children = [];
+
+    GlobalKey keyHistory = GlobalKey();
+    keys.add(keyHistory);
+    children.add(_buildSJScrollingMoudleHistory(context, keyHistory));
+
+    GlobalKey keyNow = GlobalKey();
+    keys.add(keyNow);
+    children.add(_buildSJScrollingMoudleNow(context, keyNow));
+
+    children.addAll(_buildSJScrollingMoudles(context));
+
     return Container(
       child: SingleChildScrollView(
         key: _singleChildScrollViewKey,
         controller: _controller,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            _buildSJScrollingMoudleHistory(context, null),
-            _buildSJScrollingMoudleNow(context, null),
-            _buildSJScrollingMoudleRecommended(context, null, modules[0]),
-            _buildSJScrollingMoudleTop(context, null, modules[1]),
-            _buildSJScrollingMoudleHits(context, null, modules[2]),
-            _buildSJScrollingMoudleHits(context, null, modules[3]),
-            _buildSJScrollingMoudleHits(context, null, modules[4]),
-            _buildSJScrollingMoudleHits(context, null, modules[5]),
-            _buildSJScrollingMoudleHits(context, null, modules[6]),
-            _buildSJScrollingMoudleHits(context, null, modules[7]),
-          ],
+          children: children,
         ),
       ),
     );

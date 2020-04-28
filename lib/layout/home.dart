@@ -1,22 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_golden_time/layout/module_container.dart';
-import 'package:flutter_app_golden_time/layout/record_item_tall.dart';
-import 'package:flutter_app_golden_time/model/artist.dart';
-import 'package:flutter_app_golden_time/model/hits.dart';
-import 'package:flutter_app_golden_time/model/module.dart';
-import 'package:flutter_app_golden_time/widget_util.dart';
 
-import '../layout/gpm-card-grid.dart';
-import '../layout/record_item.dart';
-import '../model/record.dart';
 import './background_container.dart';
-import './colored_now_card.dart';
-import './headline_header.dart';
 import './pageIndicator_container.dart';
-import '../constants.dart';
-import '../layout/sj_card.dart';
+import '../layout/module_container.dart';
+import '../model/artist.dart';
+import '../model/module.dart';
+import '../model/record.dart';
 import '../util.dart';
-import 'sj_scrolling_moudle.dart';
 
 typedef OnBackgroundChanged = void Function(Brightness brightness);
 
@@ -62,25 +52,22 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Brightness getBrightness(Color color) {
+    double luminance = color.computeLuminance();
+    if (luminance >= 0.5) {
+      return Brightness.light;
+    } else if (luminance < 0.5) {
+      return Brightness.dark;
+    }
+    return Brightness.light;
+  }
+
   void _setSelection(int selection) {
     setState(() {
       _selection = selection;
 
       _backgroundColor = _backgroundColors[_selection];
-      double luminance = _backgroundColor.computeLuminance();
-
-      print('_setSelection _backgroundColor: $_backgroundColor');
-      print('_setSelection luminance: $luminance');
-
-      if (luminance == 0.5) {}
-
-      if (luminance < 0.5) {
-        _brightness = Brightness.dark;
-      }
-
-      if (luminance > 0.5) {
-        _brightness = Brightness.light;
-      }
+      _brightness = getBrightness(_backgroundColor);
 
       if (widget.onBackgroundChanged != null) {
         widget.onBackgroundChanged(_brightness);
@@ -144,8 +131,10 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Positioned.fill(
-            // moduleContainer
-            child: ModuleContainer(modules: this.modules),
+            child: ModuleContainer(
+              modules: this.modules,
+              brightness: _brightness,
+            ),
           ),
           Positioned(
             top: 0,

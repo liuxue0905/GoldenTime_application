@@ -54,10 +54,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Widget _moduleContainer;
-
   Brightness _brightness = Brightness.light;
   int _selection = 0;
+
+  final GlobalKey<ScaffoldState> _key4Scaffold = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -71,29 +71,31 @@ class _MyHomePageState extends State<MyHomePage> {
       Item(icon: Icons.library_music, text: '歌曲'),
     ];
 
-    void setContent(int selection) {
+    void setSelection(int selection) {
+      setState(() {
+        _selection = selection;
+      });
+    }
+    
+    Widget _buildChild(BuildContext context) {
+      print('_buildChild XXX');
       Widget child;
 
-      if (selection == 0) {
+      if (_selection == 0) {
         child = HomePage(onBackgroundChanged: (Brightness brightness) {
           setState(() {
             _brightness = brightness;
           });
         });
-      } else if (selection == 1) {
+      } else if (_selection == 1) {
         child = RecordsPage();
-      } else if (selection == 2) {
+      } else if (_selection == 2) {
         child = ArtistsPage();
-      } else if (selection == 3) {
+      } else if (_selection == 3) {
         child = SongsPage();
       }
-
-      setState(() {
-        _selection = selection;
-        _moduleContainer = Container(
-          child: child,
-        );
-      });
+      
+      return child;
     }
 
     List<Widget> buildListTiles(List<Item> items) {
@@ -108,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () {
               Navigator.pop(context); // Dismiss the drawer.
 
-              setContent(index);
+              setSelection(index);
             },
             subtitle: null,
             trailing: null,
@@ -156,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
           },
           onSelected: (Item item) {
             int index = items.indexOf(item);
-            setContent(index);
+            setSelection(index);
           },
         ));
       } else {
@@ -171,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
             textColor: _selection == index ? Colors.white : Colors.black,
             onPressed: () {
               int index = items.indexOf(item);
-              setContent(index);
+              setSelection(index);
             },
           );
         }).toList());
@@ -187,6 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      key: _key4Scaffold,
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
@@ -216,7 +219,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Positioned.fill(
               child: Container(
                 color: Colors.grey[50],
-                child: _moduleContainer,
+                child: Container(
+                  child: _buildChild(context),
+                ),
               ),
             ),
             Positioned(
@@ -229,7 +234,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   brightness: _brightness,
                   selection: _selection,
                   onItemClick: (int position) {
-                    setContent(position);
+                    setSelection(position);
                   },
                 ),
               ),
