@@ -83,7 +83,7 @@ class RecordItem extends StatelessWidget {
                         ? Color.fromRGBO(255, 255, 255, 1.0)
                         : Color.fromRGBO(0, 0, 0, 1.0),
                     fontSize: 14,
-                    height: 18 / 14,
+                    height: 1.0,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -99,7 +99,7 @@ class RecordItem extends StatelessWidget {
                           ? Color.fromRGBO(255, 255, 255, 0.7)
                           : Color.fromRGBO(0, 0, 0, 0.7),
                       fontSize: 12,
-                      height: 14 / 12,
+                      height: 1.0,
                     ),
                   ),
                 )

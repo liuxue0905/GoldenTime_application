@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_golden_time/main.bak.dart';
 
 class GPMCardGrid extends StatelessWidget {
   EdgeInsetsGeometry padding;
 
   int crossAxisCount;
+  double mainAxisSpacing;
+  double crossAxisSpacing;
   List<Widget> children;
 
   GPMCardGrid({
@@ -15,6 +18,8 @@ class GPMCardGrid extends StatelessWidget {
     double crossAxisSpacing = 0.0,
     List<Widget> children = const <Widget>[],
   })  : crossAxisCount = crossAxisCount,
+        mainAxisSpacing = mainAxisSpacing,
+        crossAxisSpacing = crossAxisSpacing,
         children = children;
 
   GPMCardGrid.count({
@@ -29,7 +34,7 @@ class GPMCardGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GridView.count(crossAxisCount: 1);
+//    GridView.count(crossAxisCount: 1);
 
     List<Widget> _mainAxisChildren = <Widget>[];
 
@@ -58,6 +63,14 @@ class GPMCardGrid extends StatelessWidget {
             child: _crossAxisChild,
           ),
         );
+
+        if (j + 1 != crossAxisCount) {
+          _crossAxisChildren.add(
+            SizedBox(
+              width: crossAxisSpacing,
+            ),
+          );
+        }
       }
 
       _mainAxisChildren.add(
@@ -66,6 +79,15 @@ class GPMCardGrid extends StatelessWidget {
           children: _crossAxisChildren,
         ),
       );
+
+      if (i + 1 != _mainAxisCount) {
+        _mainAxisChildren.add(
+
+          SizedBox(
+            height: mainAxisSpacing,
+          ),
+        );
+      }
     }
 
     return Container(

@@ -14,16 +14,15 @@ class SJCard4 extends StatelessWidget {
     Widget _buildDefault(BuildContext context) {
       return Row(
         children: Iterable<int>.generate(5)
-            .map((e) =>
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: Image.asset(
-                  'images/default_album.jpg',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ))
+            .map((e) => Expanded(
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: Image.asset(
+                      'images/default_album.jpg',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ))
             .toList(),
       );
     }
@@ -38,16 +37,16 @@ class SJCard4 extends StatelessWidget {
       ];
 
       return Row(
-        children: colors.map((e) =>
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: Container(
-                  color:
-                  !debug ? Colors.transparent : e.withOpacity(0.5),
-                ),
-              ),
-            )).toList(),
+        children: colors
+            .map((e) => Expanded(
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: Container(
+                      color: !debug ? Colors.transparent : e.withOpacity(0.5),
+                    ),
+                  ),
+                ))
+            .toList(),
       );
     }
 
@@ -62,71 +61,74 @@ class SJCard4 extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          // imageWrapper
-          AspectRatio(
-            aspectRatio: 100 / 20,
-            child: Container(
-              child: Stack(
-                children: <Widget>[
-                  Positioned.fill(
-                    child: _buildDefault(context),
-                  ),
-                  Positioned.fill(
-                    child: _buildDebug(context),
-                  ),
-                  Positioned.fill(
-                    child: Image.network(image),
-                  ),
-                ],
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(const Radius.circular(2)),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            // imageWrapper
+            Container(
+              child: AspectRatio(
+                aspectRatio: 100 / 20,
+                child: Stack(
+                  children: <Widget>[
+                    Positioned.fill(
+                      child: _buildDefault(context),
+                    ),
+                    Positioned.fill(
+                      child: _buildDebug(context),
+                    ),
+                    Positioned.fill(
+                      child: Image.network(image),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          // details
-          Container(
-            height: 124,
-            padding: EdgeInsets.all(16),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Container(
-                  constraints: BoxConstraints(maxHeight: 36),
-                  child: Text(
-                    title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Color.fromRGBO(33, 33, 33, 1),
-                      fontSize: 16,
-                      height: 1,
-                      fontWeight: FontWeight.w500,
+            // details
+            Container(
+              height: 124,
+              padding: EdgeInsets.all(16),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Container(
+                    constraints: BoxConstraints(maxHeight: 36),
+                    child: Text(
+                      title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Color.fromRGBO(33, 33, 33, 1),
+                        fontSize: 16,
+                        height: 1,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 8),
-                  constraints: BoxConstraints(maxHeight: 48),
-                  child: Text(
-                    description,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Color.fromRGBO(117, 117, 117, 1),
-                      fontSize: 12,
-                      height: 1,
+                  Container(
+                    margin: EdgeInsets.only(top: 8),
+                    constraints: BoxConstraints(maxHeight: 48),
+                    child: Text(
+                      description,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Color.fromRGBO(117, 117, 117, 1),
+                        fontSize: 12,
+                        height: 1,
+                      ),
                     ),
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

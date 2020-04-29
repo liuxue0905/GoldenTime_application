@@ -82,27 +82,33 @@ class RecordItemTall extends StatelessWidget {
             ),
           ),
           Container(
-            height: 80.0,
-            constraints: BoxConstraints(minHeight: 80),
+            constraints: BoxConstraints(
+              minHeight: 80.0,
+            ),
             margin: EdgeInsets.only(top: 12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  title,
-                  maxLines: 2,
-                  style: TextStyle(
-                    color: dark
-                        ? Color.fromRGBO(255, 255, 255, 1.0)
-                        : Color.fromRGBO(0, 0, 0, 1.0),
-                    fontSize: 14,
-                    height: 18 / 14,
+                Container(
+                  constraints: BoxConstraints(
+                    maxHeight: 36.0,
                   ),
-                  overflow: TextOverflow.ellipsis,
+                  child: Text(
+                    title,
+                    maxLines: 2,
+                    style: TextStyle(
+                      color: dark
+                          ? Color.fromRGBO(255, 255, 255, 1.0)
+                          : Color.fromRGBO(0, 0, 0, 1.0),
+                      fontSize: 14,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 2.0),
+                  height: 14.0,
                   child: Text(
                     subtitle,
                     overflow: TextOverflow.ellipsis,
@@ -113,23 +119,23 @@ class RecordItemTall extends StatelessWidget {
                           ? Color.fromRGBO(255, 255, 255, 0.7)
                           : Color.fromRGBO(0, 0, 0, 0.7),
                       fontSize: 12,
-                      height: 1.0,
                     ),
                   ),
                 ),
                 Container(
-                  height: 28,
+                  constraints: BoxConstraints(
+                    maxHeight: 28.0,
+                  ),
                   margin: EdgeInsets.only(top: 2.0),
                   child: Text(
-                    description,
+                    description + 'abcdsdfsdafsadflasdf',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: TextStyle(
                       color: dark
                           ? Color.fromRGBO(255, 255, 255, 0.7)
                           : Color.fromRGBO(0, 0, 0, 0.7),
-                      fontSize: (12 - 2.0),
-                      height: 1.0,
+                      fontSize: 12,
                     ),
                   ),
                 ),

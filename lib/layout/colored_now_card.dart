@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_golden_time/util.dart';
 
 class ColoredNowCard extends StatelessWidget {
-  String header =
-      'Recommended new releases Recommended new releases Recommended new releases';
-  String reason = 'Popular this week';
-  String title = 'Victory Lap Victory Lap Victory Lap Victory Lap';
-  String description =
-      'Album by Nipsey Hussle • 16 songs Album by Nipsey Hussle • 16 songs Album by Nipsey Hussle • 16 songs Album by Nipsey Hussle • 16 songs';
+  final String header;
+  final String reason;
+  final String title;
+  final String description;
 
-  String backgroundImage;
-  Color backgroundColor;
+  final String backgroundImage;
+  final Color backgroundColor;
+  final Color separatorColor;
 
   ColoredNowCard({
     this.header,
@@ -18,15 +18,8 @@ class ColoredNowCard extends StatelessWidget {
     this.description,
     this.backgroundImage,
     this.backgroundColor,
+    this.separatorColor = Colors.white,
   });
-
-  Color textSeparatorColor = Color.fromARGB(255, 255, 255, 1);
-
-  double scale = 0.6;
-
-  factory ColoredNowCard.forDesignTime() {
-    return new ColoredNowCard();
-  }
 
   Brightness getBrightness(Color color) {
     double luminance = color.computeLuminance();
@@ -40,15 +33,12 @@ class ColoredNowCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double scale = getScale(context, 'xl');
+
     Brightness brightness = getBrightness(backgroundColor);
 
     bool light = brightness == Brightness.light;
     bool dark = brightness == Brightness.dark;
-
-    print('backgroundColor = ${backgroundColor}');
-    print('brightness = ${brightness}');
-    print('light = ${light}');
-    print('dark = ${dark}');
 
     return Container(
       decoration: BoxDecoration(
@@ -107,49 +97,63 @@ class ColoredNowCard extends StatelessWidget {
                           fontWeight: FontWeight.w500),
                     ),
                   ),
-                  Text(
-                    reason ?? '',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                  Visibility(
+                    visible: reason?.isNotEmpty ?? false,
+                    child: Text(
+                      reason ?? '',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
                         color: light
                             ? Color.fromRGBO(0, 0, 0, 0.702)
                             : Color.fromRGBO(255, 255, 255, 0.702),
                         fontSize: 14,
-                        fontStyle: FontStyle.italic),
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 16, bottom: 16),
                     width: 40,
                     height: 2,
-                    color: textSeparatorColor,
+                    color:
+                        separatorColor ?? (light ? Colors.grey : Colors.white),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 4),
-                    padding: EdgeInsets.only(right: 64 * scale),
-                    child: Text(
-                      title ?? '',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                  Visibility(
+                    visible: title?.isNotEmpty ?? false,
+                    child: Container(
+                      color: Colors.yellow,
+                      margin: EdgeInsets.only(bottom: 4),
+                      padding: EdgeInsets.only(right: 64 * scale),
+                      child: Text(
+                        title ?? '',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
                           color: light
                               ? Color.fromRGBO(0, 0, 0, 0.702)
                               : Color.fromRGBO(255, 255, 255, 0.702),
                           fontWeight: FontWeight.w500,
-                          fontSize: 14),
+                          fontSize: 14,
+                        ),
+                      ),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.only(right: 64 * scale),
-                    child: Text(
-                      description ?? '',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: light
-                              ? Color.fromRGBO(0, 0, 0, 0.702)
-                              : Color.fromRGBO(255, 255, 255, 0.702),
-                          fontSize: 12),
+                  Visibility(
+                    visible: description?.isNotEmpty ?? false,
+                    child: Container(
+                      color: Colors.yellow,
+                      padding: EdgeInsets.only(right: 64 * scale),
+                      child: Text(
+                        description ?? '',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: light
+                                ? Color.fromRGBO(0, 0, 0, 0.702)
+                                : Color.fromRGBO(255, 255, 255, 0.702),
+                            fontSize: 12),
+                      ),
                     ),
                   ),
                 ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_golden_time/util.dart';
 
 import '../model/hits.dart';
 import '../model/module.dart';
@@ -18,10 +19,6 @@ class ModuleContainer extends StatelessWidget {
   ModuleContainer({this.modules, this.brightness = Brightness.light});
 
   var _controller = ScrollController(initialScrollOffset: 0.0);
-
-//    _controller.position.isScrollingNotifier.addListener(() {
-//      print('_controller.position.isScrollingNotifier.value: $_controller.position.isScrollingNotifier.value');
-//    });
 
   List<Key> keys = [];
 
@@ -63,6 +60,27 @@ class ModuleContainer extends StatelessWidget {
   }
 
   Widget _buildSJScrollingMoudleNow(BuildContext context, Key key) {
+    String deviceType = getDeviceType(context);
+    int _crossAxisCount() {
+      if (deviceType == 'xs') {
+        return 1;
+      }
+      if (deviceType == 'xl') {
+        return 3;
+      }
+      return 2;
+    }
+
+    List<Module> _modules = modules;
+
+    if (_crossAxisCount() == 1) {
+      _modules = modules.sublist(0, 2);
+    } else if (_crossAxisCount() == 2) {
+      _modules = modules.sublist(0, 4);
+    } else if (_crossAxisCount() == 3) {
+      _modules = modules.sublist(0, 6);
+    }
+
     return SJScrollingMoudle(
       key: key,
       child: Column(
@@ -76,9 +94,11 @@ class ModuleContainer extends StatelessWidget {
             subtitle: null,
           ),
           GPMCardGrid(
-            crossAxisCount: 2,
-            children: modules
-                .sublist(0, 4)
+            // 右 0， 上 0
+            crossAxisCount: _crossAxisCount(),
+            mainAxisSpacing: 16,
+            crossAxisSpacing: 16,
+            children: _modules
                 .map((Module module) => ColoredNowCard(
                       header: module.header,
                       reason: module.reason,
@@ -86,6 +106,7 @@ class ModuleContainer extends StatelessWidget {
                       description: module.description,
                       backgroundImage: module.backgroundImage,
                       backgroundColor: module.backgroundColor,
+                      separatorColor: module.separatorColor ?? Colors.red,
                     ))
                 .toList(),
           ),
@@ -97,7 +118,6 @@ class ModuleContainer extends StatelessWidget {
   Widget _buildSJScrollingMoudleRecommended(
       BuildContext context, Key key, Module module) {
     return SJScrollingMoudle(
-      // 右 16， 上 24
       key: key,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,7 +130,10 @@ class ModuleContainer extends StatelessWidget {
             subtitle: module.reason,
           ),
           GPMCardGrid(
+            // 右 16， 上 24
             crossAxisCount: 4,
+            mainAxisSpacing: 24,
+            crossAxisSpacing: 16,
             children: module.dataList
                 .map((e) => RecordItemTall(
                       brightness: brightness,
@@ -130,7 +153,6 @@ class ModuleContainer extends StatelessWidget {
   Widget _buildSJScrollingMoudleTop(
       BuildContext context, Key key, Module module) {
     return SJScrollingMoudle(
-      // 右 16， 上 24
       key: key,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -143,7 +165,10 @@ class ModuleContainer extends StatelessWidget {
             subtitle: module.reason,
           ),
           GPMCardGrid(
+            // 右 16， 上 24
             crossAxisCount: 5,
+            mainAxisSpacing: 24,
+            crossAxisSpacing: 16,
             children: module.dataList
                 .map((e) => RecordItem(
                       brightness: brightness,
@@ -161,6 +186,14 @@ class ModuleContainer extends StatelessWidget {
 
   Widget _buildSJScrollingMoudleHits(
       BuildContext context, Key key, Module<Hits> module) {
+
+    int _crossAxisCount() {
+      if (getDeviceType(context) == 'xl') {
+        return 3;
+      }
+      return 2;
+    }
+
     return SJScrollingMoudle(
       key: key,
       child: Column(
@@ -174,7 +207,9 @@ class ModuleContainer extends StatelessWidget {
             subtitle: module.reason,
           ),
           GPMCardGrid(
-            crossAxisCount: 2,
+            crossAxisCount: _crossAxisCount(),
+            mainAxisSpacing: 16,
+            crossAxisSpacing: 16,
             children: module.dataList
                 .map((e) => SJCard4(
                       image: e.image,

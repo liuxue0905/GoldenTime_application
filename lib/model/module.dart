@@ -48,8 +48,8 @@ List<Module> modules = [
     dataList: <Record>[
       Record(
           id: 1836,
-          title: '一颗不变心',
-          artists: [Artist(id: 148, name: '张学友')],
+          title: '一颗不变心不变心不变心不变心不变心',
+          artists: [Artist(id: 148, name: '张学友友友友友友友友友友')],
           songsCount: 12),
       Record(
           id: 1836,
@@ -101,8 +101,8 @@ List<Module> modules = [
     dataList: <Record>[
       Record(
           id: 1836,
-          title: '一颗不变心',
-          artists: [Artist(id: 148, name: '张学友')],
+          title: '一颗不变心心心心心心心心心',
+          artists: [Artist(id: 148, name: '张学友友友友友友友友')],
           songsCount: 12),
       Record(
           id: 1836,
