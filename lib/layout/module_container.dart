@@ -95,22 +95,31 @@ class ModuleContainer extends StatelessWidget {
           ),
           ButtonBar(
             children: <Widget>[
+              FloatingActionButton(child: Icon(Icons.chevron_left),mini: true),
+              FloatingActionButton(child: Icon(Icons.chevron_right),),
+//              RawMaterialButton(constraints: ,),
               Opacity(
                 opacity: 0.3,
-                child: Container(
-                  width: 48,
-                  height: 48,
-                  color: Color.fromRGBO(0, 0, 0, 0.1),
-                  child: Icon(Icons.chevron_left),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(const Radius.circular(24)),
+                  child: Container(
+                    width: 48,
+                    height: 48,
+                    color: Color.fromRGBO(0, 0, 0, 0.1),
+                    child: Icon(Icons.chevron_left),
+                  ),
                 ),
               ),
               Opacity(
                 opacity: 1.0,
-                child: Container(
-                  width: 48,
-                  height: 48,
-                  color: Color.fromRGBO(0, 0, 0, 0.1),
-                  child: Icon(Icons.chevron_right),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(const Radius.circular(24)),
+                  child: Container(
+                    width: 48,
+                    height: 48,
+                    color: Color.fromRGBO(0, 0, 0, 0.1),
+                    child: Icon(Icons.chevron_right),
+                  ),
                 ),
               ),
             ],
