@@ -10,13 +10,12 @@ import '../model/artist.dart';
 import '../model/page_list.dart';
 import '../util.dart';
 import '../widget_util.dart';
+import 'quick_nav_container.dart';
 
 class ArtistsPage extends StatefulWidget {
-  ArtistsPage();
+  final ValueChanged<int> onSelectionChanged;
 
-  factory ArtistsPage.forDesignTime() {
-    return new ArtistsPage();
-  }
+  ArtistsPage({this.onSelectionChanged});
 
   @override
   State<StatefulWidget> createState() {
@@ -65,50 +64,71 @@ class _ArtistsPageState extends State<ArtistsPage> {
 
     return Container(
       color: Colors.grey[50],
-      child: FutureBuilder<PageList<Artist>>(
-        future: future,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return WaitingWidget();
-          } else if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasError) {
-              return FutureErrorWidget(
-                  onPressed: () {
-                    _handleDataSourceChanged();
-                  },
-                  error: snapshot.error);
-            }
-            if (snapshot.hasData) {
-              return ArtistsList(
-                form: form,
-                pageList: snapshot.data,
-                onPageChanged: (int value) {
-                  print('onPageChanged value:$value 1');
-                  setState(() {
-                    form.offset = value;
-                  });
-                  _handleDataSourceChanged();
-                },
-                onDataSourceChanged: (ArtistsFormObject form) {
-                  print('onDataSourceChanged form:$form 1');
-                  setState(() {
-                    this.form.name = form.name;
-                    this.form.type = form.type;
-                    this.form.recordIsNull = form.recordIsNull;
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: FutureBuilder<PageList<Artist>>(
+              future: future,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return WaitingWidget();
+                } else if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
+                    return FutureErrorWidget(
+                        onPressed: () {
+                          _handleDataSourceChanged();
+                        },
+                        error: snapshot.error);
+                  }
+                  if (snapshot.hasData) {
+                    return ArtistsList(
+                      form: form,
+                      pageList: snapshot.data,
+                      onPageChanged: (int value) {
+                        print('onPageChanged value:$value 1');
+                        setState(() {
+                          form.offset = value;
+                        });
+                        _handleDataSourceChanged();
+                      },
+                      onDataSourceChanged: (ArtistsFormObject form) {
+                        print('onDataSourceChanged form:$form 1');
+                        setState(() {
+                          this.form.name = form.name;
+                          this.form.type = form.type;
+                          this.form.recordIsNull = form.recordIsNull;
 
-                    this.form.offset = 0;
-                    this.form.limit = 20;
-                  });
-                  _handleDataSourceChanged();
-                },
-              );
-            }
-          } else {
-            return Center(child: Text(snapshot.connectionState.toString()));
-          }
+                          this.form.offset = 0;
+                          this.form.limit = 20;
+                        });
+                        _handleDataSourceChanged();
+                      },
+                    );
+                  }
+                } else {
+                  return Center(
+                      child: Text(snapshot.connectionState.toString()));
+                }
 
-          return null;
-        },
+                return null;
+              },
+            ),
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            child: QuickNavContainer(
+              brightness: Brightness.light,
+              selection: 2,
+              onSelectionChanged: (int position) {
+                if (widget.onSelectionChanged != null) {
+                  widget.onSelectionChanged(position);
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -121,7 +141,12 @@ class ArtistsList extends StatefulWidget {
   final ValueChanged<int> onPageChanged;
   final ValueChanged<ArtistsFormObject> onDataSourceChanged;
 
-  ArtistsList({Key key, this.form, this.pageList, this.onPageChanged, this.onDataSourceChanged})
+  ArtistsList(
+      {Key key,
+      this.form,
+      this.pageList,
+      this.onPageChanged,
+      this.onDataSourceChanged})
       : super(key: key);
 
   @override
@@ -166,7 +191,7 @@ class ArtistsListState extends State<ArtistsList> {
     return Container(
       child: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets_fromLTRB(context, 'xs', 72, 32, 16, 32),
+          margin: EdgeInsets_fromLTRB(context, 'xl', 96, 32, 96, 32),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
@@ -313,7 +338,8 @@ void showDialogSearch(BuildContext context, ArtistsFormObject form,
               FlatButton(
                 child: const Text('确定'),
                 onPressed: () {
-                  print("_nameTextEditingController.text = ${_nameTextEditingController.text}");
+                  print(
+                      "_nameTextEditingController.text = ${_nameTextEditingController.text}");
                   _form.name = _nameTextEditingController.text;
                   Navigator.pop(context, DialogDemoAction.agree);
                 },
@@ -330,7 +356,7 @@ void showDialogSearch(BuildContext context, ArtistsFormObject form,
         content: Text('You selected: $value'),
       ));
 
-      if(value == DialogDemoAction.agree) {
+      if (value == DialogDemoAction.agree) {
         if (onFormChanged != null) {
           onFormChanged(_form);
         }

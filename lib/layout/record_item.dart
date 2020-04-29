@@ -42,7 +42,7 @@ class RecordItem extends StatelessWidget {
           AspectRatio(
             aspectRatio: 1.0,
             child: ClipRRect(
-              borderRadius: new BorderRadius.circular(2.0),
+              borderRadius: BorderRadius.circular(2.0),
               child: Stack(
                 children: <Widget>[
                   Positioned.fill(

@@ -7,13 +7,13 @@ import '../model/artist.dart';
 import '../model/module.dart';
 import '../model/record.dart';
 import '../util.dart';
-
-typedef OnBackgroundChanged = void Function(Brightness brightness);
+import 'quick_nav_container.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.onBackgroundChanged});
+  HomePage({Key key, this.onSelectionChanged, this.onBrightnessChanged});
 
-  final OnBackgroundChanged onBackgroundChanged;
+  final ValueChanged<int> onSelectionChanged;
+  final ValueChanged<Brightness> onBrightnessChanged;
 
   @override
   State<StatefulWidget> createState() {
@@ -70,8 +70,8 @@ class _HomePageState extends State<HomePage> {
       _brightness = getBrightness(_backgroundColor);
     });
 
-    if (widget.onBackgroundChanged != null) {
-      widget.onBackgroundChanged(_brightness);
+    if (widget.onBrightnessChanged != null) {
+      widget.onBrightnessChanged(_brightness);
     }
   }
 
@@ -106,16 +106,11 @@ class _HomePageState extends State<HomePage> {
 
     print('_backgroundColors = $_backgroundColors');
     print('_backgroundImages = $_backgroundImages');
-
-//    _setSelection(0);
   }
 
   @override
   Widget build(BuildContext context) {
     double scale = getScale(context, 'xl');
-
-    GlobalKey _singleChildScrollViewKey = GlobalKey();
-    GlobalKey _key = GlobalKey();
 
     return Container(
       child: Stack(
@@ -135,6 +130,20 @@ class _HomePageState extends State<HomePage> {
           ),
           Positioned(
             top: 0,
+            left: 0,
+            bottom: 0,
+            child: QuickNavContainer(
+              brightness: _brightness,
+              selection: _selection,
+              onSelectionChanged: (int position) {
+                if (widget.onSelectionChanged != null) {
+                  widget.onSelectionChanged(position);
+                }
+              },
+            ),
+          ),
+          Positioned(
+            top: 0,
             right: 36.0 * scale,
             child: PageIndicatorContainer(
               count: modules.length,
@@ -144,38 +153,40 @@ class _HomePageState extends State<HomePage> {
               history: true,
             ),
           ),
-          Positioned(
-            child: FlatButton(
-              onPressed: _incrementSelection,
-              child: Text('incrementSelection($_selection)'),
-            ),
-          ),
           Positioned.fill(
             child: Center(
-              child: FlatButton(
-                onPressed: () {
-                  print(_key.currentContext.size.toString());
-
-                  RenderBox abc = _singleChildScrollViewKey.currentContext
-                      .findRenderObject();
-
-                  RenderBox _renderObject =
-                      _key.currentContext.findRenderObject();
-
-                  Offset localToGlobal =
-                      _renderObject.localToGlobal(Offset.zero);
-//                  Offset localToGlobal = _renderObject.localToGlobal(abc.localToGlobal(Offset.zero));
-
-                  Offset efg = abc.localToGlobal(Offset.zero);
-
-                  print("localToGlobal = $localToGlobal");
-                  print("efg = $efg");
-                  print("efg = ${efg.dy - localToGlobal.dy}");
-                },
-                child: Text('get size'),
+              child: RaisedButton(
+                onPressed: _incrementSelection,
+                child: Text('incrementSelection($_selection)'),
               ),
             ),
           ),
+//          Positioned.fill(
+//            child: Center(
+//              child: FlatButton(
+//                onPressed: () {
+//                  print(_key.currentContext.size.toString());
+//
+//                  RenderBox abc = _singleChildScrollViewKey.currentContext
+//                      .findRenderObject();
+//
+//                  RenderBox _renderObject =
+//                      _key.currentContext.findRenderObject();
+//
+//                  Offset localToGlobal =
+//                      _renderObject.localToGlobal(Offset.zero);
+////                  Offset localToGlobal = _renderObject.localToGlobal(abc.localToGlobal(Offset.zero));
+//
+//                  Offset efg = abc.localToGlobal(Offset.zero);
+//
+//                  print("localToGlobal = $localToGlobal");
+//                  print("efg = $efg");
+//                  print("efg = ${efg.dy - localToGlobal.dy}");
+//                },
+//                child: Text('get size'),
+//              ),
+//            ),
+//          ),
         ],
       ),
     );

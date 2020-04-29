@@ -51,6 +51,16 @@ class ColoredNowCard extends StatelessWidget {
     print('dark = ${dark}');
 
     return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(const Radius.circular(2)),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.12),
+            offset: Offset(0, 1),
+          ),
+        ],
+      ),
       child: AspectRatio(
         aspectRatio: 100 / 80,
         child: Stack(

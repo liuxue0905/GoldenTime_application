@@ -5,15 +5,15 @@ import '../models.dart';
 typedef OnItemClick = void Function(int position);
 
 class QuickNavContainer extends StatefulWidget {
-  Brightness brightness = Brightness.light;
-  int selection = 0;
+  final Brightness brightness;
+  final int selection;
+  final ValueChanged<int> onSelectionChanged;
 
   QuickNavContainer(
-      {Key key, this.brightness, this.selection, this.onItemClick});
-
-  final OnItemClick onItemClick;
-
-//  final ValueChanged<int> onChanged;
+      {Key key,
+      this.brightness = Brightness.light,
+      this.selection = 0,
+      this.onSelectionChanged});
 
   @override
   State<StatefulWidget> createState() {
@@ -22,6 +22,7 @@ class QuickNavContainer extends StatefulWidget {
 }
 
 class _QuickNavContainer extends State<QuickNavContainer> {
+
   List<Item> items = [
     Item(icon: Icons.home, text: '首页'),
     Item(icon: Icons.album, text: '唱片'),
@@ -29,92 +30,94 @@ class _QuickNavContainer extends State<QuickNavContainer> {
     Item(icon: Icons.library_music, text: '歌曲'),
   ];
 
-  int _selection = 0;
+  int _selection;
+
+  @override
+  void initState() {
+    super.initState();
+    _handleDataSourceChanged();
+  }
 
   @override
   void didUpdateWidget(QuickNavContainer oldWidget) {
-    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
 
     print('_QuickNavContainer didUpdateWidget()');
 
-    if (oldWidget.selection != widget.selection) {
-      setState(() {
-        _selection = widget.selection;
-      });
-    }
+//    PaginatedDataTable();
 
-    super.didUpdateWidget(oldWidget);
+    if (oldWidget != widget) {
+      _handleDataSourceChanged();
+    }
+  }
+
+  void _handleDataSourceChanged() {
+    setState(() {
+      _selection = widget.selection;
+//    print('widget.selection = ${widget.selection}');
+//    print('_selection = ${_selection}');
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
       child: Container(
-        constraints: BoxConstraints(
-          minHeight: 336,
-        ),
-        width: 72,
-        padding: EdgeInsets.only(top: 16),
-        child: Column(
-          children: items.map<Widget>((Item item) {
-            int index = items.indexOf(item);
+        child: Container(
+          constraints: BoxConstraints(
+            minHeight: 336,
+          ),
+          width: 72,
+          padding: EdgeInsets.only(top: 16),
+          child: Column(
+            children: items.map<Widget>((Item item) {
+              int index = items.indexOf(item);
 
-            return QuickNavItem(
-              brightness: widget.brightness,
-              iconData: item.icon,
-              text: item.text,
-              selected: index == _selection,
-              onItemTap: () {
-                widget.onItemClick(index);
+              return QuickNavItem(
+                brightness: widget.brightness,
+                iconData: item.icon,
+                text: item.text,
+                selected: index == _selection,
+                onPress: () {
+                  print('onPress');
+                  setState(() {
+                    _selection = index;
+                  });
 
-                setState(() {
-                  _selection = index;
-                });
-              },
-            );
-          }).toList(),
+                  if (widget.onSelectionChanged != null) {
+                    widget.onSelectionChanged(index);
+                  }
+                },
+              );
+            }).toList(),
+          ),
         ),
       ),
     );
   }
 }
 
-typedef ItemTapCallback = void Function();
-
 class QuickNavItem extends StatelessWidget {
   QuickNavItem(
       {Key key,
-      this.brightness : Brightness.light,
+      this.brightness: Brightness.light,
       this.iconData,
       this.text,
-      this.onItemTap,
+      this.onPress,
       this.selected: false});
 
   final Brightness brightness;
   final IconData iconData;
   final String text;
 
-  final ItemTapCallback onItemTap;
+  final VoidCallback onPress;
 
   final bool selected;
-
-  factory QuickNavItem.forDesignTime() {
-    // TODO: add arguments
-    return new QuickNavItem(
-      iconData: Icons.branding_watermark,
-      text: 'Title',
-      selected: true,
-      onItemTap: () {},
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     final bool isDark = brightness == Brightness.dark;
-
-//    var color_selected = Color.fromRGBO(255, 61, 2, 0.7);
-//    var color_normal_light = Color.fromRGBO(0, 0, 0, 0.7);
-//    var color_normal_dark = Color.fromRGBO(255, 255, 255, 0.7);
 
     var color_selected = Colors.deepOrange[400];
     var color_normal_light = Colors.black.withOpacity(0.7);
@@ -125,7 +128,7 @@ class QuickNavItem extends StatelessWidget {
         : (isDark ? color_normal_dark : color_normal_light);
 
     return GestureDetector(
-      onTap: onItemTap,
+      onTap: onPress,
       child: Container(
         decoration: BoxDecoration(),
         width: 72,
@@ -152,8 +155,7 @@ class QuickNavItem extends StatelessWidget {
                 maxLines: 2,
                 overflow: TextOverflow.fade,
                 textAlign: TextAlign.center,
-                style:
-                    TextStyle(color: color, fontSize: 10.0, height: 1),
+                style: TextStyle(color: color, fontSize: 10.0, height: 1),
               ),
             ),
           ],

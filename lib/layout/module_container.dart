@@ -17,8 +17,6 @@ class ModuleContainer extends StatelessWidget {
 
   ModuleContainer({this.modules, this.brightness = Brightness.light});
 
-  GlobalKey _singleChildScrollViewKey = GlobalKey();
-
   var _controller = ScrollController(initialScrollOffset: 0.0);
 
 //    _controller.position.isScrollingNotifier.addListener(() {
@@ -27,9 +25,13 @@ class ModuleContainer extends StatelessWidget {
 
   List<Key> keys = [];
 
+  List<Widget> children = [];
+
   Widget _buildSJScrollingMoudleHistory(BuildContext context, Key key) {
+    bool light = brightness == Brightness.light;
+
     return SJScrollingMoudle(
-//      key: key,
+      key: key,
       clazz: 'mini',
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,9 +47,13 @@ class ModuleContainer extends StatelessWidget {
               children: <Widget>[
                 Text(
                   '最近活动',
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle1
+                      .apply(color: light ? Colors.black : Colors.white),
                 ),
-                Icon(Icons.chevron_right),
+                Icon(Icons.chevron_right,
+                    color: light ? Colors.grey[900] : Colors.white),
               ],
             ),
           ),
@@ -58,7 +64,7 @@ class ModuleContainer extends StatelessWidget {
 
   Widget _buildSJScrollingMoudleNow(BuildContext context, Key key) {
     return SJScrollingMoudle(
-//      key: key,
+      key: key,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
@@ -92,7 +98,7 @@ class ModuleContainer extends StatelessWidget {
       BuildContext context, Key key, Module module) {
     return SJScrollingMoudle(
       // 右 16， 上 24
-//      key: key,
+      key: key,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
@@ -125,7 +131,7 @@ class ModuleContainer extends StatelessWidget {
       BuildContext context, Key key, Module module) {
     return SJScrollingMoudle(
       // 右 16， 上 24
-//      key: key,
+      key: key,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
@@ -156,7 +162,7 @@ class ModuleContainer extends StatelessWidget {
   Widget _buildSJScrollingMoudleHits(
       BuildContext context, Key key, Module<Hits> module) {
     return SJScrollingMoudle(
-//      key: key,
+      key: key,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
@@ -192,19 +198,18 @@ class ModuleContainer extends StatelessWidget {
 
   Widget _buildSJScrollingMoudle(BuildContext context, Key key, Module module) {
     if (module.type == 'recommended') {
-      return _buildSJScrollingMoudleRecommended(context, null, module);
+      return _buildSJScrollingMoudleRecommended(context, key, module);
     }
     if (module.type == 'top') {
-      return _buildSJScrollingMoudleTop(context, null, module);
+      return _buildSJScrollingMoudleTop(context, key, module);
     }
     if (module.type == 'hits') {
-      return _buildSJScrollingMoudleHits(context, null, module);
+      return _buildSJScrollingMoudleHits(context, key, module);
     }
     return null;
   }
 
-  @override
-  Widget build(BuildContext context) {
+  List<Widget> _build(BuildContext context) {
     List<Widget> children = [];
 
     GlobalKey keyHistory = GlobalKey();
@@ -217,13 +222,37 @@ class ModuleContainer extends StatelessWidget {
 
     children.addAll(_buildSJScrollingMoudles(context));
 
+    return children;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _controller.addListener(() {
+//      print('callback');
+//
+      print('offset = ${_controller.offset}');
+      print('position = ${_controller.position}');
+
+      print('keys = ${keys}');
+
+      keys.asMap().forEach((index, key) {
+        print('${index}: ${key}');
+        GlobalKey globalKey = key;
+        RenderObject renderObject = globalKey.currentContext.findRenderObject();
+        print('renderObject: ${renderObject}');
+
+        RenderBox renderBox = renderObject;
+        Offset localToGlobal = renderBox.localToGlobal(Offset.zero);
+        print('localToGlobal = ${localToGlobal}');
+      });
+    });
+
     return Container(
       child: SingleChildScrollView(
-        key: _singleChildScrollViewKey,
         controller: _controller,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: children,
+          children: _build(context),
         ),
       ),
     );

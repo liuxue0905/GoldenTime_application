@@ -76,15 +76,32 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget child;
 
     if (_selection == 0) {
-      child = HomePage(onBackgroundChanged: (Brightness brightness) {
-        setBrightness(brightness);
-      });
+      child = HomePage(
+        onBrightnessChanged: (Brightness brightness) {
+          setBrightness(brightness);
+        },
+        onSelectionChanged: (int selection) {
+          setSelection(selection);
+        },
+      );
     } else if (_selection == 1) {
-      child = RecordsPage();
+      child = RecordsPage(
+        onSelectionChanged: (int selection) {
+          setSelection(selection);
+        },
+      );
     } else if (_selection == 2) {
-      child = ArtistsPage();
+      child = ArtistsPage(
+        onSelectionChanged: (int selection) {
+          setSelection(selection);
+        },
+      );
     } else if (_selection == 3) {
-      child = SongsPage();
+      child = SongsPage(
+        onSelectionChanged: (int selection) {
+          setSelection(selection);
+        },
+      );
     }
 
     return child;
@@ -100,7 +117,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     List<Item> items = [
       Item(icon: Icons.home, text: '首页'),
       Item(icon: Icons.album, text: '唱片'),
@@ -224,32 +240,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Container(
         color: Colors.grey[900],
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: Container(
-                color: Colors.grey[50],
-                child: Container(
-                  child: _buildChild(context),
-                ),
-              ),
-            ),
-            Positioned(
-              top: 0,
-              left: 0,
-              bottom: 0,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: QuickNavContainer(
-                  brightness: _brightness,
-                  selection: _selection,
-                  onItemClick: (int position) {
-                    setSelection(position);
-                  },
-                ),
-              ),
-            ),
-          ],
+        child: Container(
+          color: Colors.grey[50],
+          child: Container(
+            child: _buildChild(context),
+          ),
         ),
       ),
     );

@@ -1,25 +1,55 @@
 import 'package:flutter/material.dart';
 
 class SJCard4 extends StatelessWidget {
-  /*final*/ String title = 'Cinematic Ambience';
-  /*final*/ String description = 'Relaxing film scores for peaceful reflection.';
+  final String title;
+  final String description;
+  final String image;
 
-//  String imageUrl =
-//      'https://lh3.googleusercontent.com/5I7twkpomIJVpEpPEyF2M7ZI-yewpHCnk-ruXIEdlU-VysNbFpWtPDSM=w700-h140-p-e100-rwu-v1';
+  bool debug = true;
 
-  String image =
-      'https://www.baidu.com/img/dong_96c3c31cae66e61ed02644d732fcd5f8.gif';
-
-
-
-//  SJCard4();
   SJCard4({this.image, this.title, this.description});
 
   @override
   Widget build(BuildContext context) {
-    title = title + title + title + title;
-    description =
-        description + description + description + description + description;
+    Widget _buildDefault(BuildContext context) {
+      return Row(
+        children: Iterable<int>.generate(5)
+            .map((e) =>
+            Expanded(
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: Image.asset(
+                  'images/default_album.jpg',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ))
+            .toList(),
+      );
+    }
+
+    Widget _buildDebug(BuildContext context) {
+      List<Color> colors = [
+        Colors.red,
+        Colors.orange,
+        Colors.yellow,
+        Colors.green,
+        Colors.blue
+      ];
+
+      return Row(
+        children: colors.map((e) =>
+            Expanded(
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: Container(
+                  color:
+                  !debug ? Colors.transparent : e.withOpacity(0.5),
+                ),
+              ),
+            )).toList(),
+      );
+    }
 
     return new Container(
       decoration: BoxDecoration(
@@ -41,57 +71,16 @@ class SJCard4 extends StatelessWidget {
           AspectRatio(
             aspectRatio: 100 / 20,
             child: Container(
-              color: Colors.black,
               child: Stack(
                 children: <Widget>[
                   Positioned.fill(
-                    child: Image.network(image),
+                    child: _buildDefault(context),
                   ),
                   Positioned.fill(
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: Container(
-                              color: Colors.red.withOpacity(0.5),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: Container(
-                              color: Colors.orange.withOpacity(0.5),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: Container(
-                              color: Colors.yellow.withOpacity(0.5),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: Container(
-                              color: Colors.green.withOpacity(0.5),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: Container(
-                              color: Colors.blue.withOpacity(0.5),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: _buildDebug(context),
+                  ),
+                  Positioned.fill(
+                    child: Image.network(image),
                   ),
                 ],
               ),
@@ -99,6 +88,7 @@ class SJCard4 extends StatelessWidget {
           ),
           // details
           Container(
+            height: 124,
             padding: EdgeInsets.all(16),
             child: Column(
               mainAxisSize: MainAxisSize.max,

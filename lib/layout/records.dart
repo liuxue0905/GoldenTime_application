@@ -9,13 +9,12 @@ import '../model/page_list.dart';
 import '../model/record.dart';
 import '../util.dart';
 import '../widget_util.dart';
+import 'quick_nav_container.dart';
 
 class RecordsPage extends StatefulWidget {
-  RecordsPage();
+  final ValueChanged<int> onSelectionChanged;
 
-  factory RecordsPage.forDesignTime() {
-    return new RecordsPage();
-  }
+  RecordsPage({this.onSelectionChanged});
 
   @override
   State<StatefulWidget> createState() {
@@ -65,62 +64,84 @@ class _RecordsPageState extends State<RecordsPage> {
     print('Device Type: ${getDeviceType(context)}');
     print('Is Large Screen: ${isLargeScreen(context)}');
 
-    Orientation orientation = MediaQuery.of(context).orientation;
-    String deviceType = getDeviceType(context);
-    bool largeScreen = isLargeScreen(context);
+//    Orientation orientation = MediaQuery.of(context).orientation;
+//    String deviceType = getDeviceType(context);
+//    bool largeScreen = isLargeScreen(context);
 
     return Container(
       child: Container(
         color: Colors.grey[50],
-        child: FutureBuilder<PageList<Record>>(
-          future: future,
-          builder: (context, snapshot) {
-            print('snapshot.connectionState = ${snapshot.connectionState}');
-            print('snapshot.hasData = ${snapshot.hasData.toString()}');
-            print('snapshot.hasError = ${snapshot.hasError.toString()}');
-            print('snapshot.error = ${snapshot.error.toString()}');
+        child: Stack(
+          children: <Widget>[
+            Positioned.fill(
+              child: FutureBuilder<PageList<Record>>(
+                future: future,
+                builder: (context, snapshot) {
+                  print(
+                      'snapshot.connectionState = ${snapshot.connectionState}');
+                  print('snapshot.hasData = ${snapshot.hasData.toString()}');
+                  print('snapshot.hasError = ${snapshot.hasError.toString()}');
+                  print('snapshot.error = ${snapshot.error.toString()}');
 
 //            PaginatedDataTable();
 
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return WaitingWidget();
-            } else if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasError) {
-                return FutureErrorWidget(
-                    onPressed: () {
-                      _handleDataSourceChanged();
-                    },
-                    error: snapshot.error);
-              }
-              if (snapshot.hasData) {
-                return RecordsList(
-                  form: form,
-                  pageList: snapshot.data,
-                  onPageChanged: (int value) {
-                    print('onPageChanged value: $value');
-                    setState(() {
-                      form.offset = value;
-                    });
-                    _handleDataSourceChanged();
-                  },
-                  onDataSourceChanged: (RecordsFormObject form) {
-                    setState(() {
-                      this.form.title = form.title;
-                      this.form.format = form.format;
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return WaitingWidget();
+                  } else if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasError) {
+                      return FutureErrorWidget(
+                          onPressed: () {
+                            _handleDataSourceChanged();
+                          },
+                          error: snapshot.error);
+                    }
+                    if (snapshot.hasData) {
+                      return RecordsList(
+                        form: form,
+                        pageList: snapshot.data,
+                        onPageChanged: (int value) {
+                          print('onPageChanged value: $value');
+                          setState(() {
+                            form.offset = value;
+                          });
+                          _handleDataSourceChanged();
+                        },
+                        onDataSourceChanged: (RecordsFormObject form) {
+                          setState(() {
+                            this.form.title = form.title;
+                            this.form.format = form.format;
 
-                      this.form.offset = 0;
-                      this.form.limit = 20;
-                    });
-                    _handleDataSourceChanged();
-                  },
-                );
-              }
-            } else {
-              return Center(child: Text(snapshot.connectionState.toString()));
-            }
+                            this.form.offset = 0;
+                            this.form.limit = 20;
+                          });
+                          _handleDataSourceChanged();
+                        },
+                      );
+                    }
+                  } else {
+                    return Center(
+                        child: Text(snapshot.connectionState.toString()));
+                  }
 
-            return null;
-          },
+                  return null;
+                },
+              ),
+            ),
+            Positioned(
+              top: 0,
+              left: 0,
+              bottom: 0,
+              child: QuickNavContainer(
+                brightness: Brightness.light,
+                selection: 1,
+                onSelectionChanged: (int position) {
+                  if (widget.onSelectionChanged != null) {
+                    widget.onSelectionChanged(position);
+                  }
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -210,43 +231,48 @@ class _RecordsListState extends State<RecordsList> {
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
-          padding: EdgeInsets_fromLTRB(context, 'xs', 72, 32, 16, 32),
-          child: Column(
-            children: <Widget>[
-              Card(
-                child: Row(
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.search),
-                      onPressed: () {
-                        showDialogSearch(
-                            context, widget.form, widget.onDataSourceChanged);
-                      },
-                    ),
-                  ],
+          child: Container(
+            margin: EdgeInsets_fromLTRB(context, 'xl', 96, 32, 96, 32),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Card(
+                  child: Row(
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: () {
+                          showDialogSearch(
+                              context, widget.form, widget.onDataSourceChanged);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              GPMCardGrid(
-                crossAxisCount: _crossAxisCount(),
-                children: records
-                    .map((record) =>
-                        _itemBuilder(context, records.indexOf(record)))
-                    .toList(),
-              ),
-              PaginatedFooter(
-                onPageChanged: (int value) {
-                  print('onPageChanged value = $value');
-                  print(
-                      'onPageChanged widget.onPageChanged = ${widget.onPageChanged}');
-                  if (widget.onPageChanged != null) {
-                    widget.onPageChanged(value);
-                  }
-                },
-                rowsPerPage: 20,
-                source: _source,
-                initialFirstRowIndex: widget.form.offset,
-              ),
-            ],
+                GPMCardGrid(
+                  crossAxisCount: _crossAxisCount(),
+                  children: records
+                      .map((record) =>
+                          _itemBuilder(context, records.indexOf(record)))
+                      .toList(),
+                ),
+                PaginatedFooter(
+                  onPageChanged: (int value) {
+                    print('onPageChanged value = $value');
+                    print(
+                        'onPageChanged widget.onPageChanged = ${widget.onPageChanged}');
+                    if (widget.onPageChanged != null) {
+                      widget.onPageChanged(value);
+                    }
+                  },
+                  rowsPerPage: 20,
+                  source: _source,
+                  initialFirstRowIndex: widget.form.offset,
+                ),
+              ],
+            ),
           ),
         ),
       ),

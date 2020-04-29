@@ -4,6 +4,8 @@ import '../util.dart';
 
 class SJScrollingMoudle extends StatelessWidget {
 
+  bool debug = false;
+
   /// mini huge small medium
   final String clazz;
   final Widget child;
@@ -56,13 +58,13 @@ class SJScrollingMoudle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      color: Colors.green.withOpacity(0.5),
+      color: !debug ? Colors.transparent : Colors.green.withOpacity(0.5),
       padding: EdgeInsets.fromLTRB(0, _getTop(context), 0, _getBottom(context)),
       child: Container(
-        color: Colors.blue.withOpacity(0.5),
+        color: !debug ? Colors.transparent : Colors.blue.withOpacity(0.5),
         width: _getWidth(context),
         child: Container(
-          color: Colors.orange.withOpacity(0.5),
+          color: !debug ? Colors.transparent : Colors.orange.withOpacity(0.5),
           child: child,
         ),
       ),

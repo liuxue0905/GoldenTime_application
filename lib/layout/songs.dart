@@ -7,8 +7,13 @@ import '../model/page_list.dart';
 import '../model/song.dart';
 import '../util.dart';
 import '../widget_util.dart';
+import 'quick_nav_container.dart';
 
 class SongsPage extends StatefulWidget {
+  final ValueChanged<int> onSelectionChanged;
+
+  SongsPage({this.onSelectionChanged});
+
   @override
   State<StatefulWidget> createState() {
     return SongsPageState();
@@ -50,71 +55,89 @@ class SongsPageState extends State<SongsPage> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey[50],
-      child: FutureBuilder<PageList<Song>>(
-        future: future,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return WaitingWidget();
-          } else if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasError) {
-              return FutureErrorWidget(
-                  onPressed: () {
-                    _handleDataSourceChanged();
-                  },
-                  error: snapshot.error);
-            }
-            if (snapshot.hasData) {
-              return SongsList(
-                  form: form,
-                  pageList: snapshot.data,
-                  onPageChanged: (int value) {
-                    print('onPageChanged value: $value');
-                    setState(() {
-                      form.offset = value;
-                    });
-                    _handleDataSourceChanged();
-                  },
-                  onDataSourceChanged: (SongsFormObject form) {
-                    setState(() {
-                      this.form.title = form.title;
-
-                      this.form.offset = 0;
-                      this.form.limit = 20;
-                    });
-                    _handleDataSourceChanged();
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: FutureBuilder<PageList<Song>>(
+              future: future,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return WaitingWidget();
+                } else if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
+                    return FutureErrorWidget(
+                        onPressed: () {
+                          _handleDataSourceChanged();
+                        },
+                        error: snapshot.error);
                   }
-              );
-            }
-          } else {
-            return Center(child: Text(snapshot.connectionState.toString()));
-          }
+                  if (snapshot.hasData) {
+                    return SongsList(
+                        form: form,
+                        pageList: snapshot.data,
+                        onPageChanged: (int value) {
+                          print('onPageChanged value: $value');
+                          setState(() {
+                            form.offset = value;
+                          });
+                          _handleDataSourceChanged();
+                        },
+                        onDataSourceChanged: (SongsFormObject form) {
+                          setState(() {
+                            this.form.title = form.title;
 
-          return null;
-        },
+                            this.form.offset = 0;
+                            this.form.limit = 20;
+                          });
+                          _handleDataSourceChanged();
+                        });
+                  }
+                } else {
+                  return Center(
+                      child: Text(snapshot.connectionState.toString()));
+                }
+
+                return null;
+              },
+            ),
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            child: QuickNavContainer(
+              brightness: Brightness.light,
+              selection: 3,
+              onSelectionChanged: (int position) {
+                if (widget.onSelectionChanged != null) {
+                  widget.onSelectionChanged(position);
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
 class SongsList extends StatefulWidget {
-
   final PaginatedFormObject form;
   final PageList<Song> pageList;
 
   final ValueChanged<int> onPageChanged;
   final ValueChanged<SongsFormObject> onDataSourceChanged;
 
-  SongsList({this.form, this.pageList, this.onPageChanged, this.onDataSourceChanged});
+  SongsList(
+      {this.form, this.pageList, this.onPageChanged, this.onDataSourceChanged});
 
   @override
   State<StatefulWidget> createState() {
     return SongsListState();
   }
-
 }
 
 class SongsListState extends State<SongsList> {
-
   PageListPaginatedFooterSource _source;
 
   @override
@@ -126,46 +149,44 @@ class SongsListState extends State<SongsList> {
 
   @override
   Widget build(BuildContext context) {
-
     List<Song> songs = widget.pageList.results;
 
     return Container(
-      color: Colors.grey[100],
-      child: Container(
-        child: SingleChildScrollView(
-          child: Container(
-            margin: EdgeInsets_fromLTRB(context, 'xs', 72, 32, 16, 32),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                PaginatedHeader(),
-                Card(
-                  child: Row(
-                    children: <Widget>[
-                      IconButton(
-                        icon: Icon(Icons.search),
-                        onPressed: () {
-                          showDialogSearch(context, widget.form, widget.onDataSourceChanged);
-                        },
-                      ),
-                    ],
-                  ),
+      child: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets_fromLTRB(context, 'xl', 96, 32, 96, 32),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              PaginatedHeader(),
+              Card(
+                child: Row(
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.search),
+                      onPressed: () {
+                        showDialogSearch(
+                            context, widget.form, widget.onDataSourceChanged);
+                      },
+                    ),
+                  ],
                 ),
-                buildDataTable(context, songs),
-                PaginatedFooter(
-                  onPageChanged: (int value) {
-                    print('onPageChanged value = $value');
-                    print('onPageChanged widget.onPageChanged = ${widget.onPageChanged}');
-                    if (widget.onPageChanged != null) {
-                      widget.onPageChanged(value);
-                    }
-                  },
-                  rowsPerPage: 20,
-                  source: _source,
-                  initialFirstRowIndex: widget.form.offset,
-                ),
-              ],
-            ),
+              ),
+              buildDataTable(context, songs),
+              PaginatedFooter(
+                onPageChanged: (int value) {
+                  print('onPageChanged value = $value');
+                  print(
+                      'onPageChanged widget.onPageChanged = ${widget.onPageChanged}');
+                  if (widget.onPageChanged != null) {
+                    widget.onPageChanged(value);
+                  }
+                },
+                rowsPerPage: 20,
+                source: _source,
+                initialFirstRowIndex: widget.form.offset,
+              ),
+            ],
           ),
         ),
       ),
@@ -310,7 +331,8 @@ enum DialogDemoAction {
   agree,
 }
 
-void showDialogSearch(BuildContext context, SongsFormObject form, ValueChanged<SongsFormObject> onFormChanged) {
+void showDialogSearch(BuildContext context, SongsFormObject form,
+    ValueChanged<SongsFormObject> onFormChanged) {
   SongsFormObject _form = SongsFormObject(
     title: form.title,
   );
