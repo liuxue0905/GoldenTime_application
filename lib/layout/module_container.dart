@@ -93,6 +93,28 @@ class ModuleContainer extends StatelessWidget {
             title: '今日推荐',
             subtitle: null,
           ),
+          ButtonBar(
+            children: <Widget>[
+              Opacity(
+                opacity: 0.3,
+                child: Container(
+                  width: 48,
+                  height: 48,
+                  color: Color.fromRGBO(0, 0, 0, 0.1),
+                  child: Icon(Icons.chevron_left),
+                ),
+              ),
+              Opacity(
+                opacity: 1.0,
+                child: Container(
+                  width: 48,
+                  height: 48,
+                  color: Color.fromRGBO(0, 0, 0, 0.1),
+                  child: Icon(Icons.chevron_right),
+                ),
+              ),
+            ],
+          ),
           GPMCardGrid(
             // 右 0， 上 0
             crossAxisCount: _crossAxisCount(),
@@ -186,7 +208,6 @@ class ModuleContainer extends StatelessWidget {
 
   Widget _buildSJScrollingMoudleHits(
       BuildContext context, Key key, Module<Hits> module) {
-
     int _crossAxisCount() {
       if (getDeviceType(context) == 'xl') {
         return 3;
