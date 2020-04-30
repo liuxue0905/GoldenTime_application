@@ -52,16 +52,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Brightness getBrightness(Color color) {
-    double luminance = color.computeLuminance();
-    if (luminance >= 0.5) {
-      return Brightness.light;
-    } else if (luminance < 0.5) {
-      return Brightness.dark;
-    }
-    return Brightness.light;
-  }
-
   void _setSelection(int selection) {
     setState(() {
       _selection = selection;

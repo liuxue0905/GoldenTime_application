@@ -84,3 +84,13 @@ EdgeInsets EdgeInsets_all(BuildContext context, String deviceType, double value)
   double value = getSize(context, 72, deviceType);
   return EdgeInsets.all(value);
 }
+
+Brightness getBrightness(Color color) {
+  double luminance = color.computeLuminance();
+  if (luminance >= 0.5) {
+    return Brightness.light;
+  } else if (luminance < 0.5) {
+    return Brightness.dark;
+  }
+  return Brightness.light;
+}

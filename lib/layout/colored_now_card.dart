@@ -21,16 +21,6 @@ class ColoredNowCard extends StatelessWidget {
     this.separatorColor = Colors.white,
   });
 
-  Brightness getBrightness(Color color) {
-    double luminance = color.computeLuminance();
-    if (luminance >= 0.5) {
-      return Brightness.light;
-    } else if (luminance < 0.5) {
-      return Brightness.dark;
-    }
-    return Brightness.light;
-  }
-
   @override
   Widget build(BuildContext context) {
     double scale = getScale(context, 'xl');
@@ -117,7 +107,7 @@ class ColoredNowCard extends StatelessWidget {
                     width: 40,
                     height: 2,
                     color:
-                        separatorColor ?? (light ? Colors.grey : Colors.white),
+                        separatorColor ?? (light ? Colors.grey[900] : Colors.white),
                   ),
                   Visibility(
                     visible: title?.isNotEmpty ?? false,

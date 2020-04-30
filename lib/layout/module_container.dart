@@ -249,7 +249,7 @@ class ModuleContainerState extends State<ModuleContainer> {
                       description: module.description,
                       backgroundImage: module.backgroundImage,
                       backgroundColor: module.backgroundColor,
-                      separatorColor: module.separatorColor ?? Colors.red,
+                      separatorColor: module.separatorColor ?? (getBrightness(module.backgroundColor) == Brightness.light ? Colors.grey[900] : Colors.white),
                     ))
                 .toList(),
           ),
