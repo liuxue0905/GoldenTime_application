@@ -75,6 +75,8 @@ class GPMCardGrid extends StatelessWidget {
 
       _mainAxisChildren.add(
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: _crossAxisChildren,
         ),

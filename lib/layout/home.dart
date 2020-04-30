@@ -126,6 +126,10 @@ class _HomePageState extends State<HomePage> {
             child: ModuleContainer(
               modules: this.modules,
               brightness: _brightness,
+              selection: _selection,
+              onSelectionChanged: (int position) {
+
+              },
             ),
           ),
           Positioned(
@@ -134,7 +138,7 @@ class _HomePageState extends State<HomePage> {
             bottom: 0,
             child: QuickNavContainer(
               brightness: _brightness,
-              selection: _selection,
+              selection: 0,
               onSelectionChanged: (int position) {
                 if (widget.onSelectionChanged != null) {
                   widget.onSelectionChanged(position);
@@ -151,6 +155,9 @@ class _HomePageState extends State<HomePage> {
               brightness: _brightness,
               backgroundColor: _backgroundColor,
               history: true,
+              onSelectionChanged: (int position) {
+
+              },
             ),
           ),
           Positioned.fill(
@@ -161,32 +168,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-//          Positioned.fill(
-//            child: Center(
-//              child: FlatButton(
-//                onPressed: () {
-//                  print(_key.currentContext.size.toString());
-//
-//                  RenderBox abc = _singleChildScrollViewKey.currentContext
-//                      .findRenderObject();
-//
-//                  RenderBox _renderObject =
-//                      _key.currentContext.findRenderObject();
-//
-//                  Offset localToGlobal =
-//                      _renderObject.localToGlobal(Offset.zero);
-////                  Offset localToGlobal = _renderObject.localToGlobal(abc.localToGlobal(Offset.zero));
-//
-//                  Offset efg = abc.localToGlobal(Offset.zero);
-//
-//                  print("localToGlobal = $localToGlobal");
-//                  print("efg = $efg");
-//                  print("efg = ${efg.dy - localToGlobal.dy}");
-//                },
-//                child: Text('get size'),
-//              ),
-//            ),
-//          ),
         ],
       ),
     );

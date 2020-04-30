@@ -12,11 +12,27 @@ import 'record_item_tall.dart';
 import 'sj_card.dart';
 import 'sj_scrolling_moudle.dart';
 
-class ModuleContainer extends StatelessWidget {
+class ModuleContainer extends StatefulWidget {
   final List<Module> modules;
   final Brightness brightness;
 
-  ModuleContainer({this.modules, this.brightness = Brightness.light});
+  final int selection;
+  final ValueChanged<int> onSelectionChanged;
+
+  ModuleContainer(
+      {this.modules,
+      this.brightness = Brightness.light,
+      this.selection,
+      this.onSelectionChanged});
+
+  @override
+  State<StatefulWidget> createState() {
+    return ModuleContainerState();
+  }
+}
+
+class ModuleContainerState extends State<ModuleContainer> {
+  GlobalObjectKey _key4SingleChildScrollView = GlobalObjectKey('abc');
 
   var _controller = ScrollController(initialScrollOffset: 0.0);
 
@@ -24,8 +40,91 @@ class ModuleContainer extends StatelessWidget {
 
   List<Widget> children = [];
 
+  Brightness _brightness;
+
+  ModuleContainerState();
+
+  @override
+  void initState() {
+    super.initState();
+    _handleDataSourceChanged();
+
+    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+      print('timeStamp = ${timeStamp}');
+      print('_controller.position = ${_controller.position}');
+
+      _controller.position.isScrollingNotifier.addListener(() {
+        print(
+            'isScrollingNotifier listener position.isScrollingNotifier = ${_controller.position.isScrollingNotifier}');
+
+//        _controller.position.isScrollingNotifier.value
+      });
+    });
+
+//    _controller.addListener(() {
+////      print('callback');
+//
+//      if (!_controller.position.isScrollingNotifier.hasListeners) {
+//        _controller.position.isScrollingNotifier.addListener(() {
+//          print(
+//              'isScrollingNotifier listener position.isScrollingNotifier = ${_controller.position.isScrollingNotifier}');
+//        });
+//      }
+//
+////      print('offset = ${_controller.offset}');
+////      print('position = ${_controller.position}');
+////      print(
+////          'position.isScrollingNotifier = ${_controller.position.isScrollingNotifier}');
+////
+////      keys.asMap().forEach((index, key) {
+////        print('========');
+////
+////        print('${index}: ${key}');
+////        GlobalKey globalKey = key;
+////        RenderObject renderObject = globalKey.currentContext.findRenderObject();
+////        print('${index} renderObject: ${renderObject}');
+////
+////        RenderBox renderBox = renderObject;
+////        print('${index} renderBox.size = ${renderBox.size}');
+////        Offset localToGlobal = renderBox.localToGlobal(Offset.zero);
+////        print('${index} localToGlobal = ${localToGlobal}');
+////
+////        print('========');
+////      });
+////
+////      RenderObject renderObject =
+////          _key4SingleChildScrollView.currentContext.findRenderObject();
+////      print('scroll renderObject: ${renderObject}');
+////
+////      RenderBox renderBox = renderObject;
+////      print('scroll renderBox.size = ${renderBox.size}');
+////      Offset localToGlobal = renderBox.localToGlobal(Offset.zero);
+////      print('scroll localToGlobal = ${localToGlobal}');
+//    });
+  }
+
+  @override
+  void didUpdateWidget(ModuleContainer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget != widget) {
+      _handleDataSourceChanged();
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void _handleDataSourceChanged() {
+    setState(() {
+      _brightness = widget.brightness;
+    });
+  }
+
   Widget _buildSJScrollingMoudleHistory(BuildContext context, Key key) {
-    bool light = brightness == Brightness.light;
+    bool light = _brightness == Brightness.light;
 
     return SJScrollingMoudle(
       key: key,
@@ -74,7 +173,7 @@ class ModuleContainer extends StatelessWidget {
     List<Module> _modules = modules;
 
     if (_crossAxisCount() == 1) {
-      _modules = modules.sublist(0, 2);
+      _modules = modules.sublist(0, 1);
     } else if (_crossAxisCount() == 2) {
       _modules = modules.sublist(0, 4);
     } else if (_crossAxisCount() == 3) {
@@ -89,36 +188,49 @@ class ModuleContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           HeadlineHeader(
-            brightness: brightness,
+            brightness: _brightness,
             title: '今日推荐',
             subtitle: null,
           ),
-          ButtonBar(
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              FloatingActionButton(child: Icon(Icons.chevron_left),mini: true),
-              FloatingActionButton(child: Icon(Icons.chevron_right),),
-//              RawMaterialButton(constraints: ,),
               Opacity(
                 opacity: 0.3,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(const Radius.circular(24)),
-                  child: Container(
-                    width: 48,
-                    height: 48,
-                    color: Color.fromRGBO(0, 0, 0, 0.1),
-                    child: Icon(Icons.chevron_left),
+                child: RawMaterialButton(
+                  constraints: BoxConstraints.tightFor(
+                    width: 48.0,
+                    height: 48.0,
+                  ),
+                  onPressed: null,
+                  fillColor: Color.fromRGBO(0, 0, 0, 0.1),
+                  elevation: 0,
+                  shape: CircleBorder(),
+                  child: Icon(
+                    Icons.chevron_left,
+                    color: Color.fromRGBO(0, 0, 0, 0.54),
                   ),
                 ),
               ),
+              SizedBox(
+                width: 16,
+              ),
               Opacity(
                 opacity: 1.0,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(const Radius.circular(24)),
-                  child: Container(
-                    width: 48,
-                    height: 48,
-                    color: Color.fromRGBO(0, 0, 0, 0.1),
-                    child: Icon(Icons.chevron_right),
+                child: RawMaterialButton(
+                  constraints: BoxConstraints.tightFor(
+                    width: 48.0,
+                    height: 48.0,
+                  ),
+                  onPressed: null,
+                  fillColor: Color.fromRGBO(0, 0, 0, 0.1),
+                  elevation: 0,
+                  shape: CircleBorder(),
+                  child: Icon(
+                    Icons.chevron_right,
+                    color: Color.fromRGBO(0, 0, 0, 0.54),
                   ),
                 ),
               ),
@@ -156,7 +268,7 @@ class ModuleContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           HeadlineHeader(
-            brightness: brightness,
+            brightness: _brightness,
             title: module.header,
             subtitle: module.reason,
           ),
@@ -167,7 +279,7 @@ class ModuleContainer extends StatelessWidget {
             crossAxisSpacing: 16,
             children: module.dataList
                 .map((e) => RecordItemTall(
-                      brightness: brightness,
+                      brightness: _brightness,
                       url: getRecordImage(e),
                       title: e.title,
                       subtitle: getArtistsString(e.artists),
@@ -191,7 +303,7 @@ class ModuleContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           HeadlineHeader(
-            brightness: brightness,
+            brightness: _brightness,
             title: module.header,
             subtitle: module.reason,
           ),
@@ -202,7 +314,7 @@ class ModuleContainer extends StatelessWidget {
             crossAxisSpacing: 16,
             children: module.dataList
                 .map((e) => RecordItem(
-                      brightness: brightness,
+                      brightness: _brightness,
                       url: getRecordImage(e),
                       title: e.title,
                       subtitle: getArtistsString(e.artists),
@@ -232,7 +344,7 @@ class ModuleContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           HeadlineHeader(
-            brightness: brightness,
+            brightness: _brightness,
             title: module.header,
             subtitle: module.reason,
           ),
@@ -276,6 +388,7 @@ class ModuleContainer extends StatelessWidget {
 
   List<Widget> _build(BuildContext context) {
     List<Widget> children = [];
+    keys = [];
 
     GlobalKey keyHistory = GlobalKey();
     keys.add(keyHistory);
@@ -292,28 +405,9 @@ class ModuleContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _controller.addListener(() {
-//      print('callback');
-//
-      print('offset = ${_controller.offset}');
-      print('position = ${_controller.position}');
-
-      print('keys = ${keys}');
-
-      keys.asMap().forEach((index, key) {
-        print('${index}: ${key}');
-        GlobalKey globalKey = key;
-        RenderObject renderObject = globalKey.currentContext.findRenderObject();
-        print('renderObject: ${renderObject}');
-
-        RenderBox renderBox = renderObject;
-        Offset localToGlobal = renderBox.localToGlobal(Offset.zero);
-        print('localToGlobal = ${localToGlobal}');
-      });
-    });
-
     return Container(
       child: SingleChildScrollView(
+        key: _key4SingleChildScrollView,
         controller: _controller,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -14,16 +14,6 @@ class RecordItemCard extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  factory RecordItemCard.forDesignTime() {
-    // TODO: add arguments
-    return new RecordItemCard(
-      url:
-          'https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946',
-      title: 'title',
-      subtitle: 'subtitle',
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Card(

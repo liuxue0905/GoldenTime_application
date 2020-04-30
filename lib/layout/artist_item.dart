@@ -24,6 +24,7 @@ class ArtistItem extends StatelessWidget {
       onTap: onTap,
       child: Card(
         clipBehavior: Clip.antiAlias,
+        margin: EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -40,7 +41,7 @@ class ArtistItem extends StatelessWidget {
                       margin: EdgeInsets.all(16.0),
                       child: CircleAvatar(
                         backgroundColor: Colors.white,
-                        backgroundImage: NetworkImage(url),
+                        backgroundImage: NetworkImage(url ?? ''),
                       ),
                     ),
                   ),

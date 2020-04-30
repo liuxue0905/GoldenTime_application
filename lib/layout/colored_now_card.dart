@@ -122,7 +122,6 @@ class ColoredNowCard extends StatelessWidget {
                   Visibility(
                     visible: title?.isNotEmpty ?? false,
                     child: Container(
-                      color: Colors.yellow,
                       margin: EdgeInsets.only(bottom: 4),
                       padding: EdgeInsets.only(right: 64 * scale),
                       child: Text(
@@ -142,7 +141,6 @@ class ColoredNowCard extends StatelessWidget {
                   Visibility(
                     visible: description?.isNotEmpty ?? false,
                     child: Container(
-                      color: Colors.yellow,
                       padding: EdgeInsets.only(right: 64 * scale),
                       child: Text(
                         description ?? '',

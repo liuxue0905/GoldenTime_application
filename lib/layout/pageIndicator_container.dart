@@ -4,6 +4,8 @@ import '../util.dart';
 
 class PageIndicatorContainer extends StatefulWidget {
   final int selection;
+  final ValueChanged<int> onSelectionChanged;
+
   final bool history;
 
   final Brightness brightness;
@@ -17,7 +19,8 @@ class PageIndicatorContainer extends StatefulWidget {
       this.selection: 0,
       this.brightness = Brightness.light,
       this.backgroundColor = Colors.white,
-      this.history: false});
+      this.history: false,
+      this.onSelectionChanged});
 
   factory PageIndicatorContainer.forDesignTime() {
     return new PageIndicatorContainer(selection: 0);

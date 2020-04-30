@@ -227,12 +227,18 @@ class _RecordsListState extends State<RecordsList> {
 
 //    PaginatedDataTable();
 
+    var _margin = EdgeInsets.fromLTRB(96, 32, 96, 32);
+    String deviceType = getDeviceType(context);
+    if (deviceType == 'xs' || deviceType == 'sm' || deviceType == 'md') {
+      _margin = EdgeInsets_fromLTRB(context, 'xl', 96, 32, 96, 32);
+    }
+
     return Container(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
           child: Container(
-            margin: EdgeInsets_fromLTRB(context, 'xl', 96, 32, 96, 32),
+            margin: _margin,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -253,6 +259,8 @@ class _RecordsListState extends State<RecordsList> {
                 ),
                 GPMCardGrid(
                   crossAxisCount: _crossAxisCount(),
+                  mainAxisSpacing: 24,
+                  crossAxisSpacing: 16,
                   children: records
                       .map((record) =>
                           _itemBuilder(context, records.indexOf(record)))

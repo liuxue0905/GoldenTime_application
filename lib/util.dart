@@ -17,6 +17,9 @@ bool isLargeScreen(BuildContext context) {
 String getDeviceType(BuildContext context) {
   final double width = MediaQuery.of(context).size.width;
 
+  // 1850x1440
+  // 1850
+
   print('getDeviceType() size: ${MediaQuery.of(context).size}');
 
   // COL AL10

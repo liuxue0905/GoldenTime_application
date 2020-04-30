@@ -46,8 +46,8 @@ class Constants {
   ];
 
   // backgroundImage    backgroundColor           separatorColor
-  // colored_now_card   #000000 (0,0,0,1)         #ffffff (255,255,255,1)
-  // image              #161110 (22,17,16,1)      #6dc583 (109,197,131,1)
+  // colored_now_card   #000000 (0,0,0,1)         #ffffff (255,255,255,1) 默认背景
+  // image              #161110 (22,17,16,1)      #6dc583 (109,197,131,1) 照片图片
   // 1ee8b6.png         #1ee8b6
   // 4b2460.png         #4b2460                   #48eadc (72,234,220,1)
   // 5dced6.png         #5dced6                   #f9b339 (249,179,57,1)
@@ -61,14 +61,19 @@ class Constants {
   // 392291.png         #392291
   // 512257.png         #512257
   // 532164.png         #532164                   #f8ffb8 (248,255,184,1)
-  // bfb2ff.png         #bfb2ff                   #f8ffb8 (255,245,118,1)
+  // bfb2ff.png         #bfb2ff                   #f8ffb8 (255,245,118,1) #fff576
   // c6fbe5.png         #c6fbe5                   #ff3347 (255,51,71,1) #f8ffb8
   // 4bceff.png         #4bceff
   // 12b969.png         #12b969
 
+  List<Color> ss = [
+
+  ];
+
   Map<String, Color> backgroundImageColorMap = {
     null: Color.fromRGBO(250, 250, 250, 1.0),
     '': Color.fromRGBO(250, 250, 250, 1.0),
+    'images/background_image/000000.png': Color(0xff000000),
     'images/background_image/1ee8b6.png': Color(0xff1ee8b6),
     'images/background_image/4b2460.png': Color(0xff4b2460),
     'images/background_image/5dced6.png': Color(0xff5dced6),

@@ -151,10 +151,16 @@ class SongsListState extends State<SongsList> {
   Widget build(BuildContext context) {
     List<Song> songs = widget.pageList.results;
 
+    var _margin = EdgeInsets.fromLTRB(96, 32, 96, 32);
+    String deviceType = getDeviceType(context);
+    if (deviceType == 'xs' || deviceType == 'sm' || deviceType == 'md') {
+      _margin = EdgeInsets_fromLTRB(context, 'xl', 96, 32, 96, 32);
+    }
+
     return Container(
       child: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets_fromLTRB(context, 'xl', 96, 32, 96, 32),
+          margin: _margin,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[

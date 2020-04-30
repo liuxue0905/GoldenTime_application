@@ -63,6 +63,7 @@ class SJCard4 extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.all(const Radius.circular(2)),
+        //clipBehavior: Clip.antiAlias,
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,

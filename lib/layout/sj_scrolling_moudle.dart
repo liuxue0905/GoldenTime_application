@@ -21,8 +21,30 @@ class SJScrollingMoudle extends StatelessWidget {
     }
   }
 
+
+  var breakpoints = {
+    '0': 1250,
+    '1': 1400,
+    '2': 1850,
+  };
+
   double _getTop(BuildContext context) {
     String deviceType = getDeviceType(context);
+
+    // max 949
+    // min 950 max 1249
+    // min 1250 max 1399
+    // min 1440 max 1849
+    // min 1850
+
+    // 1850x1440
+
+    //rec <1250:4/8  >=1250:4/8    >=1850:5/10
+    //top <1250:5/10  >=1250:5/10    >=1850:6/12
+    //hit <1250:2  >=1250:3    >=1850:4
+
+    // <1250:88 >=1250:116  >=1400:152
+    // <1250:704 >=1250:884  >=1400:1002
 
     double top = 0;
 

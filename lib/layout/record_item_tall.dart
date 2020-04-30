@@ -128,7 +128,7 @@ class RecordItemTall extends StatelessWidget {
                   ),
                   margin: EdgeInsets.only(top: 2.0),
                   child: Text(
-                    description + 'abcdsdfsdafsadflasdf',
+                    description,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: TextStyle(
