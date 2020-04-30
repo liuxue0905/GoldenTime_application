@@ -59,8 +59,6 @@ class PaginatedFooterState extends State<PaginatedFooter> {
   @override
   void didUpdateWidget(PaginatedFooter oldWidget) {
     super.didUpdateWidget(oldWidget);
-
-    PaginatedDataTable();
   }
 
   @override

@@ -83,8 +83,6 @@ class _RecordsPageState extends State<RecordsPage> {
                   print('snapshot.hasError = ${snapshot.hasError.toString()}');
                   print('snapshot.error = ${snapshot.error.toString()}');
 
-//            PaginatedDataTable();
-
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return WaitingWidget();
                   } else if (snapshot.connectionState == ConnectionState.done) {
@@ -224,8 +222,6 @@ class _RecordsListState extends State<RecordsList> {
       Orientation orientation = MediaQuery.of(context).orientation;
       return orientation == Orientation.portrait ? 2 : 4;
     }
-
-//    PaginatedDataTable();
 
     var _margin = EdgeInsets.fromLTRB(96, 32, 96, 32);
     String deviceType = getDeviceType(context);

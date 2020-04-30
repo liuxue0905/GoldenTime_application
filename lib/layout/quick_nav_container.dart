@@ -41,11 +41,6 @@ class _QuickNavContainer extends State<QuickNavContainer> {
   @override
   void didUpdateWidget(QuickNavContainer oldWidget) {
     super.didUpdateWidget(oldWidget);
-
-    print('_QuickNavContainer didUpdateWidget()');
-
-//    PaginatedDataTable();
-
     if (oldWidget != widget) {
       _handleDataSourceChanged();
     }
