@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../layout/colored_now_card.dart';
 import '../layout/gpm-card-grid.dart';
-import '../layout/headline_header.dart';
-import '../layout/sj_scrolling_moudle.dart';
+import '../layout/gpm-headline-header.dart';
+import 'sj_scrolling_moudle.dart';
 import '../model/module.dart';
 
 import '../util.dart';

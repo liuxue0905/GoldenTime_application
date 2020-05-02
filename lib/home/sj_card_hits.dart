@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SJCard4 extends StatelessWidget {
+class SJCardHits extends StatelessWidget {
   final String title;
   final String description;
   final String image;
 
   bool debug = true;
 
-  SJCard4({this.image, this.title, this.description});
+  SJCardHits({this.image, this.title, this.description});
 
   @override
   Widget build(BuildContext context) {

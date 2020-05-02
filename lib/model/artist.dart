@@ -22,7 +22,7 @@ class Artist {
   // songs_count
   int songsCount;
 
-  Artist({this.id, this.name, this.type});
+  Artist({this.id, this.name, this.type, this.recordsCount, this.songsCount});
 
   String getTypeText() {
     switch(this.type) {

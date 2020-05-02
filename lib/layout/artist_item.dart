@@ -23,6 +23,9 @@ class ArtistItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(2.0),
+        ),
         clipBehavior: Clip.antiAlias,
         margin: EdgeInsets.all(8.0),
         child: Column(
@@ -47,8 +50,11 @@ class ArtistItem extends StatelessWidget {
                   ),
                   Positioned(
                     bottom: 8.0,
-                    child: OverlayText(
-                      text: tag != null ? tag : '-',
+                    child: Visibility(
+                      visible: tag?.isNotEmpty ?? false,
+                      child: OverlayText(
+                        text: tag ?? '',
+                      ),
                     ),
                   ),
                 ],

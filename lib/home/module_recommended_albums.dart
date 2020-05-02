@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import '../layout/record_item.dart';
-import '../model/artist.dart';
+import '../model/record.dart';
 import '../layout/gpm-card-grid.dart';
-import '../layout/headline_header.dart';
-import '../layout/sj_scrolling_moudle.dart';
+import '../layout/gpm-headline-header.dart';
+import 'sj_card_recommended_tall.dart';
+import 'sj_scrolling_moudle.dart';
 import '../model/module.dart';
 import '../util.dart';
 import '../widget_util.dart';
 
-class ModuleRecommendedArtists extends StatelessWidget {
+class ModuleRecommendedAlbums extends StatelessWidget {
   final Brightness brightness;
-  final Module<Artist> module;
+  final Module<Record> module;
 
-  ModuleRecommendedArtists(
+  ModuleRecommendedAlbums(
       {Key key, this.brightness = Brightness.light, this.module})
       : super(key: key);
 
@@ -36,12 +36,16 @@ class ModuleRecommendedArtists extends StatelessWidget {
             mainAxisSpacing: isLargeScreen(context) ? 24 : 12,
             crossAxisSpacing: isLargeScreen(context) ? 16 : 8,
             children: module.dataList
-                .map((Artist e) => RecordItem(
+                .map((Record e) => SJCardRecommendedTall(
                       brightness: brightness,
-                      url: getArtistImage(e),
-                      title: e.name,
-                      subtitle: '${e.recordsCount}张',
-                      tag: '',
+                      url: getRecordImage(e),
+                      title: e.title,
+                      subtitle: getArtistsString(e.artists),
+                      description: '${e.songsCount}首',
+                      tag: e.getFormatText(),
+                      onTap: () {
+                        openRecord(context, e);
+                      },
                     ))
                 .toList(),
           ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import './overlay_text.dart';
+import '../layout/overlay_text.dart';
 
-class RecordItemTall extends StatelessWidget {
+class SJCardRecommendedTall extends StatelessWidget {
   final Brightness brightness;
 
   final String url;
@@ -12,7 +12,7 @@ class RecordItemTall extends StatelessWidget {
   final String tag;
   final GestureTapCallback onTap;
 
-  RecordItemTall(
+  SJCardRecommendedTall(
       {Key key,
       this.brightness = Brightness.dark,
       this.url,
@@ -69,8 +69,11 @@ class RecordItemTall extends StatelessWidget {
                   ),
                   Positioned(
                     bottom: 8.0,
-                    child: OverlayText(
-                      text: tag != null ? tag : '-',
+                    child: Visibility(
+                      visible: tag?.isNotEmpty ?? false,
+                      child: OverlayText(
+                        text: tag ?? '',
+                      ),
                     ),
                   ),
                 ],

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../layout/gpm-card-grid.dart';
-import '../layout/headline_header.dart';
-import '../layout/record_item.dart';
-import '../layout/sj_scrolling_moudle.dart';
+import '../layout/gpm-headline-header.dart';
+import 'sj_card_recommended.dart';
+import 'sj_scrolling_moudle.dart';
 import '../model/module.dart';
 
 import '../util.dart';
@@ -35,12 +35,15 @@ class ModuleTopAlbums extends StatelessWidget {
             mainAxisSpacing: isLargeScreen(context) ? 24 : 12,
             crossAxisSpacing: isLargeScreen(context) ? 16 : 8,
             children: module.dataList
-                .map((e) => RecordItem(
+                .map((e) => SJCardRecommended(
                       brightness: brightness,
                       url: getRecordImage(e),
                       title: e.title,
                       subtitle: getArtistsString(e.artists),
                       tag: e.getFormatText(),
+                      onTap: () {
+                        openRecord(context, e);
+                      },
                     ))
                 .toList(),
           ),

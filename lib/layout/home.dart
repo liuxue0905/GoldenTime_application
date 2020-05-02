@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_golden_time/models.dart';
 
-import './background_container.dart';
-import './pageIndicator_container.dart';
-import '../layout/module_container.dart';
+import '../home/background_container.dart';
+import '../home/page_indicator_container.dart';
+import '../home/module_container.dart';
 import '../model/artist.dart';
 import '../model/module.dart';
 import '../model/record.dart';
 import '../util.dart';
-import 'quick_nav_container.dart';
+import '../home/quick_nav_container.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.onSelectionChanged, this.onBrightnessChanged});
+  HomePage({Key key, this.gpmQuickNavItems, this.onSelectionChanged, this.onBrightnessChanged});
 
+  final List<GPMQuickNavItem> gpmQuickNavItems;
   final ValueChanged<int> onSelectionChanged;
   final ValueChanged<Brightness> onBrightnessChanged;
 
@@ -126,6 +128,7 @@ class _HomePageState extends State<HomePage> {
             bottom: 0,
             child: QuickNavContainer(
               brightness: _brightness,
+              items: widget.gpmQuickNavItems,
               selection: 0,
               onSelectionChanged: (int position) {
                 if (widget.onSelectionChanged != null) {
@@ -136,7 +139,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Positioned(
             top: 0,
-            right: 36.0,
+            right: MediaQuery.of(context).size.width >= 950 ? 36.0 : scaleSize(context, 950, 36.0),
             child: PageIndicatorContainer(
               count: modules.length,
               selection: _selection,

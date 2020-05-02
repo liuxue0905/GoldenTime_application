@@ -1,22 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_golden_time/module/module_hits.dart';
-import 'package:flutter_app_golden_time/module/module_recent.dart';
-import 'package:flutter_app_golden_time/module/module_now.dart';
-import 'package:flutter_app_golden_time/module/module_recommended_albums.dart';
-import 'package:flutter_app_golden_time/module/module_recommended_artists.dart';
-import 'package:flutter_app_golden_time/module/module_top_albums.dart';
-import 'package:flutter_app_golden_time/util.dart';
-
-import '../model/hits.dart';
+import 'module_hits.dart';
+import 'module_recent.dart';
+import 'module_now.dart';
+import 'module_recommended_albums.dart';
+import 'module_recommended_artists.dart';
+import 'module_top_albums.dart';
 import '../model/module.dart';
-import '../widget_util.dart';
-import 'colored_now_card.dart';
-import 'gpm-card-grid.dart';
-import 'headline_header.dart';
-import 'record_item.dart';
-import 'record_item_tall.dart';
-import 'sj_card.dart';
-import 'sj_scrolling_moudle.dart';
 
 class ModuleContainer extends StatefulWidget {
   final List<Module> modules;
@@ -25,11 +14,12 @@ class ModuleContainer extends StatefulWidget {
   final int selection;
   final ValueChanged<int> onSelectionChanged;
 
-  ModuleContainer(
-      {this.modules,
-      this.brightness = Brightness.light,
-      this.selection,
-      this.onSelectionChanged});
+  ModuleContainer({
+    this.modules,
+    this.brightness = Brightness.light,
+    this.selection,
+    this.onSelectionChanged,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -55,58 +45,66 @@ class ModuleContainerState extends State<ModuleContainer> {
     super.initState();
     _handleDataSourceChanged();
 
+    RenderBox _getRenderBox(Key key) {
+      GlobalKey globalKey = key;
+      RenderObject renderObject = globalKey.currentContext.findRenderObject();
+      RenderBox renderBox = renderObject;
+      return renderBox;
+    }
+
+    void _printKey(Key key) {
+      RenderBox renderBox = _getRenderBox(key);
+      print('key: ${key} | renderBox.size = ${renderBox.size}');
+      Offset localToGlobal = renderBox.localToGlobal(Offset.zero);
+      print('key: ${key} | localToGlobal = ${localToGlobal}');
+    }
+
+    void _printKey2(Key key, Offset point) {
+      RenderBox renderBox = _getRenderBox(key);
+
+      Offset localToGlobal1 = renderBox.localToGlobal(point.scale(0, -1));
+      print('key: ${key} | ${point} localToGlobal1 = ${localToGlobal1}');
+
+      Offset localToGlobal2 = renderBox.localToGlobal(Offset.zero);
+      print('key: ${key} | ${Offset.zero} localToGlobal2 = ${localToGlobal2}');
+    }
+
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       print('timeStamp = ${timeStamp}');
       print('_controller.position = ${_controller.position}');
 
-      _controller.position.isScrollingNotifier.addListener(() {
-//        print(
-//            'isScrollingNotifier listener position.isScrollingNotifier = ${_controller.position.isScrollingNotifier}');
+      RenderBox singleChildScrollViewRenderBox = _getRenderBox(_key4SingleChildScrollView);
+      Offset singleChildScrollViewOffset = singleChildScrollViewRenderBox.localToGlobal(Offset.zero);
+      print('singleChildScrollViewRenderBox.size: ${singleChildScrollViewRenderBox.size}');
+      print('singleChildScrollViewOffset: ${singleChildScrollViewOffset}');
 
-//        _controller.position.isScrollingNotifier.value
+      keys.asMap().forEach((index, key) {
+        RenderBox moduleRenderBox = _getRenderBox(key);
+        Offset moduleOffset = moduleRenderBox.localToGlobal(singleChildScrollViewOffset.scale(0, -1));
+        print('index: ${index} moduleRenderBox.size: ${moduleRenderBox.size}');
+        print('index: ${index} moduleOffset: ${moduleOffset}');
+      });
+
+      _controller.position.isScrollingNotifier.addListener(() {
+        print(
+            'isScrollingNotifier listener position.isScrollingNotifier.value = ${_controller.position.isScrollingNotifier.value}');
+
+        if (_controller.position.isScrollingNotifier.value == false) {
+
+          RenderBox singleChildScrollViewRenderBox = _getRenderBox(_key4SingleChildScrollView);
+          Offset singleChildScrollViewOffset = singleChildScrollViewRenderBox.localToGlobal(Offset.zero);
+          print('singleChildScrollViewRenderBox.size: ${singleChildScrollViewRenderBox.size}');
+          print('singleChildScrollViewOffset: ${singleChildScrollViewOffset}');
+
+          keys.asMap().forEach((index, key) {
+            RenderBox moduleRenderBox = _getRenderBox(key);
+            Offset moduleOffset = moduleRenderBox.localToGlobal(singleChildScrollViewOffset.scale(0, -1));
+            print('index: ${index} moduleRenderBox.size: ${moduleRenderBox.size}');
+            print('index: ${index} moduleOffset: ${moduleOffset}');
+          });
+        }
       });
     });
-
-//    _controller.addListener(() {
-////      print('callback');
-//
-//      if (!_controller.position.isScrollingNotifier.hasListeners) {
-//        _controller.position.isScrollingNotifier.addListener(() {
-//          print(
-//              'isScrollingNotifier listener position.isScrollingNotifier = ${_controller.position.isScrollingNotifier}');
-//        });
-//      }
-//
-////      print('offset = ${_controller.offset}');
-////      print('position = ${_controller.position}');
-////      print(
-////          'position.isScrollingNotifier = ${_controller.position.isScrollingNotifier}');
-////
-////      keys.asMap().forEach((index, key) {
-////        print('========');
-////
-////        print('${index}: ${key}');
-////        GlobalKey globalKey = key;
-////        RenderObject renderObject = globalKey.currentContext.findRenderObject();
-////        print('${index} renderObject: ${renderObject}');
-////
-////        RenderBox renderBox = renderObject;
-////        print('${index} renderBox.size = ${renderBox.size}');
-////        Offset localToGlobal = renderBox.localToGlobal(Offset.zero);
-////        print('${index} localToGlobal = ${localToGlobal}');
-////
-////        print('========');
-////      });
-////
-////      RenderObject renderObject =
-////          _key4SingleChildScrollView.currentContext.findRenderObject();
-////      print('scroll renderObject: ${renderObject}');
-////
-////      RenderBox renderBox = renderObject;
-////      print('scroll renderBox.size = ${renderBox.size}');
-////      Offset localToGlobal = renderBox.localToGlobal(Offset.zero);
-////      print('scroll localToGlobal = ${localToGlobal}');
-//    });
   }
 
   @override

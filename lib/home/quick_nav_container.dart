@@ -6,14 +6,17 @@ typedef OnItemClick = void Function(int position);
 
 class QuickNavContainer extends StatefulWidget {
   final Brightness brightness;
+  final List<GPMQuickNavItem> items;
   final int selection;
   final ValueChanged<int> onSelectionChanged;
 
-  QuickNavContainer(
-      {Key key,
-      this.brightness = Brightness.light,
-      this.selection = 0,
-      this.onSelectionChanged});
+  QuickNavContainer({
+    Key key,
+    this.brightness = Brightness.light,
+    this.items,
+    this.selection = 0,
+    this.onSelectionChanged,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -22,14 +25,6 @@ class QuickNavContainer extends StatefulWidget {
 }
 
 class _QuickNavContainer extends State<QuickNavContainer> {
-
-  List<Item> items = [
-    Item(icon: Icons.home, text: '首页'),
-    Item(icon: Icons.album, text: '唱片'),
-    Item(icon: Icons.account_box, text: '歌手'),
-    Item(icon: Icons.library_music, text: '歌曲'),
-  ];
-
   int _selection;
 
   @override
@@ -66,8 +61,8 @@ class _QuickNavContainer extends State<QuickNavContainer> {
           width: 72,
           padding: EdgeInsets.only(top: 16),
           child: Column(
-            children: items.map<Widget>((Item item) {
-              int index = items.indexOf(item);
+            children: widget.items.map<Widget>((GPMQuickNavItem item) {
+              int index = widget.items.indexOf(item);
 
               return QuickNavItem(
                 brightness: widget.brightness,

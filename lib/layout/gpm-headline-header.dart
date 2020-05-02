@@ -55,7 +55,10 @@ class HeadlineHeader extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(top: 12),
-            constraints: BoxConstraints(maxWidth: getSize(context, 384, 'xl')),
+            constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width < 950
+                    ? scaleSize(context, 950, 384)
+                    : 384),
             child: Visibility(
               visible: subtitle?.isNotEmpty ?? false,
               child: Text(

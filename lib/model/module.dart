@@ -45,6 +45,60 @@ class Module<T> {
 }
 
 List<Module> modules = [
+  Module<Artist>(
+    type: Module.MODULE_TOKEN_RECOMMENDED_ARTISTS,
+    header: 'For fans of Billy Joel',
+    reason: null,
+    title: 'Billy Joel radio',
+    description:
+        'With Elton John, Paul Simon, Eagles, Simon & Garfunkel, and more',
+    backgroundImage:
+        'https://lh3.googleusercontent.com/wSP2VkFK8oxCYJqae82c5IftQ65PKOJKw1ytyqq4fAEs09vJUqumn8XxpBMI6z4d1ADw-ZbqiQ=w700-h560-n-e100-rwu-v1',
+    backgroundColor: Color.fromRGBO(55, 49, 36, 1),
+    separatorColor: Color.fromRGBO(224, 183, 89, 1),
+    dataList: <Artist>[
+      Artist(
+        id: 45,
+        name: 'Billy Joel',
+        recordsCount: 12,
+      ),
+      Artist(
+        id: 45,
+        name: 'Billy Joel',
+        recordsCount: 12,
+      ),
+      Artist(
+        id: 45,
+        name: 'Billy Joel',
+        recordsCount: 12,
+      ),
+      Artist(
+        id: 45,
+        name: 'Billy Joel',
+        recordsCount: 12,
+      ),
+      Artist(
+        id: 45,
+        name: 'Billy Joel',
+        recordsCount: 12,
+      ),
+      Artist(
+        id: 45,
+        name: 'Billy Joel',
+        recordsCount: 12,
+      ),
+      Artist(
+        id: 45,
+        name: 'Billy Joel',
+        recordsCount: 12,
+      ),
+      Artist(
+        id: 45,
+        name: 'Billy Joel',
+        recordsCount: 12,
+      ),
+    ],
+  ),
   Module<Record>(
     type: Module.MODULE_TOKEN_RECOMMENDED_ALBUMS,
     header: 'Recommended new releases',

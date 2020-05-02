@@ -10,7 +10,7 @@ import '../model/artist.dart';
 import '../model/page_list.dart';
 import '../util.dart';
 import '../widget_util.dart';
-import 'quick_nav_container.dart';
+import '../home/quick_nav_container.dart';
 
 class ArtistsPage extends StatefulWidget {
   final ValueChanged<int> onSelectionChanged;
@@ -176,14 +176,15 @@ class ArtistsListState extends State<ArtistsList> {
       return ArtistItem(
         url: getArtistImage(artist),
         title: artist.name,
-        tag: artist.getTypeText(),
+        tag: artist.getTypeText() ?? '-',
         onTap: () {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => ArtistDetailPage(
-                        artist: artist,
-                      )));
+                builder: (context) => ArtistDetailPage(
+                  artist: artist,
+                ),
+              ));
         },
       );
     }

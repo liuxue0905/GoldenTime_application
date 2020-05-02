@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './gpm-card-grid.dart';
-import './record_item_tall.dart';
+import '../home/sj_card_recommended_tall.dart';
 import '../api_service.dart';
 import '../forms.dart';
 import '../layout/paginated_footer.dart';
@@ -9,7 +9,7 @@ import '../model/page_list.dart';
 import '../model/record.dart';
 import '../util.dart';
 import '../widget_util.dart';
-import 'quick_nav_container.dart';
+import '../home/quick_nav_container.dart';
 
 class RecordsPage extends StatefulWidget {
   final ValueChanged<int> onSelectionChanged;
@@ -198,13 +198,13 @@ class _RecordsListState extends State<RecordsList> {
       // description
       // 'A personalized mix of newly released songs. Updated daily. A personalized mix of newly released songs. Updated daily.'
 
-      return RecordItemTall(
+      return SJCardRecommendedTall(
         brightness: Brightness.light,
         url: getRecordImage(record),
         title: record.title,
         subtitle: getArtistsString(record.artists),
         description: record.year + ' • ' + record.songs.length.toString() + "首",
-        tag: record.getFormatText(),
+        tag: record.getFormatText() ?? '-',
         onTap: () {
           openRecord(context, record);
         },

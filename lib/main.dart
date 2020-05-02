@@ -3,7 +3,6 @@ import 'package:flutter_app_golden_time/api_service.dart';
 
 import './layout/artists.dart';
 import './layout/home.dart';
-import './layout/quick_nav_container.dart';
 import './layout/records.dart';
 import './layout/songs.dart';
 import './models.dart';
@@ -54,10 +53,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Brightness _brightness = Brightness.light;
   int _selection = 0;
 
-  final GlobalKey<ScaffoldState> _key4Scaffold = GlobalKey<ScaffoldState>();
+  List<GPMQuickNavItem> items = [
+    GPMQuickNavItem(icon: Icons.home, text: '首页'),
+    GPMQuickNavItem(icon: Icons.album, text: '唱片'),
+    GPMQuickNavItem(icon: Icons.account_box, text: '歌手'),
+    GPMQuickNavItem(icon: Icons.library_music, text: '歌曲'),
+  ];
+
+//  final GlobalKey<ScaffoldState> _key4Scaffold = GlobalKey<ScaffoldState>();
 
   void setSelection(int selection) {
     setState(() {
@@ -65,20 +70,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void setBrightness(Brightness brightness) {
-    setState(() {
-      _brightness = brightness;
-    });
-  }
-
   Widget _buildChild(BuildContext context) {
-    print('_buildChild XXX');
     Widget child;
 
     if (_selection == 0) {
       child = HomePage(
+        gpmQuickNavItems: items,
         onBrightnessChanged: (Brightness brightness) {
-          setBrightness(brightness);
+          // setBrightness(brightness);
         },
         onSelectionChanged: (int selection) {
           setSelection(selection);
@@ -120,15 +119,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Item> items = [
-      Item(icon: Icons.home, text: '首页'),
-      Item(icon: Icons.album, text: '唱片'),
-      Item(icon: Icons.account_box, text: '歌手'),
-      Item(icon: Icons.library_music, text: '歌曲'),
-    ];
-
-    List<Widget> buildListTiles(List<Item> items) {
-      List<Widget> children = items.map<Widget>((Item item) {
+    List<Widget> buildListTiles(List<GPMQuickNavItem> items) {
+      List<Widget> children = items.map<Widget>((GPMQuickNavItem item) {
         int index = items.indexOf(item);
         return MergeSemantics(
           child: ListTile(
@@ -167,15 +159,15 @@ class _MyHomePageState extends State<MyHomePage> {
       return children;
     }
 
-    List<Widget> buildActions(List<Item> items) {
+    List<Widget> buildActions(List<GPMQuickNavItem> items) {
       List<Widget> _actions = <Widget>[];
       final Orientation orientation = MediaQuery.of(context).orientation;
       if (orientation == Orientation.portrait) {
-        _actions.add(PopupMenuButton<Item>(
+        _actions.add(PopupMenuButton<GPMQuickNavItem>(
           itemBuilder: (BuildContext context) {
-            return items.map((Item item) {
+            return items.map((GPMQuickNavItem item) {
               int index = items.indexOf(item);
-              return PopupMenuItem<Item>(
+              return PopupMenuItem<GPMQuickNavItem>(
                 value: item,
                 child: ListTile(
                   leading: Icon(item.icon),
@@ -185,13 +177,13 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             }).toList();
           },
-          onSelected: (Item item) {
+          onSelected: (GPMQuickNavItem item) {
             int index = items.indexOf(item);
             setSelection(index);
           },
         ));
       } else {
-        _actions.addAll(items.map((Item item) {
+        _actions.addAll(items.map((GPMQuickNavItem item) {
           int index = items.indexOf(item);
           return FlatButton.icon(
             icon: Icon(item.icon, size: 18.0),
@@ -218,7 +210,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      key: _key4Scaffold,
+//      key: _key4Scaffold,
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.

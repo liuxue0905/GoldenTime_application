@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
-import './overlay_text.dart';
+import '../layout/overlay_text.dart';
 
-class RecordItem extends StatelessWidget {
-
-  RecordItem({
+class SJCardRecommended extends StatelessWidget {
+  SJCardRecommended({
     Key key,
     this.brightness = Brightness.light,
     this.url,
@@ -59,8 +58,11 @@ class RecordItem extends StatelessWidget {
                   ),
                   Positioned(
                     bottom: 8.0,
-                    child: OverlayText(
-                      text: tag != null ? tag : '-',
+                    child: Visibility(
+                      visible: tag?.isNotEmpty ?? false,
+                      child: OverlayText(
+                        text: tag ?? '',
+                      ),
                     ),
                   ),
                 ],

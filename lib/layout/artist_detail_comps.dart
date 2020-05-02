@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import './gpm-card-grid.dart';
 import './paginated_footer.dart';
-import './record_item.dart';
+import '../home/sj_card_recommended.dart';
 import '../api_service.dart';
 import '../forms.dart';
 import '../model/page_list.dart';
@@ -118,7 +118,7 @@ class ArtistCompsListState extends State<ArtistCompsList> {
 
     Widget _itemBuilder(BuildContext context, int index) {
       Record record = records[index];
-      return RecordItem(
+      return SJCardRecommended(
         brightness: Brightness.light,
         url: getRecordImage(record),
         title: record.title,

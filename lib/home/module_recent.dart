@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../layout/sj_scrolling_moudle.dart';
+import 'sj_scrolling_moudle.dart';
 import '../model/module.dart';
 
 class ModuleRecent extends StatelessWidget {

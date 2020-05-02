@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
-import '../model/record.dart';
+
 import '../layout/gpm-card-grid.dart';
-import '../layout/headline_header.dart';
-import '../layout/record_item_tall.dart';
-import '../layout/sj_scrolling_moudle.dart';
+import '../layout/gpm-headline-header.dart';
+import 'sj_card_hits.dart';
+import 'sj_scrolling_moudle.dart';
 import '../model/module.dart';
 import '../util.dart';
-import '../widget_util.dart';
 
-class ModuleRecommendedAlbums extends StatelessWidget {
+class ModuleHits extends StatelessWidget {
   final Brightness brightness;
-  final Module<Record> module;
+  final Module module;
 
-  ModuleRecommendedAlbums(
-      {Key key, this.brightness = Brightness.light, this.module})
+  ModuleHits({Key key, this.brightness = Brightness.light, this.module})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    int _crossAxisCount() {
+      return querySize<int>(context, {950: 2, 1250: 3, 1850: 4});
+    }
+
     return SJScrollingMoudle(
       moduleType: module.type,
       child: Column(
@@ -31,18 +33,14 @@ class ModuleRecommendedAlbums extends StatelessWidget {
             subtitle: module.reason,
           ),
           GPMCardGrid(
-            // 右 16， 上 24
-            crossAxisCount: 4,
-            mainAxisSpacing: isLargeScreen(context) ? 24 : 12,
+            crossAxisCount: _crossAxisCount(),
+            mainAxisSpacing: isLargeScreen(context) ? 16 : 8,
             crossAxisSpacing: isLargeScreen(context) ? 16 : 8,
             children: module.dataList
-                .map((Record e) => RecordItemTall(
-                      brightness: brightness,
-                      url: getRecordImage(e),
+                .map((e) => SJCardHits(
+                      image: e.image,
                       title: e.title,
-                      subtitle: getArtistsString(e.artists),
-                      description: '${e.songsCount}首',
-                      tag: e.getFormatText(),
+                      description: e.description,
                     ))
                 .toList(),
           ),

@@ -7,7 +7,7 @@ import '../model/page_list.dart';
 import '../model/song.dart';
 import '../util.dart';
 import '../widget_util.dart';
-import 'quick_nav_container.dart';
+import '../home/quick_nav_container.dart';
 
 class SongsPage extends StatefulWidget {
   final ValueChanged<int> onSelectionChanged;

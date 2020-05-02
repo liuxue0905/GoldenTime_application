@@ -8,6 +8,7 @@ import '../model/record.dart';
 import '../model/song.dart';
 import '../util.dart';
 import '../widget_util.dart';
+import 'image_gallery.dart';
 
 class RecordDetailPage extends StatefulWidget {
   final Record record;
@@ -88,6 +89,7 @@ class RecordDetial extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               header,
+              ImageGallery(),
               RecordSongs(
                 songs: record.songs,
               ),

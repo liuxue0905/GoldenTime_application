@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
-
+import 'sj_card_recommended.dart';
+import '../model/artist.dart';
 import '../layout/gpm-card-grid.dart';
-import '../layout/headline_header.dart';
-import '../layout/sj_card.dart';
-import '../layout/sj_scrolling_moudle.dart';
+import '../layout/gpm-headline-header.dart';
+import 'sj_scrolling_moudle.dart';
 import '../model/module.dart';
 import '../util.dart';
+import '../widget_util.dart';
 
-class ModuleHits extends StatelessWidget {
+class ModuleRecommendedArtists extends StatelessWidget {
   final Brightness brightness;
-  final Module module;
+  final Module<Artist> module;
 
-  ModuleHits({Key key, this.brightness = Brightness.light, this.module})
+  ModuleRecommendedArtists(
+      {Key key, this.brightness = Brightness.light, this.module})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    int _crossAxisCount() {
-      return querySize<int>(context, {950: 2, 1250: 3, 1850: 4});
-    }
-
     return SJScrollingMoudle(
       moduleType: module.type,
       child: Column(
@@ -33,14 +31,20 @@ class ModuleHits extends StatelessWidget {
             subtitle: module.reason,
           ),
           GPMCardGrid(
-            crossAxisCount: _crossAxisCount(),
-            mainAxisSpacing: isLargeScreen(context) ? 16 : 8,
+            // 右 16， 上 24
+            crossAxisCount: 4,
+            mainAxisSpacing: isLargeScreen(context) ? 24 : 12,
             crossAxisSpacing: isLargeScreen(context) ? 16 : 8,
             children: module.dataList
-                .map((e) => SJCard4(
-                      image: e.image,
-                      title: e.title,
-                      description: e.description,
+                .map((Artist e) => SJCardRecommended(
+                      brightness: brightness,
+                      url: getArtistImage(e),
+                      title: e.name,
+                      subtitle: '${e.recordsCount}张',
+                      tag: null,
+                      onTap: () {
+                        openArtist(context, e);
+                      },
                     ))
                 .toList(),
           ),
