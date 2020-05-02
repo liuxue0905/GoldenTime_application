@@ -152,9 +152,11 @@ class SongsListState extends State<SongsList> {
     List<Song> songs = widget.pageList.results;
 
     var _margin = EdgeInsets.fromLTRB(96, 32, 96, 32);
-    String deviceType = getDeviceType(context);
-    if (deviceType == 'xs' || deviceType == 'sm' || deviceType == 'md') {
-      _margin = EdgeInsets_fromLTRB(context, 'xl', 96, 32, 96, 32);
+    if (MediaQuery.of(context).size.width < 950) {
+      _margin = EdgeInsets_fromLTRB(context, 950, 96, 32, 96, 32);
+    }
+    if (MediaQuery.of(context).size.width < 450) {
+      _margin = EdgeInsets.fromLTRB(16, 16, 16, 16);
     }
 
     return Container(
@@ -200,15 +202,8 @@ class SongsListState extends State<SongsList> {
   }
 
   Widget buildDataTable(BuildContext context, List<Song> songs) {
-    double _columnSpacing = 56.0;
-
-    String deviceType = getDeviceType(context);
-    if (deviceType != 'xs') {
-      _columnSpacing = 16;
-    }
-
     Widget dataTable = DataTable(
-      columnSpacing: _columnSpacing,
+      columnSpacing: isLargeScreen(context) ? 16 : 56,
       columns: <DataColumn>[
         DataColumn(label: Text(""), numeric: false),
         DataColumn(label: Text("音乐标题")),
@@ -258,7 +253,7 @@ class SongsListState extends State<SongsList> {
       ),
     );
 
-    if (deviceType != 'xs') {
+    if (isLargeScreen(context)) {
       card = Card(
         child: dataTable,
       );

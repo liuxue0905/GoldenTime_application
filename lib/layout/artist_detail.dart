@@ -25,10 +25,6 @@ class ArtistDetailPage extends StatefulWidget {
 class _ArtistDetailPageState extends State<ArtistDetailPage> {
   @override
   Widget build(BuildContext context) {
-    ApiService.instance.fetchArtistRecords(widget.artist.id);
-    ApiService.instance.fetchArtistComps(widget.artist.id);
-    ApiService.instance.fetchArtistSongs(widget.artist.id);
-
     return Scaffold(
       appBar: AppBar(title: Text(widget.artist.name)),
       body: Container(
@@ -112,11 +108,9 @@ class _ArtistDetialState extends State<ArtistDetial> {
         brightness == Brightness.light ? Colors.white : Colors.black;
     Color _textColorUnselected = Colors.grey;
 
-    bool largeScreen = isLargeScreen(context);
-
     ArtistDetailHeader_swndp _header;
 
-    if (!largeScreen) {
+    if (!isLargeScreen(context)) {
       _header = ArtistDetailHeader_sw320dp(url: getArtistImage(artist), artist: artist,);
     } else {
       _header = ArtistDetailHeader_sw600dp(url: getArtistImage(artist), artist: artist,);

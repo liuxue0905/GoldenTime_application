@@ -189,9 +189,11 @@ class ArtistsListState extends State<ArtistsList> {
     }
 
     var _margin = EdgeInsets.fromLTRB(96, 32, 96, 32);
-    String deviceType = getDeviceType(context);
-    if (deviceType == 'xs' || deviceType == 'sm' || deviceType == 'md') {
-      _margin = EdgeInsets_fromLTRB(context, 'xl', 96, 32, 96, 32);
+    if (MediaQuery.of(context).size.width < 950) {
+      _margin = EdgeInsets_fromLTRB(context, 950, 96, 32, 96, 32);
+    }
+    if (MediaQuery.of(context).size.width < 450) {
+      _margin = EdgeInsets.fromLTRB(16, 16, 16, 16);
     }
 
     return Container(

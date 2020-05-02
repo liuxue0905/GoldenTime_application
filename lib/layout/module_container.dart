@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_golden_time/module/module_hits.dart';
+import 'package:flutter_app_golden_time/module/module_recent.dart';
+import 'package:flutter_app_golden_time/module/module_now.dart';
+import 'package:flutter_app_golden_time/module/module_recommended_albums.dart';
+import 'package:flutter_app_golden_time/module/module_recommended_artists.dart';
+import 'package:flutter_app_golden_time/module/module_top_albums.dart';
 import 'package:flutter_app_golden_time/util.dart';
 
 import '../model/hits.dart';
@@ -54,8 +60,8 @@ class ModuleContainerState extends State<ModuleContainer> {
       print('_controller.position = ${_controller.position}');
 
       _controller.position.isScrollingNotifier.addListener(() {
-        print(
-            'isScrollingNotifier listener position.isScrollingNotifier = ${_controller.position.isScrollingNotifier}');
+//        print(
+//            'isScrollingNotifier listener position.isScrollingNotifier = ${_controller.position.isScrollingNotifier}');
 
 //        _controller.position.isScrollingNotifier.value
       });
@@ -123,248 +129,6 @@ class ModuleContainerState extends State<ModuleContainer> {
     });
   }
 
-  Widget _buildSJScrollingMoudleHistory(BuildContext context, Key key) {
-    bool light = _brightness == Brightness.light;
-
-    return SJScrollingMoudle(
-      key: key,
-      clazz: 'mini',
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(bottom: 16.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  '最近活动',
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle1
-                      .apply(color: light ? Colors.black : Colors.white),
-                ),
-                Icon(Icons.chevron_right,
-                    color: light ? Colors.grey[900] : Colors.white),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSJScrollingMoudleNow(BuildContext context, Key key) {
-    String deviceType = getDeviceType(context);
-    int _crossAxisCount() {
-      if (deviceType == 'xs') {
-        return 1;
-      }
-      if (deviceType == 'xl') {
-        return 3;
-      }
-      return 2;
-    }
-
-    List<Module> _modules = modules;
-
-    if (_crossAxisCount() == 1) {
-      _modules = modules.sublist(0, 1);
-    } else if (_crossAxisCount() == 2) {
-      _modules = modules.sublist(0, 4);
-    } else if (_crossAxisCount() == 3) {
-      _modules = modules.sublist(0, 6);
-    }
-
-    return SJScrollingMoudle(
-      key: key,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          HeadlineHeader(
-            brightness: _brightness,
-            title: '今日推荐',
-            subtitle: null,
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Opacity(
-                opacity: 0.3,
-                child: RawMaterialButton(
-                  constraints: BoxConstraints.tightFor(
-                    width: 48.0,
-                    height: 48.0,
-                  ),
-                  onPressed: null,
-                  fillColor: Color.fromRGBO(0, 0, 0, 0.1),
-                  elevation: 0,
-                  shape: CircleBorder(),
-                  child: Icon(
-                    Icons.chevron_left,
-                    color: Color.fromRGBO(0, 0, 0, 0.54),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 16,
-              ),
-              Opacity(
-                opacity: 1.0,
-                child: RawMaterialButton(
-                  constraints: BoxConstraints.tightFor(
-                    width: 48.0,
-                    height: 48.0,
-                  ),
-                  onPressed: null,
-                  fillColor: Color.fromRGBO(0, 0, 0, 0.1),
-                  elevation: 0,
-                  shape: CircleBorder(),
-                  child: Icon(
-                    Icons.chevron_right,
-                    color: Color.fromRGBO(0, 0, 0, 0.54),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          GPMCardGrid(
-            // 右 0， 上 0
-            crossAxisCount: _crossAxisCount(),
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
-            children: _modules
-                .map((Module module) => ColoredNowCard(
-                      header: module.header,
-                      reason: module.reason,
-                      title: module.title,
-                      description: module.description,
-                      backgroundImage: module.backgroundImage,
-                      backgroundColor: module.backgroundColor,
-                      separatorColor: module.separatorColor ?? (getBrightness(module.backgroundColor) == Brightness.light ? Colors.grey[900] : Colors.white),
-                    ))
-                .toList(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSJScrollingMoudleRecommended(
-      BuildContext context, Key key, Module module) {
-    return SJScrollingMoudle(
-      key: key,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          HeadlineHeader(
-            brightness: _brightness,
-            title: module.header,
-            subtitle: module.reason,
-          ),
-          GPMCardGrid(
-            // 右 16， 上 24
-            crossAxisCount: 4,
-            mainAxisSpacing: 24,
-            crossAxisSpacing: 16,
-            children: module.dataList
-                .map((e) => RecordItemTall(
-                      brightness: _brightness,
-                      url: getRecordImage(e),
-                      title: e.title,
-                      subtitle: getArtistsString(e.artists),
-                      description: '${e.songsCount}首',
-                      tag: e.getFormatText(),
-                    ))
-                .toList(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSJScrollingMoudleTop(
-      BuildContext context, Key key, Module module) {
-    return SJScrollingMoudle(
-      key: key,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          HeadlineHeader(
-            brightness: _brightness,
-            title: module.header,
-            subtitle: module.reason,
-          ),
-          GPMCardGrid(
-            // 右 16， 上 24
-            crossAxisCount: 5,
-            mainAxisSpacing: 24,
-            crossAxisSpacing: 16,
-            children: module.dataList
-                .map((e) => RecordItem(
-                      brightness: _brightness,
-                      url: getRecordImage(e),
-                      title: e.title,
-                      subtitle: getArtistsString(e.artists),
-                      tag: e.getFormatText(),
-                    ))
-                .toList(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSJScrollingMoudleHits(
-      BuildContext context, Key key, Module<Hits> module) {
-    int _crossAxisCount() {
-      if (getDeviceType(context) == 'xl') {
-        return 3;
-      }
-      return 2;
-    }
-
-    return SJScrollingMoudle(
-      key: key,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          HeadlineHeader(
-            brightness: _brightness,
-            title: module.header,
-            subtitle: module.reason,
-          ),
-          GPMCardGrid(
-            crossAxisCount: _crossAxisCount(),
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
-            children: module.dataList
-                .map((e) => SJCard4(
-                      image: e.image,
-                      title: e.title,
-                      description: e.description,
-                    ))
-                .toList(),
-          ),
-        ],
-      ),
-    );
-  }
-
   List<Widget> _buildSJScrollingMoudles(BuildContext context) {
     return modules.map((Module e) {
       GlobalKey key = GlobalKey();
@@ -374,29 +138,73 @@ class ModuleContainerState extends State<ModuleContainer> {
   }
 
   Widget _buildSJScrollingMoudle(BuildContext context, Key key, Module module) {
-    if (module.type == 'recommended') {
-      return _buildSJScrollingMoudleRecommended(context, key, module);
+    if (module.type == Module.MODULE_TOKEN_RECOMMENDED_ALBUMS) {
+      return ModuleRecommendedAlbums(
+        key: key,
+        brightness: _brightness,
+        module: module,
+      );
     }
-    if (module.type == 'top') {
-      return _buildSJScrollingMoudleTop(context, key, module);
+    if (module.type == Module.MODULE_TOKEN_RECOMMENDED_ARTISTS) {
+      return ModuleRecommendedArtists(
+        key: key,
+        brightness: _brightness,
+        module: module,
+      );
     }
-    if (module.type == 'hits') {
-      return _buildSJScrollingMoudleHits(context, key, module);
+    if (module.type == Module.MODULE_TOKEN_TOP_ALBUMS) {
+      return ModuleTopAlbums(
+        key: key,
+        brightness: _brightness,
+        module: module,
+      );
+    }
+    if (module.type == Module.MODULE_TOKEN_HITS) {
+      return ModuleHits(
+        key: key,
+        brightness: _brightness,
+        module: module,
+      );
     }
     return null;
   }
 
   List<Widget> _build(BuildContext context) {
+//    // now
+////    querySize<int>(context, {1400: 3});
+//    querySize<int>(context, {1250: 2, 1400: 3});
+//    // rec
+//    querySize<int>(context, {1250: 4, 1850: 5});
+//    // top
+//    querySize<int>(context, {1250: 5, 1850: 6});
+//    // hit
+////    querySize<int>(context, {1250: 3, 1850: 4});
+//    querySize<int>(context, {950: 2, 1250: 3, 1850: 4});
+//
+//    // sj_scrolling_moudle top
+////    querySize<double>(context, {1250: 116, 1400: 152});
+//    querySize<double>(context, {950: 88, 1250: 116, 1400: 152});
+//    // sj_scrolling_moudle width
+////    querySize<double>(context, {1250: 884, 1400: 1002});
+//    querySize<double>(context, {950: 704, 1250: 884, 1400: 1002});
+
     List<Widget> children = [];
     keys = [];
 
     GlobalKey keyHistory = GlobalKey();
     keys.add(keyHistory);
-    children.add(_buildSJScrollingMoudleHistory(context, keyHistory));
+    children.add(ModuleRecent(
+      key: keyHistory,
+      brightness: _brightness,
+    ));
 
     GlobalKey keyNow = GlobalKey();
     keys.add(keyNow);
-    children.add(_buildSJScrollingMoudleNow(context, keyNow));
+    children.add(ModuleNow(
+      key: keyNow,
+      brightness: _brightness,
+      modules: modules,
+    ));
 
     children.addAll(_buildSJScrollingMoudles(context));
 

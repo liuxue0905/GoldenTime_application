@@ -14,19 +14,20 @@ class HeadlineHeader extends StatelessWidget {
   final String title;
   String subtitle;
 
-  factory HeadlineHeader.forDesignTime() {
-    return HeadlineHeader(
-      title: 'Top Albums',
-      subtitle:
-          'Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week Popular this week',
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final bool dark = brightness == Brightness.dark;
 
+    EdgeInsets _margin() {
+      EdgeInsets edgeInsets = EdgeInsets.only(bottom: 32);
+      if (MediaQuery.of(context).size.width < 450) {
+        edgeInsets = EdgeInsets_only(context, 950, bottom: 32);
+      }
+      return edgeInsets;
+    }
+
     return Container(
+      margin: _margin(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

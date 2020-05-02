@@ -111,7 +111,10 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
-    ApiService service = ApiService("http://liujin.jios.org:8888/api/");
+    // "http://liujin.jios.org:8888/api/"
+
+    ApiService service = ApiService(host: 'liujin.jios.org', port: 8888);
+//    ApiService service = ApiService(host: '127.0.0.1', port: 8888);
     ApiService.instance = service;
   }
 

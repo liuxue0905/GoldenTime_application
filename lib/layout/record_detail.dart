@@ -23,16 +23,6 @@ class RecordDetailPage extends StatefulWidget {
 class _RecordDetailPageState extends State<RecordDetailPage> {
   @override
   Widget build(BuildContext context) {
-    bool largeScreen = isLargeScreen(context);
-    String deviceType = getDeviceType(context);
-
-//    /// xl
-//    double imageWidth = 180;
-
-    double scale = getScale(context, 'xl');
-
-    print('scale: $scale');
-
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -62,11 +52,9 @@ class RecordDetial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool largeScreen = isLargeScreen(context);
-
     SwNdpRecordDetailHeaderContainer header;
 
-    header = !largeScreen
+    header = !isLargeScreen(context)
         ? Sw320dpRecordDetailHeaderContainer(
             url: getRecordImage(record),
             title: record.title,
@@ -81,9 +69,11 @@ class RecordDetial extends StatelessWidget {
           );
 
     var _margin = EdgeInsets.fromLTRB(96, 32, 96, 32);
-    String deviceType = getDeviceType(context);
-    if (deviceType == 'xs' || deviceType == 'sm' || deviceType == 'md') {
-      _margin = EdgeInsets_fromLTRB(context, 'xl', 96, 32, 96, 32);
+    if (MediaQuery.of(context).size.width < 950) {
+      _margin = EdgeInsets_fromLTRB(context, 950, 96, 32, 96, 32);
+    }
+    if (!isLargeScreen(context)) {
+      _margin = EdgeInsets.fromLTRB(16, 16, 16, 16);
     }
 
     return Container(
@@ -161,9 +151,7 @@ class _RecordSongsState extends State<RecordSongs> {
       ),
     );
 
-    String deviceType = getDeviceType(context);
-
-    if (deviceType != 'xs') {
+    if (!isLargeScreen(context)) {
       _card = Card(
         semanticContainer: false,
         child: _dataTable,

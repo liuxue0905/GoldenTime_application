@@ -5,6 +5,16 @@ import 'hits.dart';
 import 'record.dart';
 
 class Module<T> {
+  static final String MODULE_TOKEN_RECENT = "CLIENT_SIDE_RECENTS";
+  static final String MODULE_TOKEN_NOW = "NOW";
+
+  static final String MODULE_TOKEN_TOP_ALBUMS = "TOP_ALBUMS";
+  static final String MODULE_TOKEN_RECOMMENDED_ALBUMS = 'RECOMMENDED_ALBUMS';
+  static final String MODULE_TOKEN_RECOMMENDED_ARTISTS = 'RECOMMENDED_ARTISTS';
+  static final String MODULE_TOKEN_HITS = 'HITS';
+
+  // Recommended new releases
+
   final String type;
 
   final String header;
@@ -36,7 +46,7 @@ class Module<T> {
 
 List<Module> modules = [
   Module<Record>(
-    type: 'recommended',
+    type: Module.MODULE_TOKEN_RECOMMENDED_ALBUMS,
     header: 'Recommended new releases',
     reason: null,
     title: 'New Release Radio',
@@ -89,7 +99,7 @@ List<Module> modules = [
     ],
   ),
   Module<Record>(
-    type: 'top',
+    type: Module.MODULE_TOKEN_TOP_ALBUMS,
     header: 'Top Albums',
     reason: 'Popular this week',
     title: 'BLAME IT ON BABY',
@@ -152,7 +162,7 @@ List<Module> modules = [
     ],
   ),
   Module<Hits>(
-    type: 'hits',
+    type: Module.MODULE_TOKEN_HITS,
     header: 'Romantic moods',
     reason: null,
     title: 'Sweetheart Pop',
@@ -186,7 +196,7 @@ List<Module> modules = [
     ],
   ),
   Module<Hits>(
-    type: 'hits',
+    type: Module.MODULE_TOKEN_HITS,
     header: 'Feel-good favorites',
     reason: null,
     title: 'Cloud Nine R&B',
@@ -220,7 +230,7 @@ List<Module> modules = [
     ],
   ),
   Module<Hits>(
-    type: 'hits',
+    type: Module.MODULE_TOKEN_HITS,
     header: 'All the feelings',
     reason: null,
     title: 'All-Night Goth Pop',
@@ -254,7 +264,7 @@ List<Module> modules = [
     ],
   ),
   Module<Hits>(
-    type: 'hits',
+    type: Module.MODULE_TOKEN_HITS,
     header: 'Throwback jams',
     reason: null,
     title: '\'00s Biggest Hits',
@@ -288,7 +298,7 @@ List<Module> modules = [
     ],
   ),
   Module<Hits>(
-    type: 'hits',
+    type: Module.MODULE_TOKEN_HITS,
     header: 'Mellow moods',
     reason: null,
     title: 'Acoustic Campfire',
@@ -322,7 +332,7 @@ List<Module> modules = [
     ],
   ),
   Module<Hits>(
-    type: 'hits',
+    type: Module.MODULE_TOKEN_HITS,
     header: 'Today\'s biggest hits',
     reason: null,
     title: 'Teen Pop Today',

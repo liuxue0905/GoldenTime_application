@@ -112,8 +112,6 @@ class ArtistSongsListState extends State<ArtistSongsList> {
   Widget build(BuildContext context) {
     List<Song> songs = widget.pageList.results;
 
-    String deviceType = getDeviceType(context);
-
     var empty = Center(
       child: Text('no records'),
     );
@@ -160,7 +158,7 @@ class ArtistSongsListState extends State<ArtistSongsList> {
       ),
     );
 
-    if (deviceType != 'xs') {
+    if (isLargeScreen(context)) {
       list = Card(
         semanticContainer: false,
         child: _dataTable,

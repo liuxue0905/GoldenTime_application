@@ -95,9 +95,9 @@ class _BackgroundContainerState extends State<BackgroundContainer> {
             Align(
               alignment: Alignment.topRight,
               child: Container(
-                width: (MediaQuery.of(context).size.width / 100 * 60)
+                width: (60 * MediaQuery.of(context).size.width / 100)
                     .roundToDouble(),
-                height: (MediaQuery.of(context).size.width / 100 * 30)
+                height: (30 * MediaQuery.of(context).size.width / 100)
                     .roundToDouble(),
                 child: Stack(
                   children: <Widget>[
@@ -112,7 +112,7 @@ class _BackgroundContainerState extends State<BackgroundContainer> {
 //                          ),
                             child: Image.network(
                               widget.backgroundImages[widget.selection] ?? '',
-                              fit: BoxFit.fill,
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ],
