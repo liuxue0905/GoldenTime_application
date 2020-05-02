@@ -30,11 +30,9 @@ class Sw320dpRecordDetailHeaderContainer
 
   @override
   Widget build(BuildContext context) {
-    double scale = getScale(context, 'xl');
-
     Widget adUnitSide = Container(
-      width: getSize(context, 300, 'xl'),
-      height: 250,
+      width: scaleSize(context, 1850, 300),
+      height: scaleSize(context, 1850, 250),
     );
 
     var _titleTextColor = Color.fromRGBO(0, 0, 0, 0.87);

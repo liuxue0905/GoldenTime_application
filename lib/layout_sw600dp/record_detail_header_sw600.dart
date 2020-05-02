@@ -19,22 +19,12 @@ class Sw600dpRecordDetailHeaderContainer
     Record record,
   }) : super(record: record);
 
-  factory Sw600dpRecordDetailHeaderContainer.forDesignTime() {
-    // TODO: add arguments
-    return new Sw600dpRecordDetailHeaderContainer(
-      url: "https://www.baidu.com/img/bd_logo1.png?where=super",
-      title: "title",
-      subtitle: "subtitle",
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    double scale = getScale(context, 'xl');
-
     Widget adUnitSide = Container(
-      width: getSize(context, 300, 'xl'),
-      height: 250,
+      color: Colors.green,
+      width: scaleSize(context, 1850, 300),
+      height: scaleSize(context, 1850, 250),
     );
 
     var _titleTextColor = Color.fromRGBO(0, 0, 0, 0.87);
@@ -57,7 +47,8 @@ class Sw600dpRecordDetailHeaderContainer
     );
 
     return Container(
-      margin: EdgeInsets.only(top: 64 * scale, bottom: 44 * scale),
+//      margin: EdgeInsets.only(top: 64, bottom: 44),
+      margin: EdgeInsets.only(top: 0, bottom: 44),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

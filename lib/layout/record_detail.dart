@@ -69,16 +69,19 @@ class RecordDetial extends StatelessWidget {
           );
 
     var _margin = EdgeInsets.fromLTRB(96, 32, 96, 32);
+    print('abcdefg MediaQuery.of(context).size.width:${MediaQuery.of(context).size.width}');
     if (MediaQuery.of(context).size.width < 950) {
       _margin = EdgeInsets_fromLTRB(context, 950, 96, 32, 96, 32);
+      print('abcdefg _margin:${_margin}');
     }
     if (!isLargeScreen(context)) {
-      _margin = EdgeInsets.fromLTRB(16, 16, 16, 16);
+      _margin = EdgeInsets.fromLTRB(0, 0, 0, 0);
     }
 
     return Container(
       child: SingleChildScrollView(
         child: Container(
+          color: Colors.yellow,
           margin: _margin,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -143,18 +146,21 @@ class _RecordSongsState extends State<RecordSongs> {
         );
       }).toList(),
     );
-    var _card = Card(
-      semanticContainer: false,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: _dataTable,
-      ),
-    );
 
-    if (!isLargeScreen(context)) {
+    Widget _card;
+
+    if (isLargeScreen(context)) {
       _card = Card(
         semanticContainer: false,
         child: _dataTable,
+      );
+    } else {
+      _card = Card(
+        semanticContainer: false,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: _dataTable,
+        ),
       );
     }
 

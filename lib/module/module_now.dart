@@ -94,8 +94,8 @@ class ModuleNow extends StatelessWidget {
           GPMCardGrid(
             // 右 0， 上 0
             crossAxisCount: _crossAxisCount(),
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
+            mainAxisSpacing: isLargeScreen(context) ? 16 : 8,
+            crossAxisSpacing: isLargeScreen(context) ? 16 : 8,
             children: _modules
                 .map((Module module) => ColoredNowCard(
                       header: module.header,

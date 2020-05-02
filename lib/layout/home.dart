@@ -100,8 +100,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double scale = getScale(context, 'xl');
-
     return Container(
       child: Stack(
         children: <Widget>[
@@ -138,7 +136,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Positioned(
             top: 0,
-            right: 36.0 * scale,
+            right: 36.0,
             child: PageIndicatorContainer(
               count: modules.length,
               selection: _selection,

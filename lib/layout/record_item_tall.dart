@@ -12,10 +12,6 @@ class RecordItemTall extends StatelessWidget {
   final String tag;
   final GestureTapCallback onTap;
 
-//  RecordItemTall(Record record) {
-//
-//  }
-
   RecordItemTall(
       {Key key,
       this.brightness = Brightness.dark,

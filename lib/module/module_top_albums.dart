@@ -5,6 +5,7 @@ import '../layout/record_item.dart';
 import '../layout/sj_scrolling_moudle.dart';
 import '../model/module.dart';
 
+import '../util.dart';
 import '../widget_util.dart';
 
 class ModuleTopAlbums extends StatelessWidget {
@@ -31,8 +32,8 @@ class ModuleTopAlbums extends StatelessWidget {
           GPMCardGrid(
             // 右 16， 上 24
             crossAxisCount: 5,
-            mainAxisSpacing: 24,
-            crossAxisSpacing: 16,
+            mainAxisSpacing: isLargeScreen(context) ? 24 : 12,
+            crossAxisSpacing: isLargeScreen(context) ? 16 : 8,
             children: module.dataList
                 .map((e) => RecordItem(
                       brightness: brightness,

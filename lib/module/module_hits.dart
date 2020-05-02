@@ -34,8 +34,8 @@ class ModuleHits extends StatelessWidget {
           ),
           GPMCardGrid(
             crossAxisCount: _crossAxisCount(),
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
+            mainAxisSpacing: isLargeScreen(context) ? 16 : 8,
+            crossAxisSpacing: isLargeScreen(context) ? 16 : 8,
             children: module.dataList
                 .map((e) => SJCard4(
                       image: e.image,

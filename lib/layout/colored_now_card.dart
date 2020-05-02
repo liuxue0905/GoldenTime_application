@@ -23,8 +23,6 @@ class ColoredNowCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double scale = getScale(context, 'xl');
-
     Brightness brightness = getBrightness(backgroundColor);
 
     bool light = brightness == Brightness.light;
@@ -113,7 +111,7 @@ class ColoredNowCard extends StatelessWidget {
                     visible: title?.isNotEmpty ?? false,
                     child: Container(
                       margin: EdgeInsets.only(bottom: 4),
-                      padding: EdgeInsets.only(right: 64 * scale),
+                      padding: isLargeScreen(context) ? EdgeInsets.only(right: 64) : EdgeInsets_only(context, 950, right: 64),
                       child: Text(
                         title ?? '',
                         maxLines: 1,
@@ -131,7 +129,7 @@ class ColoredNowCard extends StatelessWidget {
                   Visibility(
                     visible: description?.isNotEmpty ?? false,
                     child: Container(
-                      padding: EdgeInsets.only(right: 64 * scale),
+                      padding: isLargeScreen(context) ? EdgeInsets.only(right: 64) : EdgeInsets_only(context, 950, right: 64),
                       child: Text(
                         description ?? '',
                         maxLines: 2,
