@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../models.dart';
 import './artist_detail.dart';
 import './artist_item.dart';
 import './gpm-card-grid.dart';
@@ -13,9 +14,10 @@ import '../widget_util.dart';
 import '../home/quick_nav_container.dart';
 
 class ArtistsPage extends StatefulWidget {
+  final List<GPMQuickNavItem> gpmQuickNavItems;
   final ValueChanged<int> onSelectionChanged;
 
-  ArtistsPage({this.onSelectionChanged});
+  ArtistsPage({this.gpmQuickNavItems, this.onSelectionChanged});
 
   @override
   State<StatefulWidget> createState() {
@@ -120,6 +122,7 @@ class _ArtistsPageState extends State<ArtistsPage> {
             bottom: 0,
             child: QuickNavContainer(
               brightness: Brightness.light,
+              items: widget.gpmQuickNavItems,
               selection: 2,
               onSelectionChanged: (int position) {
                 if (widget.onSelectionChanged != null) {

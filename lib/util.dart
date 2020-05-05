@@ -78,15 +78,7 @@ T querySize<T>(BuildContext context, Map<double, T> parameters,
     return null;
   }
 
-  if (debug) {
-    print('querySize parameters.keys:${parameters.keys}');
-  }
-
   List<double> keys = parameters.keys.toList()..sort();
-
-  if (debug) {
-    print('querySize keys:${keys}');
-  }
 
   Size screenSize = MediaQuery.of(context).size;
   double axisSize = screenSize.width;
@@ -94,10 +86,6 @@ T querySize<T>(BuildContext context, Map<double, T> parameters,
     axisSize = screenSize.width;
   } else if (axis == Axis.vertical) {
     axisSize = screenSize.height;
-  }
-
-  if (debug) {
-    print('querySize screenSize:${screenSize}');
   }
 
   T result;
@@ -110,6 +98,9 @@ T querySize<T>(BuildContext context, Map<double, T> parameters,
     }
   }
   if (debug) {
+    print('querySize parameters.keys:${parameters.keys}');
+    print('querySize keys:${keys}');
+    print('querySize screenSize:${screenSize}');
     print('querySize result:${result}');
   }
   return result;

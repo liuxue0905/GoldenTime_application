@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../models.dart';
 import './gpm-card-grid.dart';
 import '../home/sj_card_recommended_tall.dart';
 import '../api_service.dart';
@@ -12,9 +13,10 @@ import '../widget_util.dart';
 import '../home/quick_nav_container.dart';
 
 class RecordsPage extends StatefulWidget {
+  final List<GPMQuickNavItem> gpmQuickNavItems;
   final ValueChanged<int> onSelectionChanged;
 
-  RecordsPage({this.onSelectionChanged});
+  RecordsPage({this.gpmQuickNavItems, this.onSelectionChanged});
 
   @override
   State<StatefulWidget> createState() {
@@ -124,6 +126,7 @@ class _RecordsPageState extends State<RecordsPage> {
               bottom: 0,
               child: QuickNavContainer(
                 brightness: Brightness.light,
+                items: widget.gpmQuickNavItems,
                 selection: 1,
                 onSelectionChanged: (int position) {
                   if (widget.onSelectionChanged != null) {

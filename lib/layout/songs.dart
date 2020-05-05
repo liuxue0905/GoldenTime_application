@@ -5,14 +5,16 @@ import '../forms.dart';
 import '../layout/paginated_footer.dart';
 import '../model/page_list.dart';
 import '../model/song.dart';
+import '../models.dart';
 import '../util.dart';
 import '../widget_util.dart';
 import '../home/quick_nav_container.dart';
 
 class SongsPage extends StatefulWidget {
+  final List<GPMQuickNavItem> gpmQuickNavItems;
   final ValueChanged<int> onSelectionChanged;
 
-  SongsPage({this.onSelectionChanged});
+  SongsPage({this.gpmQuickNavItems, this.onSelectionChanged});
 
   @override
   State<StatefulWidget> createState() {
@@ -107,6 +109,7 @@ class SongsPageState extends State<SongsPage> {
             bottom: 0,
             child: QuickNavContainer(
               brightness: Brightness.light,
+              items: widget.gpmQuickNavItems,
               selection: 3,
               onSelectionChanged: (int position) {
                 if (widget.onSelectionChanged != null) {

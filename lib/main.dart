@@ -85,18 +85,21 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     } else if (_selection == 1) {
       child = RecordsPage(
+        gpmQuickNavItems: items,
         onSelectionChanged: (int selection) {
           setSelection(selection);
         },
       );
     } else if (_selection == 2) {
       child = ArtistsPage(
+        gpmQuickNavItems: items,
         onSelectionChanged: (int selection) {
           setSelection(selection);
         },
       );
     } else if (_selection == 3) {
       child = SongsPage(
+        gpmQuickNavItems: items,
         onSelectionChanged: (int selection) {
           setSelection(selection);
         },
