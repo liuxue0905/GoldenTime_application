@@ -115,13 +115,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // "http://liujin.jios.org:8888/api/"
 
-    ApiService service = ApiService(host: 'liujin.jios.org', port: 8888);
+//    ApiService service = ApiService(host: 'liujin.jios.org', port: 8888);
 //    ApiService service = ApiService(host: '127.0.0.1', port: 8888);
+    ApiService service = ApiService(host: '192.168.20.172', port: 8888);
     ApiService.instance = service;
   }
 
   @override
   Widget build(BuildContext context) {
+
+    //    MediaQuery.of(context).size;
+    //    MediaQuery.of(context).devicePixelRatio;
+    print('MediaQuery.of(context).size=${MediaQuery.of(context).size}');
+    print('MediaQuery.of(context).devicePixelRatio=${MediaQuery.of(context).devicePixelRatio}');
+
     List<Widget> buildListTiles(List<GPMQuickNavItem> items) {
       List<Widget> children = items.map<Widget>((GPMQuickNavItem item) {
         int index = items.indexOf(item);

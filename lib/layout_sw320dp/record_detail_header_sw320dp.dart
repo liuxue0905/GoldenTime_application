@@ -82,7 +82,7 @@ class Sw320dpRecordDetailHeaderContainer
                 margin: EdgeInsets.only(bottom: 4),
                 child: Text(
                   record.number,
-                  style: Theme.of(context).textTheme.body1.apply(
+                  style: Theme.of(context).textTheme.bodyText1.apply(
                         color: _subtitleTextColor,
 //                          height: 20 / 14,
                       ),
@@ -92,7 +92,7 @@ class Sw320dpRecordDetailHeaderContainer
                 margin: EdgeInsets.only(bottom: 4),
                 child: Text(
                   record.year,
-                  style: Theme.of(context).textTheme.body1.apply(
+                  style: Theme.of(context).textTheme.bodyText2.apply(
                         color: _subtitleTextColor,
 //                          height: 20 / 14,
                       ),
@@ -110,7 +110,7 @@ class Sw320dpRecordDetailHeaderContainer
               Container(
                 child: Text(
                   record.company.name,
-                  style: Theme.of(context).textTheme.body1.apply(
+                  style: Theme.of(context).textTheme.bodyText2.apply(
                         color: _subtitleTextColor,
 //                          height: 20 / 14,
                       ),

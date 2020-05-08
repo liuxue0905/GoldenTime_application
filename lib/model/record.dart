@@ -56,24 +56,32 @@ class Record {
   @JsonKey(name: 'songs')
   List<Song> songs;
 
+  @JsonKey(name: 'songs_count')
   int songsCount;
 
-  Record(
-      {this.id,
-      this.title,
-      this.number,
-      this.format,
-      this.releaseDetail,
-      this.releaseOrder,
-      this.producer,
-      this.recorder,
-      this.mixer,
-      this.bandsman,
-      this.description,
-      this.artists,
-      this.company,
-      this.songs,
-      this.songsCount});
+  @JsonKey(name: 'cover')
+  String cover;
+
+  @JsonKey(name: 'image_list')
+  List<String> imageList;
+
+  Record({
+    this.id,
+    this.title,
+    this.number,
+    this.format,
+    this.releaseDetail,
+    this.releaseOrder,
+    this.producer,
+    this.recorder,
+    this.mixer,
+    this.bandsman,
+    this.description,
+    this.artists,
+    this.company,
+    this.songs,
+    this.songsCount,
+  });
 
   String getFormatText() {
     switch (this.format) {
@@ -107,19 +115,12 @@ class Record {
     return null;
   }
 
-
   @override
   String toString() {
-    return 'Record{id: $id, title: $title, number: $number, format: $format, year: $year, releaseDetail: $releaseDetail, releaseOrder: $releaseOrder, producer: $producer, recorder: $recorder, mixer: $mixer, bandsman: $bandsman, description: $description, artists: $artists, company: $company, songs: $songs}';
+    return 'Record{id: $id, title: $title, number: $number, format: $format, year: $year, releaseDetail: $releaseDetail, releaseOrder: $releaseOrder, producer: $producer, recorder: $recorder, mixer: $mixer, bandsman: $bandsman, description: $description, artists: $artists, company: $company, songs: $songs, cover: $cover, imageList: $imageList}';
   }
 
   factory Record.fromJson(Map<String, dynamic> json) => _$RecordFromJson(json);
 
   Map<String, dynamic> toJson() => _$RecordToJson(this);
-
-//  String subtitle =
-//      'Hear songs by Khalid, Post Malone, Bazzi, Billie Eilish, and more. Hear songs by Khalid, Post Malone, Bazzi, Billie Eilish, and more. Hear songs by Khalid, Post Malone, Bazzi, Billie Eilish, and more.';
-//  String url =
-//      'https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946';
-
 }

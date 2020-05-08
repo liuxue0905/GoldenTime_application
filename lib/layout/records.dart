@@ -203,7 +203,7 @@ class _RecordsListState extends State<RecordsList> {
 
       return SJCardRecommendedTall(
         brightness: Brightness.light,
-        url: getRecordImage(record),
+        url: getRecordCover(record, size: 160 * MediaQuery.of(context).devicePixelRatio),
         title: record.title,
         subtitle: getArtistsString(record.artists),
         description: record.year + ' • ' + record.songs.length.toString() + "首",

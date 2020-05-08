@@ -10,6 +10,10 @@ class ArtistBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    print('ArtistBar build');
+    print('ArtistBar build artists=$artists');
+
     return Container(
       padding: EdgeInsets.all(0.0),
       child: Wrap(
@@ -30,7 +34,7 @@ class ArtistBar extends StatelessWidget {
                           backgroundImage: AssetImage('images/default_album.jpg'),
                         ),
                         CircleAvatar(
-                          backgroundImage: NetworkImage(getArtistImage(artist)),
+                          backgroundImage: NetworkImage(getArtistCover(artist, size: 40)),
                         ),
                       ],
                     ),

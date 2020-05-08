@@ -111,9 +111,9 @@ class _ArtistDetialState extends State<ArtistDetial> {
     ArtistDetailHeader_swndp _header;
 
     if (!isLargeScreen(context)) {
-      _header = ArtistDetailHeader_sw320dp(url: getArtistImage(artist), artist: artist,);
+      _header = ArtistDetailHeader_sw320dp(url: getArtistCover(artist, size: 320 * MediaQuery.of(context).devicePixelRatio), artist: artist,);
     } else {
-      _header = ArtistDetailHeader_sw600dp(url: getArtistImage(artist), artist: artist,);
+      _header = ArtistDetailHeader_sw600dp(url: getArtistCover(artist, size: 240 * MediaQuery.of(context).devicePixelRatio), artist: artist,);
     }
 
     return SingleChildScrollView(

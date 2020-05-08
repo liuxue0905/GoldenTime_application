@@ -177,7 +177,7 @@ class ArtistsListState extends State<ArtistsList> {
     Widget _itemBuilder(BuildContext context, int index) {
       Artist artist = artists[index];
       return ArtistItem(
-        url: getArtistImage(artist),
+        url: getArtistCover(artist, size: 160 * MediaQuery.of(context).devicePixelRatio),
         title: artist.name,
         tag: artist.getTypeText() ?? '-',
         onTap: () {

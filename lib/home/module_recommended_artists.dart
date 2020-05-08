@@ -38,7 +38,7 @@ class ModuleRecommendedArtists extends StatelessWidget {
             children: module.dataList
                 .map((Artist e) => SJCardRecommended(
                       brightness: brightness,
-                      url: getArtistImage(e),
+                      url: getArtistCover(e, size: 80),
                       title: e.name,
                       subtitle: '${e.recordsCount}张',
                       tag: null,

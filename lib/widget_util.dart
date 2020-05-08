@@ -120,7 +120,7 @@ void showDialogArtists(BuildContext context, List<Artist> artists) {
               ),
               CircleAvatar(
                 backgroundImage: NetworkImage(
-                  getArtistImage(artist),
+                  getArtistCover(artist, size: 40),
                 ),
               ),
             ],
@@ -203,28 +203,31 @@ class FutureErrorWidget extends StatelessWidget {
   }
 }
 
-String getRecordImage(Record record) {
-  List<String> urls = [
-    "http://p1.music.126.net/x1ftKvF4KL_Jfn-Ti7f9eA==/18351948579947747.jpg?param=120y120",
-    "https://p1.music.126.net/_aDUl2D0Z8YACL2fLZOvXg==/569547023195052.jpg?param=177y177",
-    "https://www.baidu.com/img/bd_logo1.png?where=super",
-    "https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946",
-  ];
-
-  var random = new Random();
-
-  return urls[random.nextInt(urls.length)];
+String getArtistCover(Artist artist, {double size, String def = ''}) {
+  return _getImageUrl(artist.cover, size: size?.toInt()) ?? def;
 }
 
-String getArtistImage(Artist artist) {
-  List<String> urls = [
-    "http://p1.music.126.net/x1ftKvF4KL_Jfn-Ti7f9eA==/18351948579947747.jpg?param=120y120",
-    "https://p1.music.126.net/_aDUl2D0Z8YACL2fLZOvXg==/569547023195052.jpg?param=177y177",
-    "https://www.baidu.com/img/bd_logo1.png?where=super",
-    "https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946",
-  ];
+String getRecordCover(Record record, {double size, String def = ''}) {
+  return _getImageUrl(record.cover, size: size?.toInt()) ?? def;
+}
 
-  var random = new Random();
+String _getImageUrl(String url, {int size}) {
+  print('_getImageUrl() url=${url}');
+  try {
+    Uri uri = Uri.parse(url);
+    print('_getImageUrl() uri=${uri}');
 
-  return urls[random.nextInt(urls.length)];
+    Map<String, String> queryParameters = Map.from(uri.queryParameters);
+    print('_getImageUrl() queryParameters=${queryParameters}');
+    if (size != null) {
+        queryParameters['size'] = size.toString();
+      }
+
+    uri = uri.replace(queryParameters: queryParameters);
+    print('_getImageUrl() uri1=${uri}');
+    return uri.toString();
+  } catch (e) {
+//    print(e);
+  }
+  return null;
 }

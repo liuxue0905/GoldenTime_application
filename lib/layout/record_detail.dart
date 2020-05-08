@@ -57,13 +57,13 @@ class RecordDetial extends StatelessWidget {
 
     header = !isLargeScreen(context)
         ? Sw320dpRecordDetailHeaderContainer(
-            url: getRecordImage(record),
+            url: getRecordCover(record, size: 320),
             title: record.title,
             subtitle: record.number,
             record: record,
           )
         : Sw600dpRecordDetailHeaderContainer(
-            url: getRecordImage(record),
+            url: getRecordCover(record, size: 240),
             title: record.title,
             subtitle: record.number,
             record: record,

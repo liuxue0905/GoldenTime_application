@@ -4,7 +4,6 @@ part 'artist.g.dart';
 
 @JsonSerializable()
 class Artist {
-
   @JsonKey(name: 'id')
   int id;
 
@@ -22,10 +21,24 @@ class Artist {
   // songs_count
   int songsCount;
 
-  Artist({this.id, this.name, this.type, this.recordsCount, this.songsCount});
+  @JsonKey(name: 'cover')
+  String cover;
+
+  @JsonKey(name: 'image_list')
+  List<String> imageList;
+
+  Artist({
+    this.id,
+    this.name,
+    this.type,
+    this.recordsCount,
+    this.songsCount,
+    this.cover,
+    this.imageList,
+  });
 
   String getTypeText() {
-    switch(this.type) {
+    switch (this.type) {
       case 1:
         return "男歌手";
       case 0:
@@ -39,7 +52,7 @@ class Artist {
   }
 
   static String getTypeTextStatic(int type) {
-    switch(type) {
+    switch (type) {
       case 1:
         return "男歌手";
       case 0:
@@ -54,7 +67,7 @@ class Artist {
 
   @override
   String toString() {
-    return 'Artist{id: $id, name: $name, type: $type, recordsCount: $recordsCount, songsCount: $songsCount}';
+    return 'Artist{id: $id, name: $name, type: $type, recordsCount: $recordsCount, songsCount: $songsCount, cover: $cover, imageList: $imageList}';
   }
 
   factory Artist.fromJson(Map<String, dynamic> json) => _$ArtistFromJson(json);

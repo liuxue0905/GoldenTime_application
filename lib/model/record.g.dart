@@ -30,7 +30,12 @@ Record _$RecordFromJson(Map<String, dynamic> json) {
         ?.map(
             (e) => e == null ? null : Song.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-  )..year = json['year'] as String;
+    songsCount: json['songs_count'] as int,
+  )
+    ..year = json['year'] as String
+    ..cover = json['cover'] as String
+    ..imageList =
+        (json['image_list'] as List)?.map((e) => e as String)?.toList();
 }
 
 Map<String, dynamic> _$RecordToJson(Record instance) => <String, dynamic>{
@@ -49,4 +54,7 @@ Map<String, dynamic> _$RecordToJson(Record instance) => <String, dynamic>{
       'artists': instance.artists,
       'company': instance.company,
       'songs': instance.songs,
+      'songs_count': instance.songsCount,
+      'cover': instance.cover,
+      'image_list': instance.imageList,
     };
