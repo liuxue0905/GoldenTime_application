@@ -253,8 +253,8 @@ class _RecordsListState extends State<RecordsList> {
                 ),
                 GPMCardGrid(
                   crossAxisCount: _crossAxisCount(),
-                  mainAxisSpacing: 24,
-                  crossAxisSpacing: 16,
+                  mainAxisSpacing: isLargeScreen(context) ? 24 : 12,
+                  crossAxisSpacing: isLargeScreen(context) ? 16 : 8,
                   children: records
                       .map((record) =>
                           _itemBuilder(context, records.indexOf(record)))

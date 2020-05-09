@@ -62,8 +62,9 @@ class SongDetail extends StatelessWidget {
               child: Table(
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 columnWidths: <int, TableColumnWidth>{
-                  0: FixedColumnWidth(40),
-                  1: IntrinsicColumnWidth(flex: 1.0),
+                  0: MaxColumnWidth(
+                      FractionColumnWidth(0.2), FixedColumnWidth(40)),
+                  1: FractionColumnWidth(0.8),
                 },
                 children: getSongFields(song)
                     .map((e) => TableRow(

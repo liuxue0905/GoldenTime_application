@@ -123,7 +123,7 @@ void showDialogArtists(BuildContext context, List<Artist> artists) {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.grey[400],
                   shape: BoxShape.circle,
                 ),
                 child: Image.asset(
@@ -228,13 +228,13 @@ String getRecordCover(Record record, {double size, String def = ''}) {
 }
 
 String getImageUrl(String url, {int size, String resize}) {
-  print('_getImageUrl() url=${url}');
+//  print('_getImageUrl() url=${url}');
   try {
     Uri uri = Uri.parse(url);
-    print('_getImageUrl() uri=${uri}');
+//    print('_getImageUrl() uri=${uri}');
 
     Map<String, String> queryParameters = Map.from(uri.queryParameters);
-    print('_getImageUrl() queryParameters=${queryParameters}');
+//    print('_getImageUrl() queryParameters=${queryParameters}');
     if (size != null) {
       queryParameters['size'] = size.toString();
     }
@@ -243,7 +243,7 @@ String getImageUrl(String url, {int size, String resize}) {
     }
 
     uri = uri.replace(queryParameters: queryParameters);
-    print('_getImageUrl() uri1=${uri}');
+//    print('_getImageUrl() uri1=${uri}');
     return uri.toString();
   } catch (e) {
 //    print(e);

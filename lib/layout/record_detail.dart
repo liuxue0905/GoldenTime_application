@@ -92,42 +92,51 @@ class RecordDetial extends StatelessWidget {
             children: <Widget>[
               header,
 
+//              DataTable(),
+
               Container(
                 child: Card(
                   child: Container(
                     padding: EdgeInsets.all(16),
                     child: Table(
-                      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                      defaultVerticalAlignment:
+                          TableCellVerticalAlignment.middle,
                       columnWidths: <int, TableColumnWidth>{
-                        0: FixedColumnWidth(80),
-                        1: IntrinsicColumnWidth(flex: 1.0),
+                        0: MaxColumnWidth(
+                            FractionColumnWidth(0.2), FixedColumnWidth(80)),
+                        1: FractionColumnWidth(0.8),
                       },
                       children: getRecordFields(record)
                           .map((e) => TableRow(
-                        children: <Widget>[
-                          TableCell(
-                            child: Container(
-                              color: Colors.transparent,
-                              child: Container(
-                                padding: EdgeInsets.only(top: 4, bottom: 4),
-                                child: Text(
-                                  e['name'] ?? '',
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                ),
-                              ),
-                            ),
-                          ),
-                          TableCell(
-                            child: Container(
-                              color: Colors.transparent,
-                              child: Text(
-                                e['value'] ?? '',
-                                style: Theme.of(context).textTheme.bodyText2,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ))
+                                children: <Widget>[
+                                  TableCell(
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      child: Container(
+                                        padding:
+                                            EdgeInsets.only(top: 4, bottom: 4),
+                                        child: Text(
+                                          e['name'] ?? '',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      child: Text(
+                                        e['value'] ?? '',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ))
                           .toList(),
                     ),
                   ),
@@ -141,7 +150,8 @@ class RecordDetial extends StatelessWidget {
                 visible: (record?.imageList?.length ?? 0) > 0,
                 child: Container(
                   margin: EdgeInsets.only(top: 16),
-                  child: ImageGallery(imageList: record.imageList),),
+                  child: ImageGallery(imageList: record.imageList),
+                ),
               ),
             ],
           ),
@@ -166,6 +176,7 @@ class _RecordSongsState extends State<RecordSongs> {
   @override
   Widget build(BuildContext context) {
     var _dataTable = DataTable(
+      columnSpacing: isLargeScreen(context) ? 16 : 56,
       columns: <DataColumn>[
         DataColumn(label: Text(""), numeric: true),
         DataColumn(label: Text("音乐标题")),

@@ -48,7 +48,7 @@ class ArtistItem extends StatelessWidget {
 //                      ),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Colors.grey[400],
                           shape: BoxShape.circle,
                         ),
                         child: Image.asset(

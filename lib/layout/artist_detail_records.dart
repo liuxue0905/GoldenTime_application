@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../home/sj_card_recommended.dart';
+import '../util.dart';
 import './gpm-card-grid.dart';
 import '../api_service.dart';
 import '../forms.dart';
@@ -111,8 +112,11 @@ class ArtistRecordsListState extends State<ArtistRecordsList> {
     List<Record> records = widget.pageList.results;
 
     int _crossAxisCount() {
-      Orientation orientation = MediaQuery.of(context).orientation;
-      return orientation == Orientation.portrait ? 2 : 4;
+      int crossAxisCount = querySize<int>(context, {950: 4, 1400: 5});
+      if (!isLargeScreen(context)) {
+        crossAxisCount = 2;
+      }
+      return crossAxisCount;
     }
 
     Widget _itemBuilder(BuildContext context, int index) {
@@ -138,6 +142,8 @@ class ArtistRecordsListState extends State<ArtistRecordsList> {
             children: <Widget>[
               GPMCardGrid(
                 crossAxisCount: _crossAxisCount(),
+                mainAxisSpacing: isLargeScreen(context) ? 24 : 12,
+                crossAxisSpacing: isLargeScreen(context) ? 16 : 8,
                 children: records
                     .map((record) =>
                         _itemBuilder(context, records.indexOf(record)))

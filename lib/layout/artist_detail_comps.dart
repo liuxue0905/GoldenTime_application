@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../util.dart';
 import './gpm-card-grid.dart';
 import './paginated_footer.dart';
 import '../home/sj_card_recommended.dart';
@@ -139,6 +140,8 @@ class ArtistCompsListState extends State<ArtistCompsList> {
             children: <Widget>[
               GPMCardGrid(
                 crossAxisCount: _crossAxisCount(),
+                mainAxisSpacing: isLargeScreen(context) ? 24 : 12,
+                crossAxisSpacing: isLargeScreen(context) ? 16 : 8,
                 children: records
                     .map((record) =>
                         _itemBuilder(context, records.indexOf(record)))

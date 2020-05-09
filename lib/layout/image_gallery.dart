@@ -43,6 +43,7 @@ class ImageGalleryItem extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 1,
         child: Card(
+          clipBehavior: Clip.antiAlias,
           color: Colors.white,
           child: FadeInImage(
             image: NetworkImage(getImageUrl(url, resize: 'cover', size: 144) ?? ''),
