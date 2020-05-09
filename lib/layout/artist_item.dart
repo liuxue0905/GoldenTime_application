@@ -42,9 +42,20 @@ class ArtistItem extends StatelessWidget {
                   Positioned.fill(
                     child: Container(
                       margin: EdgeInsets.all(16.0),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.white,
-                        backgroundImage: AssetImage('images/default_album.jpg'),
+//                      child: CircleAvatar(
+//                        backgroundColor: Colors.white,
+//                        backgroundImage: AssetImage('assets/baseline_account_circle_black_48dp.png'),
+//                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Image.asset(
+                          'assets/baseline_account_circle_black_48dp.png',
+                          color: Colors.grey,
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
                   ),
