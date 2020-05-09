@@ -37,6 +37,7 @@ class ArtistDetailHeader_sw600dp extends ArtistDetailHeader_swndp {
           Column(
             children: <Widget>[
               Text(artist.name),
+              Text(artist.getTypeText() ?? '-'),
               Text(artist.recordsCount.toString() + "张唱片"),
               Text(artist.songsCount.toString() + "首歌曲"),
             ],

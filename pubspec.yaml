@@ -75,6 +75,9 @@ flutter:
     - images/sj_dot.png
     - images/ifl.png
 
+    - assets/baseline_account_circle_black_24dp.png
+    - assets/baseline_account_circle_black_48dp.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

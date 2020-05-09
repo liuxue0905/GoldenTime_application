@@ -84,7 +84,7 @@ class Sw600dpRecordDetailHeaderContainer
 //                          ),
                             child: Text(
                               title,
-                              style: Theme.of(context).textTheme.display1.apply(
+                              style: Theme.of(context).textTheme.headline4.apply(
                                     color: _titleTextColor,
 //                            height: 40 / 34,
                                   ),
@@ -93,8 +93,8 @@ class Sw600dpRecordDetailHeaderContainer
                           Container(
                             margin: EdgeInsets.only(bottom: 4),
                             child: Text(
-                              'Khalid',
-                              style: Theme.of(context).textTheme.body1.apply(
+                              subtitle,
+                              style: Theme.of(context).textTheme.bodyText2.apply(
                                     color: _subtitleTextColor,
 //                          height: 20 / 14,
                                   ),
@@ -103,19 +103,24 @@ class Sw600dpRecordDetailHeaderContainer
                           Container(
                             margin: EdgeInsets.only(bottom: 4),
                             child: Text(
-                              subtitle,
-                              style: Theme.of(context).textTheme.body1.apply(
-                                    color: _subtitleTextColor,
+                              '介质：${record.getFormatText() ?? '-'}',
+                              style: Theme.of(context).textTheme.bodyText2.apply(
+                                color: _subtitleTextColor,
 //                          height: 20 / 14,
-                                  ),
+                              ),
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             height: 4,
                           ),
                           Container(
-                            child: ArtistBar(
-                              artists: record.artists,
+                            margin: EdgeInsets.only(bottom: 4),
+                            child: Text(
+                              '年代：${record?.year}',
+                              style: Theme.of(context).textTheme.bodyText2.apply(
+                                color: _subtitleTextColor,
+//                          height: 20 / 14,
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -123,13 +128,22 @@ class Sw600dpRecordDetailHeaderContainer
                           ),
                           Container(
                             child: Text(
-                              record.company.name,
-                              style: Theme.of(context).textTheme.body1.apply(
+                              '唱片公司：${record?.company?.name}',
+                              style: Theme.of(context).textTheme.bodyText2.apply(
                                 color: _subtitleTextColor,
 //                          height: 20 / 14,
                               ),
                             ),
                           ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Container(
+                            child: ArtistBar(
+                              artists: record.artists,
+                            ),
+                          ),
+
                           SizedBox(
                             height: 4,
                           ),

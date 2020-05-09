@@ -10,6 +10,7 @@ import '../util.dart';
 import 'artist_detail_comps.dart';
 import 'artist_detail_records.dart';
 import 'artist_detail_songs.dart';
+import 'image_gallery.dart';
 
 class ArtistDetailPage extends StatefulWidget {
   final Artist artist;
@@ -44,7 +45,6 @@ class _ArtistDetailPageState extends State<ArtistDetailPage> {
 }
 
 class ArtistDetial extends StatefulWidget {
-
   final Artist artist;
 
   ArtistDetial({this.artist});
@@ -56,7 +56,6 @@ class ArtistDetial extends StatefulWidget {
 }
 
 class _ArtistDetialState extends State<ArtistDetial> {
-
   int _selection;
   Widget _widget;
 
@@ -111,9 +110,17 @@ class _ArtistDetialState extends State<ArtistDetial> {
     ArtistDetailHeader_swndp _header;
 
     if (!isLargeScreen(context)) {
-      _header = ArtistDetailHeader_sw320dp(url: getArtistCover(artist, size: 320 * MediaQuery.of(context).devicePixelRatio), artist: artist,);
+      _header = ArtistDetailHeader_sw320dp(
+        url: getArtistCover(artist,
+            size: 320 * MediaQuery.of(context).devicePixelRatio),
+        artist: artist,
+      );
     } else {
-      _header = ArtistDetailHeader_sw600dp(url: getArtistCover(artist, size: 240 * MediaQuery.of(context).devicePixelRatio), artist: artist,);
+      _header = ArtistDetailHeader_sw600dp(
+        url: getArtistCover(artist,
+            size: 240 * MediaQuery.of(context).devicePixelRatio),
+        artist: artist,
+      );
     }
 
     return SingleChildScrollView(
@@ -154,6 +161,10 @@ class _ArtistDetialState extends State<ArtistDetial> {
           ),
           Container(
             child: _widget,
+          ),
+          Visibility(
+            visible: (artist?.imageList?.length ?? 0) > 0,
+            child: ImageGallery(imageList: artist.imageList),
           ),
         ],
       ),

@@ -119,7 +119,7 @@ class ArtistRecordsListState extends State<ArtistRecordsList> {
       Record record = records[index];
       return SJCardRecommended(
         brightness: Brightness.light,
-        url: getRecordCover(record, size: 160),
+        url: getRecordCover(record, size: 160 * MediaQuery.of(context).devicePixelRatio),
         title: record.title,
         subtitle: record.number,
         tag: record.getFormatText(),

@@ -24,6 +24,7 @@ class ArtistDetailHeader_sw320dp extends ArtistDetailHeader_swndp {
             ),
           ),
           Text(artist.name),
+          Text(artist.getTypeText() ?? '-'),
           Text(artist.recordsCount.toString() + "张唱片"),
           Text(artist.songsCount.toString() + "首歌曲"),
         ],

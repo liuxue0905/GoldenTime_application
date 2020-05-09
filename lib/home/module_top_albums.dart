@@ -37,7 +37,7 @@ class ModuleTopAlbums extends StatelessWidget {
             children: module.dataList
                 .map((e) => SJCardRecommended(
                       brightness: brightness,
-                      url: getRecordCover(e, size: 60),
+                      url: getRecordCover(e, size: 48 * MediaQuery.of(context).devicePixelRatio),
                       title: e.title,
                       subtitle: getArtistsString(e.artists),
                       tag: e.getFormatText(),

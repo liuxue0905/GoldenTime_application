@@ -38,7 +38,7 @@ class ModuleRecommendedAlbums extends StatelessWidget {
             children: module.dataList
                 .map((Record e) => SJCardRecommendedTall(
                       brightness: brightness,
-                      url: getRecordCover(e, size: 80),
+                      url: getRecordCover(e, size: 48 * MediaQuery.of(context).devicePixelRatio),
                       title: e.title,
                       subtitle: getArtistsString(e.artists),
                       description: '${e.songsCount}首',

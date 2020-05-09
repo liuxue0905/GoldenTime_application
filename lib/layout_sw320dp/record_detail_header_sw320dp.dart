@@ -72,7 +72,7 @@ class Sw320dpRecordDetailHeaderContainer
 //                ),
                 child: Text(
                   title,
-                  style: Theme.of(context).textTheme.display1.apply(
+                  style: Theme.of(context).textTheme.headline4.apply(
                         color: _titleTextColor,
 //                            height: 40 / 34,
                       ),
@@ -81,8 +81,18 @@ class Sw320dpRecordDetailHeaderContainer
               Container(
                 margin: EdgeInsets.only(bottom: 4),
                 child: Text(
-                  record.number,
+                  subtitle,
                   style: Theme.of(context).textTheme.bodyText1.apply(
+                    color: _subtitleTextColor,
+//                          height: 20 / 14,
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 4),
+                child: Text(
+                  '年代：${record.year}',
+                  style: Theme.of(context).textTheme.bodyText2.apply(
                         color: _subtitleTextColor,
 //                          height: 20 / 14,
                       ),
@@ -91,11 +101,23 @@ class Sw320dpRecordDetailHeaderContainer
               Container(
                 margin: EdgeInsets.only(bottom: 4),
                 child: Text(
-                  record.year,
-                  style: Theme.of(context).textTheme.bodyText2.apply(
-                        color: _subtitleTextColor,
+                  '介质：${record?.getFormatText() ?? '-'}',
+                  style: Theme.of(context).textTheme.bodyText1.apply(
+                    color: _subtitleTextColor,
 //                          height: 20 / 14,
-                      ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 4,
+              ),
+              Container(
+                child: Text(
+                  '唱片公司：${record?.company?.name}',
+                  style: Theme.of(context).textTheme.bodyText2.apply(
+                    color: _subtitleTextColor,
+//                          height: 20 / 14,
+                  ),
                 ),
               ),
               Container(
@@ -104,18 +126,7 @@ class Sw320dpRecordDetailHeaderContainer
               ArtistBar(
                 artists: record.artists,
               ),
-              SizedBox(
-                height: 4,
-              ),
-              Container(
-                child: Text(
-                  record.company.name,
-                  style: Theme.of(context).textTheme.bodyText2.apply(
-                        color: _subtitleTextColor,
-//                          height: 20 / 14,
-                      ),
-                ),
-              ),
+
               SizedBox(
                 height: 4,
               ),

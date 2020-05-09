@@ -1,42 +1,28 @@
 import 'package:flutter/material.dart';
 
+import '../widget_util.dart';
+
 class ImageGallery extends StatelessWidget {
+  final List<String> imageList;
 
-
+  ImageGallery({this.imageList});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Container(
-        height: 200,
+        height: 144,
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Container(
-                height: 200,
-                color: Colors.red,
-              ),
-              Container(
-                height: 200,
-                color: Colors.green,
-              ),
-              Container(
-                height: 200,
-                color: Colors.yellow,
-              ),
-              Container(
-                height: 200,
-                color: Colors.blue,
-              ),
-              Container(
-                height: 200,
-                color: Colors.orange,
-              ),
-            ],
+            children: imageList
+                ?.map((e) => ImageGalleryItem(
+                      url: e,
+                    ))
+                .toList(),
           ),
         ),
       ),
@@ -45,17 +31,24 @@ class ImageGallery extends StatelessWidget {
 }
 
 class ImageGalleryItem extends StatelessWidget {
+  final String url;
+
+  ImageGalleryItem({this.url});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 120,
+      width: 144,
+      height: 144,
       child: AspectRatio(
         aspectRatio: 1,
-        child: FadeInImage(
-          image: NetworkImage(
-              'https://p2.music.126.net/3VCqOJSYLEAiCtodKgxrXg==/2528876744253082.jpg?param=946y946'),
-          placeholder: AssetImage('images/default_album.jpg'),
-          fit: BoxFit.contain,
+        child: Card(
+          color: Colors.white,
+          child: FadeInImage(
+            image: NetworkImage(getImageUrl(url, resize: 'cover', size: 144) ?? ''),
+            placeholder: AssetImage('images/default_album.jpg'),
+            fit: BoxFit.contain,
+          ),
         ),
       ),
     );

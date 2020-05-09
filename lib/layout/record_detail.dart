@@ -57,20 +57,23 @@ class RecordDetial extends StatelessWidget {
 
     header = !isLargeScreen(context)
         ? Sw320dpRecordDetailHeaderContainer(
-            url: getRecordCover(record, size: 320),
+            url: getRecordCover(record,
+                size: 320 * MediaQuery.of(context).devicePixelRatio),
             title: record.title,
-            subtitle: record.number,
+            subtitle: '编号：${record.number}',
             record: record,
           )
         : Sw600dpRecordDetailHeaderContainer(
-            url: getRecordCover(record, size: 240),
+            url: getRecordCover(record,
+                size: 240 * MediaQuery.of(context).devicePixelRatio),
             title: record.title,
-            subtitle: record.number,
+            subtitle: '编号：${record.number}',
             record: record,
           );
 
     var _margin = EdgeInsets.fromLTRB(96, 32, 96, 32);
-    print('abcdefg MediaQuery.of(context).size.width:${MediaQuery.of(context).size.width}');
+    print(
+        'abcdefg MediaQuery.of(context).size.width:${MediaQuery.of(context).size.width}');
     if (MediaQuery.of(context).size.width < 950) {
       _margin = EdgeInsets_fromLTRB(context, 950, 96, 32, 96, 32);
       print('abcdefg _margin:${_margin}');
@@ -82,16 +85,63 @@ class RecordDetial extends StatelessWidget {
     return Container(
       child: SingleChildScrollView(
         child: Container(
-          color: Colors.yellow,
           margin: _margin,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               header,
-              ImageGallery(),
+
+              Container(
+                child: Card(
+                  child: Container(
+                    padding: EdgeInsets.all(16),
+                    child: Table(
+                      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                      columnWidths: <int, TableColumnWidth>{
+                        0: FixedColumnWidth(80),
+                        1: IntrinsicColumnWidth(flex: 1.0),
+                      },
+                      children: getRecordFields(record)
+                          .map((e) => TableRow(
+                        children: <Widget>[
+                          TableCell(
+                            child: Container(
+                              color: Colors.transparent,
+                              child: Container(
+                                padding: EdgeInsets.only(top: 4, bottom: 4),
+                                child: Text(
+                                  e['name'] ?? '',
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TableCell(
+                            child: Container(
+                              color: Colors.transparent,
+                              child: Text(
+                                e['value'] ?? '',
+                                style: Theme.of(context).textTheme.bodyText2,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ))
+                          .toList(),
+                    ),
+                  ),
+                ),
+              ),
+
               RecordSongs(
                 songs: record.songs,
+              ),
+              Visibility(
+                visible: (record?.imageList?.length ?? 0) > 0,
+                child: Container(
+                  margin: EdgeInsets.only(top: 16),
+                  child: ImageGallery(imageList: record.imageList),),
               ),
             ],
           ),

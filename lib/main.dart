@@ -115,9 +115,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // "http://liujin.jios.org:8888/api/"
 
-//    ApiService service = ApiService(host: 'liujin.jios.org', port: 8888);
+    ApiService service = ApiService(host: 'liujin.jios.org', port: 8888);
 //    ApiService service = ApiService(host: '127.0.0.1', port: 8888);
-    ApiService service = ApiService(host: '192.168.20.172', port: 8888);
+//    ApiService service = ApiService(host: '192.168.20.172', port: 8888);
     ApiService.instance = service;
   }
 

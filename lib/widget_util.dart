@@ -114,13 +114,29 @@ void showDialogArtists(BuildContext context, List<Artist> artists) {
 
           leading: Stack(
             children: <Widget>[
-              CircleAvatar(
-                backgroundImage:
-                    AssetImage('images/illo_default_artistradio_smallcard.png'),
+//              CircleAvatar(
+//                backgroundColor: Colors.white,
+//                backgroundImage:
+//                    AssetImage('assets/baseline_account_circle_black_24dp.png'),
+//              ),
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                child: Image.asset(
+                  'assets/baseline_account_circle_black_24dp.png',
+                  fit: BoxFit.contain,
+                  color: Colors.grey,
+                ),
               ),
               CircleAvatar(
+                backgroundColor: Colors.transparent,
                 backgroundImage: NetworkImage(
-                  getArtistCover(artist, size: 40),
+                  getArtistCover(artist,
+                      size: 40 * MediaQuery.of(context).devicePixelRatio),
                 ),
               ),
             ],
@@ -204,14 +220,14 @@ class FutureErrorWidget extends StatelessWidget {
 }
 
 String getArtistCover(Artist artist, {double size, String def = ''}) {
-  return _getImageUrl(artist.cover, size: size?.toInt()) ?? def;
+  return getImageUrl(artist.cover, resize: 'fill', size: size?.toInt()) ?? def;
 }
 
 String getRecordCover(Record record, {double size, String def = ''}) {
-  return _getImageUrl(record.cover, size: size?.toInt()) ?? def;
+  return getImageUrl(record.cover, resize: 'fill', size: size?.toInt()) ?? def;
 }
 
-String _getImageUrl(String url, {int size}) {
+String getImageUrl(String url, {int size, String resize}) {
   print('_getImageUrl() url=${url}');
   try {
     Uri uri = Uri.parse(url);
@@ -220,8 +236,11 @@ String _getImageUrl(String url, {int size}) {
     Map<String, String> queryParameters = Map.from(uri.queryParameters);
     print('_getImageUrl() queryParameters=${queryParameters}');
     if (size != null) {
-        queryParameters['size'] = size.toString();
-      }
+      queryParameters['size'] = size.toString();
+    }
+    if (resize != null) {
+      queryParameters['resize'] = resize;
+    }
 
     uri = uri.replace(queryParameters: queryParameters);
     print('_getImageUrl() uri1=${uri}');
@@ -230,4 +249,98 @@ String _getImageUrl(String url, {int size}) {
 //    print(e);
   }
   return null;
+}
+
+List<Map<String, dynamic>> getRecordFields(Record record) {
+  List<Map<String, dynamic>> fields = [];
+
+  fields.add({
+    'key': 'releaseDetail',
+    'value': record.releaseDetail,
+    'name': '发布时间',
+  });
+
+  fields.add({
+    'key': 'producer',
+    'value': record.producer,
+    'name': '监制',
+  });
+
+  fields.add({
+    'key': 'recorder',
+    'value': record.recorder,
+    'name': '录音',
+  });
+
+  fields.add({
+    'key': 'mixer',
+    'value': record.mixer,
+    'name': '混音',
+  });
+
+  fields.add({
+    'key': 'bandsman',
+    'value': record.bandsman,
+    'name': '乐手',
+  });
+
+  fields.add({
+    'key': 'description',
+    'value': record.description,
+    'name': '说明',
+  });
+
+  return fields;
+}
+
+List<Map<String, dynamic>> getSongFields(Song song) {
+  List<Map<String, dynamic>> fields = [];
+
+//  song.lyricist = 'AB作DsdfABDsd';
+//  song.composer = 'ABDsdfs';
+//  song.arranger = 'EG作SGSDGDS';
+
+  fields.add({
+    'key': 'lyricist',
+    'value': song.lyricist,
+    'name': '作词',
+  });
+
+  fields.add({
+    'key': 'composer',
+    'value': song.composer,
+    'name': '作曲',
+  });
+
+  fields.add({
+    'key': 'arranger',
+    'value': song.arranger,
+    'name': '编曲',
+  });
+
+  fields.add({
+    'key': 'vocalist',
+    'value': song.vocalist,
+    'name': '和音',
+  });
+
+  fields.add({
+    'key': 'producer',
+    'value': song.producer,
+    'name': '监制',
+  });
+
+  fields.add({
+    'key': 'bandsman',
+    'value': song.bandsman,
+    'name': '乐手',
+  });
+
+  fields.add({
+    'key': 'description',
+    'value': song.description,
+    'name': '说明',
+  });
+
+  return fields;
 }

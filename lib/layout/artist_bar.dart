@@ -31,10 +31,12 @@ class ArtistBar extends StatelessWidget {
                     avatar: Stack(
                       children: <Widget>[
                         CircleAvatar(
+                          backgroundColor: Colors.white,
                           backgroundImage: AssetImage('images/default_album.jpg'),
                         ),
                         CircleAvatar(
-                          backgroundImage: NetworkImage(getArtistCover(artist, size: 40)),
+                          backgroundColor: Colors.transparent,
+                          backgroundImage: NetworkImage(getArtistCover(artist, size: 40 * MediaQuery.of(context).devicePixelRatio)),
                         ),
                       ],
                     ),
