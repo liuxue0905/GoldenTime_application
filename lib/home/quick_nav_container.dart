@@ -36,9 +36,9 @@ class _QuickNavContainer extends State<QuickNavContainer> {
   @override
   void didUpdateWidget(QuickNavContainer oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget != widget) {
-      _handleDataSourceChanged();
-    }
+//    if (oldWidget != widget) {
+//      _handleDataSourceChanged();
+//    }
   }
 
   void _handleDataSourceChanged() {

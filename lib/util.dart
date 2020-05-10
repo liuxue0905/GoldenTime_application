@@ -127,3 +127,31 @@ double scaleSize(BuildContext context, double size, double value,
 
   return value * axisSize / size;
 }
+
+EdgeInsets getListContainerMargin(BuildContext context) {
+  var _margin = EdgeInsets.fromLTRB(96, 32, 96, 32);
+
+  if (MediaQuery.of(context).size.width < 950) {
+    _margin = EdgeInsets_fromLTRB(context, 950, 96, 32, 96, 32);
+  }
+
+  if (MediaQuery.of(context).size.width < 450) {
+    _margin = EdgeInsets.fromLTRB(16, 16, 16, 16);
+  }
+
+  return _margin;
+}
+
+EdgeInsets getDetailContainerMargin(BuildContext context) {
+  var _margin = EdgeInsets.fromLTRB(96, 32, 96, 32);
+
+  if (MediaQuery.of(context).size.width < 950) {
+    _margin = EdgeInsets_fromLTRB(context, 950, 96, 32, 96, 32);
+  }
+
+  if (!isLargeScreen(context)) {
+    _margin = EdgeInsets.fromLTRB(0, 0, 0, 0);
+  }
+
+  return _margin;
+}

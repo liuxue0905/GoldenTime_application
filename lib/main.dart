@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_golden_time/api_service.dart';
 
 import './layout/artists.dart';
-import './layout/home.dart';
+import 'home/home.dart';
 import './layout/records.dart';
 import './layout/songs.dart';
 import './models.dart';
+import 'home2/home2.dart';
 
 void main() => runApp(MyApp());
 
@@ -56,10 +57,11 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selection = 0;
 
   List<GPMQuickNavItem> items = [
-    GPMQuickNavItem(icon: Icons.home, text: '首页'),
-    GPMQuickNavItem(icon: Icons.album, text: '唱片'),
-    GPMQuickNavItem(icon: Icons.account_box, text: '歌手'),
-    GPMQuickNavItem(icon: Icons.library_music, text: '歌曲'),
+//    GPMQuickNavItem(icon: Icons.home, text: '首页', key: 'home'),
+    GPMQuickNavItem(icon: Icons.home, text: '首页', key: 'home2'),
+    GPMQuickNavItem(icon: Icons.album, text: '唱片', key: 'records'),
+    GPMQuickNavItem(icon: Icons.account_box, text: '歌手', key: 'artists'),
+    GPMQuickNavItem(icon: Icons.library_music, text: '歌曲', key: 'songs'),
   ];
 
 //  final GlobalKey<ScaffoldState> _key4Scaffold = GlobalKey<ScaffoldState>();
@@ -73,7 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildChild(BuildContext context) {
     Widget child;
 
-    if (_selection == 0) {
+    GPMQuickNavItem item = items[_selection];
+
+    if (item.key == 'home') {
       child = HomePage(
         gpmQuickNavItems: items,
         onBrightnessChanged: (Brightness brightness) {
@@ -83,21 +87,28 @@ class _MyHomePageState extends State<MyHomePage> {
           setSelection(selection);
         },
       );
-    } else if (_selection == 1) {
+    } else if (item.key == 'home2') {
+      child = Home2Page(
+        gpmQuickNavItems: items,
+        onSelectionChanged: (int selection) {
+          setSelection(selection);
+        },
+      );
+    } else if (item.key == 'records') {
       child = RecordsPage(
         gpmQuickNavItems: items,
         onSelectionChanged: (int selection) {
           setSelection(selection);
         },
       );
-    } else if (_selection == 2) {
+    } else if (item.key == 'artists') {
       child = ArtistsPage(
         gpmQuickNavItems: items,
         onSelectionChanged: (int selection) {
           setSelection(selection);
         },
       );
-    } else if (_selection == 3) {
+    } else if (item.key == 'songs') {
       child = SongsPage(
         gpmQuickNavItems: items,
         onSelectionChanged: (int selection) {
@@ -115,19 +126,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // "http://liujin.jios.org:8888/api/"
 
-    ApiService service = ApiService(host: 'liujin.jios.org', port: 8888);
+//    ApiService service = ApiService(host: 'liujin.jios.org', port: 8888);
 //    ApiService service = ApiService(host: '127.0.0.1', port: 8888);
-//    ApiService service = ApiService(host: '192.168.20.172', port: 8888);
+    ApiService service = ApiService(host: '192.168.50.248', port: 8888);
     ApiService.instance = service;
   }
 
   @override
   Widget build(BuildContext context) {
-
-    //    MediaQuery.of(context).size;
-    //    MediaQuery.of(context).devicePixelRatio;
     print('MediaQuery.of(context).size=${MediaQuery.of(context).size}');
-    print('MediaQuery.of(context).devicePixelRatio=${MediaQuery.of(context).devicePixelRatio}');
+    print(
+        'MediaQuery.of(context).devicePixelRatio=${MediaQuery.of(context).devicePixelRatio}');
 
     List<Widget> buildListTiles(List<GPMQuickNavItem> items) {
       List<Widget> children = items.map<Widget>((GPMQuickNavItem item) {
@@ -164,6 +173,10 @@ class _MyHomePageState extends State<MyHomePage> {
         onTap: () {
           Navigator.pop(context); // Dismiss the drawer.
         },
+      ));
+
+      children.add(Container(
+        margin: EdgeInsets.fromLTRB(0, 12, 0, 12),
       ));
 
       return children;

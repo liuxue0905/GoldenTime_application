@@ -71,77 +71,98 @@ class RecordDetial extends StatelessWidget {
             record: record,
           );
 
-    var _margin = EdgeInsets.fromLTRB(96, 32, 96, 32);
-    print(
-        'abcdefg MediaQuery.of(context).size.width:${MediaQuery.of(context).size.width}');
-    if (MediaQuery.of(context).size.width < 950) {
-      _margin = EdgeInsets_fromLTRB(context, 950, 96, 32, 96, 32);
-      print('abcdefg _margin:${_margin}');
-    }
-    if (!isLargeScreen(context)) {
-      _margin = EdgeInsets.fromLTRB(0, 0, 0, 0);
-    }
-
     return Container(
       child: SingleChildScrollView(
         child: Container(
-          margin: _margin,
+          margin: getDetailContainerMargin(context),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               header,
 
-//              DataTable(),
-
-              Container(
-                child: Card(
-                  child: Container(
-                    padding: EdgeInsets.all(16),
-                    child: Table(
-                      defaultVerticalAlignment:
-                          TableCellVerticalAlignment.middle,
-                      columnWidths: <int, TableColumnWidth>{
-                        0: MaxColumnWidth(
-                            FractionColumnWidth(0.2), FixedColumnWidth(80)),
-                        1: FractionColumnWidth(0.8),
-                      },
-                      children: getRecordFields(record)
-                          .map((e) => TableRow(
-                                children: <Widget>[
-                                  TableCell(
-                                    child: Container(
-                                      color: Colors.transparent,
-                                      child: Container(
-                                        padding:
-                                            EdgeInsets.only(top: 4, bottom: 4),
-                                        child: Text(
-                                          e['name'] ?? '',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      color: Colors.transparent,
-                                      child: Text(
-                                        e['value'] ?? '',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ))
-                          .toList(),
+              Card(
+                clipBehavior: Clip.antiAlias,
+                child: DataTable(
+                  headingRowHeight: 0,
+                  columns: <DataColumn>[
+                    DataColumn(
+                      label: SizedBox(
+                        height: 0,
+                      ),
                     ),
-                  ),
+                    DataColumn(
+                      label: SizedBox(
+                        height: 0,
+                      ),
+                    ),
+                  ],
+                  rows: getRecordFields(record)
+                      .map((e) => DataRow(cells: <DataCell>[
+                            DataCell(Text(
+                              e['name'] ?? '',
+                              style: Theme.of(context).textTheme.bodyText1,
+                            )),
+                            DataCell(SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: Text(
+                                e['value'] ?? '',
+                                style: Theme.of(context).textTheme.bodyText2,
+                              ),
+                            )),
+                          ]))
+                      .toList(),
                 ),
               ),
+
+//              Container(
+//                child: Card(
+//                  child: Container(
+//                    padding: EdgeInsets.all(16),
+//                    child: Table(
+//                      defaultVerticalAlignment:
+//                          TableCellVerticalAlignment.middle,
+//                      columnWidths: <int, TableColumnWidth>{
+//                        0: MaxColumnWidth(
+//                            FractionColumnWidth(0.2), FixedColumnWidth(80)),
+//                        1: FractionColumnWidth(0.8),
+//                      },
+//                      children: getRecordFields(record)
+//                          .map((e) => TableRow(
+//                                children: <Widget>[
+//                                  TableCell(
+//                                    child: Container(
+//                                      color: Colors.transparent,
+//                                      child: Container(
+//                                        padding:
+//                                            EdgeInsets.only(top: 4, bottom: 4),
+//                                        child: Text(
+//                                          e['name'] ?? '',
+//                                          style: Theme.of(context)
+//                                              .textTheme
+//                                              .bodyText1,
+//                                        ),
+//                                      ),
+//                                    ),
+//                                  ),
+//                                  TableCell(
+//                                    child: Container(
+//                                      color: Colors.transparent,
+//                                      child: Text(
+//                                        e['value'] ?? '',
+//                                        style: Theme.of(context)
+//                                            .textTheme
+//                                            .bodyText2,
+//                                      ),
+//                                    ),
+//                                  ),
+//                                ],
+//                              ))
+//                          .toList(),
+//                    ),
+//                  ),
+//                ),
+//              ),
 
               RecordSongs(
                 songs: record.songs,

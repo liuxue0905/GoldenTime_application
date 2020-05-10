@@ -45,10 +45,20 @@ class ImageGalleryItem extends StatelessWidget {
         child: Card(
           clipBehavior: Clip.antiAlias,
           color: Colors.white,
-          child: FadeInImage(
-            image: NetworkImage(getImageUrl(url, resize: 'cover', size: 144) ?? ''),
-            placeholder: AssetImage('images/default_album.jpg'),
-            fit: BoxFit.contain,
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: DefaultIconWidget(
+                  icon: Icons.image,
+                ),
+              ),
+              Positioned.fill(
+                child: Image.network(
+                  getImageUrl(url, resize: 'cover', size: 144) ?? '',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ],
           ),
         ),
       ),

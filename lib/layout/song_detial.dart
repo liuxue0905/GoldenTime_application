@@ -49,54 +49,94 @@ class SongDetail extends StatelessWidget {
       header = SongDetailHeader_sw600dp(song: song);
     }
 
-    TextStyle style1 = Theme.of(context).textTheme.bodyText1;
-
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          header,
-          Card(
-            child: Container(
-              padding: EdgeInsets.all(16),
-              child: Table(
-                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                columnWidths: <int, TableColumnWidth>{
-                  0: MaxColumnWidth(
-                      FractionColumnWidth(0.2), FixedColumnWidth(40)),
-                  1: FractionColumnWidth(0.8),
-                },
-                children: getSongFields(song)
-                    .map((e) => TableRow(
-                  children: <Widget>[
-                    TableCell(
-                      child: Container(
-                        color: Colors.transparent,
-                        child: Container(
-                          padding: EdgeInsets.only(top: 4, bottom: 4),
-                          child: Text(
-                            e['name'] ?? '',
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                        ),
+    return Container(
+      child: SingleChildScrollView(
+        child: Container(
+          margin: getDetailContainerMargin(context),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              header,
+              Card(
+                clipBehavior: Clip.antiAlias,
+                child: DataTable(
+                  headingRowHeight: 0,
+                  columns: <DataColumn>[
+                    DataColumn(
+                      label: SizedBox(
+                        height: 0,
                       ),
                     ),
-                    TableCell(
-                      child: Container(
-                        color: Colors.transparent,
-                        child: Text(
-                          e['value'] ?? '',
-                          style: Theme.of(context).textTheme.bodyText2,
-                        ),
+                    DataColumn(
+                      label: SizedBox(
+                        height: 0,
                       ),
                     ),
                   ],
-                ))
-                    .toList(),
+                  rows: getSongFields(song)
+                      .map((e) => DataRow(cells: <DataCell>[
+                            DataCell(Text(
+                              e['name'] ?? '',
+                              style: Theme.of(context).textTheme.bodyText1,
+                            )),
+                            DataCell(SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: Text(
+                                e['value'] ?? '',
+                                style: Theme.of(context).textTheme.bodyText2,
+                              ),
+                            )),
+                          ]))
+                      .toList(),
+                ),
               ),
-            ),
+//              Card(
+//                child: Container(
+//                  padding: EdgeInsets.all(16),
+//                  child: Table(
+//                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+//                    columnWidths: <int, TableColumnWidth>{
+//                      0: MaxColumnWidth(
+//                          FractionColumnWidth(0.2), FixedColumnWidth(40)),
+//                      1: FractionColumnWidth(0.8),
+//                    },
+//                    children: getSongFields(song)
+//                        .map((e) => TableRow(
+//                              children: <Widget>[
+//                                TableCell(
+//                                  child: Container(
+//                                    color: Colors.transparent,
+//                                    child: Container(
+//                                      padding:
+//                                          EdgeInsets.only(top: 4, bottom: 4),
+//                                      child: Text(
+//                                        e['name'] ?? '',
+//                                        style: Theme.of(context)
+//                                            .textTheme
+//                                            .bodyText1,
+//                                      ),
+//                                    ),
+//                                  ),
+//                                ),
+//                                TableCell(
+//                                  child: Container(
+//                                    color: Colors.transparent,
+//                                    child: Text(
+//                                      e['value'] ?? '',
+//                                      style:
+//                                          Theme.of(context).textTheme.bodyText2,
+//                                    ),
+//                                  ),
+//                                ),
+//                              ],
+//                            ))
+//                        .toList(),
+//                  ),
+//                ),
+//              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

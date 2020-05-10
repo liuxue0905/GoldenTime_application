@@ -117,6 +117,7 @@ class ApiService {
       int type,
       int offset = 0,
       bool recordIsNull,
+      bool typeIsNull,
       int limit = 20}) async {
     Map<String, String> queryParameters = {};
     if (name != null) {
@@ -127,6 +128,10 @@ class ApiService {
     }
     if (recordIsNull != null) {
       queryParameters['record_isnull'] = recordIsNull.toString();
+      queryParameters['record__isnull'] = recordIsNull.toString();
+    }
+    if (typeIsNull != null) {
+      queryParameters['type__isnull'] = typeIsNull.toString();
     }
 
     queryParameters['offset'] = offset.toString();

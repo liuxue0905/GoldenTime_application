@@ -9,6 +9,7 @@ import '../models.dart';
 import '../util.dart';
 import '../widget_util.dart';
 import '../home/quick_nav_container.dart';
+import 'paginated_header.dart';
 
 class SongsPage extends StatefulWidget {
   final List<GPMQuickNavItem> gpmQuickNavItems;
@@ -36,9 +37,9 @@ class SongsPageState extends State<SongsPage> {
   @override
   void didUpdateWidget(SongsPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget != widget) {
-      _handleDataSourceChanged();
-    }
+//    if (oldWidget != widget) {
+//      _handleDataSourceChanged();
+//    }
   }
 
   @override
@@ -154,25 +155,17 @@ class SongsListState extends State<SongsList> {
   Widget build(BuildContext context) {
     List<Song> songs = widget.pageList.results;
 
-    var _margin = EdgeInsets.fromLTRB(96, 32, 96, 32);
-    if (MediaQuery.of(context).size.width < 950) {
-      _margin = EdgeInsets_fromLTRB(context, 950, 96, 32, 96, 32);
-    }
-    if (MediaQuery.of(context).size.width < 450) {
-      _margin = EdgeInsets.fromLTRB(16, 16, 16, 16);
-    }
-
     return Container(
       child: SingleChildScrollView(
         child: Container(
-          margin: _margin,
+          margin: getListContainerMargin(context),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              PaginatedHeader(),
-              Card(
-                child: Row(
+              PaginatedHeader(
+                header: Row(
                   children: <Widget>[
+                    Text('TITLE'),
                     IconButton(
                       icon: Icon(Icons.search),
                       onPressed: () {
@@ -263,68 +256,6 @@ class SongsListState extends State<SongsList> {
     }
 
     return card;
-  }
-}
-
-class PaginatedHeader extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var header = Text('TITLE');
-//    var header = null;
-
-    int _selectedRowCount = 0;
-
-    double startPadding = 24.0;
-
-    // HEADER
-    final List<Widget> headerWidgets = <Widget>[];
-    if (_selectedRowCount == 0) {
-//      headerWidgets.add(Expanded(child: widget.header));
-      headerWidgets.add(Expanded(child: header));
-//      if (widget.header is ButtonBar) {
-      if (header is ButtonBar) {
-        // We adjust the padding when a button bar is present, because the
-        // ButtonBar introduces 2 pixels of outside padding, plus 2 pixels
-        // around each button on each side, and the button itself will have 8
-        // pixels internally on each side, yet we want the left edge of the
-        // inside of the button to line up with the 24.0 left inset.
-        // TODO(ianh): Better magic. See https://github.com/flutter/flutter/issues/4460
-        startPadding = 12.0;
-      }
-    }
-
-    final ThemeData themeData = Theme.of(context);
-
-    return Card(
-      child: Semantics(
-        container: true,
-        child: DefaultTextStyle(
-          // These typographic styles aren't quite the regular ones. We pick the closest ones from the regular
-          // list and then tweak them appropriately.
-          // See https://material.io/design/components/data-tables.html#tables-within-cards
-          style: _selectedRowCount > 0
-              ? themeData.textTheme.subhead
-                  .copyWith(color: themeData.accentColor)
-              : themeData.textTheme.title.copyWith(fontWeight: FontWeight.w400),
-          child: IconTheme.merge(
-            data: const IconThemeData(opacity: 0.54),
-            child: Ink(
-              height: 64.0,
-              color:
-                  _selectedRowCount > 0 ? themeData.secondaryHeaderColor : null,
-              child: Padding(
-                padding:
-                    EdgeInsetsDirectional.only(start: startPadding, end: 14.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: headerWidgets,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }
 

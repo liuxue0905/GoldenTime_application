@@ -111,9 +111,9 @@ class ModuleContainerState extends State<ModuleContainer> {
   void didUpdateWidget(ModuleContainer oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget != widget) {
-      _handleDataSourceChanged();
-    }
+//    if (oldWidget != widget) {
+//      _handleDataSourceChanged();
+//    }
   }
 
   @override
@@ -129,13 +129,16 @@ class ModuleContainerState extends State<ModuleContainer> {
 
   List<Widget> _buildSJScrollingMoudles(BuildContext context) {
     return modules.map((Module e) {
-      GlobalKey key = GlobalKey();
-      keys.add(key);
-      return _buildSJScrollingMoudle(context, key, e);
+      return _itemBuilder(context, modules.indexOf(e));
     }).toList();
   }
 
-  Widget _buildSJScrollingMoudle(BuildContext context, Key key, Module module) {
+  Widget _itemBuilder(BuildContext context, int index) {
+    Module module = modules[index];
+
+    GlobalKey key = GlobalKey();
+    keys.add(key);
+
     if (module.type == Module.MODULE_TOKEN_RECOMMENDED_ALBUMS) {
       return ModuleRecommendedAlbums(
         key: key,

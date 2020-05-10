@@ -32,6 +32,7 @@ class _ArtistsPageState extends State<ArtistsPage> {
   @override
   void initState() {
     super.initState();
+    print('initState()');
 
     _handleDataSourceChanged();
   }
@@ -39,9 +40,12 @@ class _ArtistsPageState extends State<ArtistsPage> {
   @override
   void didUpdateWidget(ArtistsPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget != widget) {
-      _handleDataSourceChanged();
-    }
+
+    print('didUpdateWidget() oldWidget:${oldWidget} widget:${widget}');
+
+//    if (oldWidget != widget) {
+//      _handleDataSourceChanged();
+//    }
   }
 
   @override
@@ -170,8 +174,11 @@ class ArtistsListState extends State<ArtistsList> {
 
   Widget _build(BuildContext context, List<Artist> artists) {
     int _crossAxisCount() {
-      Orientation orientation = MediaQuery.of(context).orientation;
-      return orientation == Orientation.portrait ? 2 : 4;
+      int crossAxisCount = querySize<int>(context, {1250: 4, 1400: 5});
+      if (!isLargeScreen(context)) {
+        crossAxisCount = 2;
+      }
+      return crossAxisCount;
     }
 
     Widget _itemBuilder(BuildContext context, int index) {
@@ -192,18 +199,10 @@ class ArtistsListState extends State<ArtistsList> {
       );
     }
 
-    var _margin = EdgeInsets.fromLTRB(96, 32, 96, 32);
-    if (MediaQuery.of(context).size.width < 950) {
-      _margin = EdgeInsets_fromLTRB(context, 950, 96, 32, 96, 32);
-    }
-    if (MediaQuery.of(context).size.width < 450) {
-      _margin = EdgeInsets.fromLTRB(16, 16, 16, 16);
-    }
-
     return Container(
       child: SingleChildScrollView(
         child: Container(
-          margin: _margin,
+          margin: getListContainerMargin(context),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[

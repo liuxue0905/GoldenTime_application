@@ -111,7 +111,8 @@ class PaginatedFooterState extends State<PaginatedFooter> {
 //          _rowCount,
 //          _rowCountApproximate,
 //        ),
-      'firstRow:${_firstRowIndex + 1}, lastRow:${_firstRowIndex + widget.rowsPerPage}, rowCount:${_rowCount}, rowCountIsApproximate:${_rowCountApproximate}'
+//      'firstRow:${_firstRowIndex + 1}, lastRow:${_firstRowIndex + widget.rowsPerPage}, rowCount:${_rowCount}, rowCountIsApproximate:${_rowCountApproximate}'
+      '${_firstRowIndex + 1} - ${math.min(_firstRowIndex + widget.rowsPerPage, _rowCount)} / ${_rowCount}'
       ),
       Container(width: 32.0),
       IconButton(

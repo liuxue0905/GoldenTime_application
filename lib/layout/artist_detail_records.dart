@@ -112,7 +112,7 @@ class ArtistRecordsListState extends State<ArtistRecordsList> {
     List<Record> records = widget.pageList.results;
 
     int _crossAxisCount() {
-      int crossAxisCount = querySize<int>(context, {950: 4, 1400: 5});
+      int crossAxisCount = querySize<int>(context, {1250: 4, 1400: 5});
       if (!isLargeScreen(context)) {
         crossAxisCount = 2;
       }
@@ -125,7 +125,7 @@ class ArtistRecordsListState extends State<ArtistRecordsList> {
         brightness: Brightness.light,
         url: getRecordCover(record, size: 160 * MediaQuery.of(context).devicePixelRatio),
         title: record.title,
-        subtitle: record.number,
+        subtitle: record.year,
         tag: record.getFormatText(),
         onTap: () {
           openRecord(context, record);

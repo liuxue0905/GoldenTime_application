@@ -22,7 +22,7 @@ class Sw600dpRecordDetailHeaderContainer
   @override
   Widget build(BuildContext context) {
     Widget adUnitSide = Container(
-      color: Colors.green,
+      color: Colors.transparent,
       width: scaleSize(context, 1850, 300),
       height: scaleSize(context, 1850, 250),
     );

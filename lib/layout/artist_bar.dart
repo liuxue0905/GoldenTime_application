@@ -30,10 +30,6 @@ class ArtistBar extends StatelessWidget {
                     key: ValueKey<String>(artist.name),
                     avatar: Stack(
                       children: <Widget>[
-//                        CircleAvatar(
-//                          backgroundColor: Colors.grey[400],
-//                          backgroundImage: AssetImage('assets/baseline_account_circle_black_24dp.png'),
-//                        ),
                         Container(
                           width: 40,
                           height: 40,
@@ -41,10 +37,15 @@ class ArtistBar extends StatelessWidget {
                             color: Colors.grey[400],
                             shape: BoxShape.circle,
                           ),
-                          child: Image.asset(
-                            'assets/baseline_account_circle_black_24dp.png',
-                            fit: BoxFit.contain,
-                            color: Colors.grey,
+                          child: LayoutBuilder(
+                            builder: (BuildContext context,
+                                BoxConstraints constraints) {
+                              return Icon(
+                                Icons.account_circle,
+                                color: Colors.grey,
+                                size: constraints.biggest.width,
+                              );
+                            },
                           ),
                         ),
                         CircleAvatar(

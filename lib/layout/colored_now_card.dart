@@ -49,7 +49,7 @@ class ColoredNowCard extends StatelessWidget {
 //                'images/colored_now_card.jpg',
 //                fit: BoxFit.cover,
 //              ),
-              child: Image.network(backgroundImage),
+              child: Image.network(backgroundImage ?? ''),
             ),
             Container(
               decoration: BoxDecoration(

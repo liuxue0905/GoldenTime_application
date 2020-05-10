@@ -17,16 +17,39 @@ class SongDetailHeader_sw600dp extends SongDetailHeader {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          FadeInImage(
-            width: 160,
-            height: 160,
-            image:  NetworkImage(song?.record?.cover ?? ''),
-            placeholder: AssetImage('images/default_album.jpg'),
-            fit: BoxFit.cover,
+          Container(
+            width: 96,
+            height: 96,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(2),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, 0.1),
+                  offset: Offset(0, 1),
+                  spreadRadius: 1,
+                ),
+              ],
+              color: Colors.grey[400],
+            ),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: DefaultIconWidget(
+                    icon: Icons.music_note,
+                  ),
+                ),
+                Positioned.fill(
+                  child: Image.network(
+                    song?.record?.cover ?? '',
+                    fit: BoxFit.cover,
+                  ),
+                )
+              ],
+            ),
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+              padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,8 +65,11 @@ class SongDetailHeader_sw600dp extends SongDetailHeader {
                   ),
                   GestureDetector(
                     child: Text(
-                      song.record.title,
-                      style: TextStyle(fontSize: 12, color: Colors.lightBlue),
+                      '唱片：${song?.record?.title}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1
+                          .apply(color: Colors.orange),
                     ),
                     onTap: () {
                       openRecord(context, song.record);
@@ -55,7 +81,10 @@ class SongDetailHeader_sw600dp extends SongDetailHeader {
                   GestureDetector(
                     child: Text(
                       getArtistsString(song.artists),
-                      style: TextStyle(fontSize: 12, color: Colors.lightBlue),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2
+                          .apply(color: Colors.orange),
                     ),
                     onTap: () {
                       onTapArtists(context, song.artists);

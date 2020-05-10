@@ -123,50 +123,55 @@ class _ArtistDetialState extends State<ArtistDetial> {
       );
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          _header,
-          ButtonBar(
-            mainAxisSize: MainAxisSize.max,
-            alignment: MainAxisAlignment.start,
+    return Container(
+      child: SingleChildScrollView(
+        child: Container(
+          margin: getDetailContainerMargin(context),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              FlatButton.icon(
-                icon: const Icon(Icons.album, size: 18.0),
-                label: const Text('唱片', semanticsLabel: '唱片'),
-                textColor: _selection == 0 ? _textColor : _textColorUnselected,
-                onPressed: () {
-                  setSelection(0);
-                },
+              _header,
+              ButtonBar(
+                mainAxisSize: MainAxisSize.max,
+                alignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  FlatButton.icon(
+                    icon: const Icon(Icons.album, size: 18.0),
+                    label: const Text('唱片', semanticsLabel: '唱片'),
+                    textColor: _selection == 0 ? _textColor : _textColorUnselected,
+                    onPressed: () {
+                      setSelection(0);
+                    },
+                  ),
+                  FlatButton.icon(
+                    icon: const Icon(Icons.library_music, size: 18.0),
+                    label: const Text('歌曲', semanticsLabel: '歌曲'),
+                    textColor: _selection == 1 ? _textColor : _textColorUnselected,
+                    onPressed: () {
+                      setSelection(1);
+                    },
+                  ),
+                  FlatButton.icon(
+                    icon: const Icon(Icons.people, size: 18.0),
+                    label: const Text('参与', semanticsLabel: '参与'),
+                    textColor: _selection == 2 ? _textColor : _textColorUnselected,
+                    onPressed: () {
+                      setSelection(2);
+                    },
+                  ),
+                ],
               ),
-              FlatButton.icon(
-                icon: const Icon(Icons.library_music, size: 18.0),
-                label: const Text('歌曲', semanticsLabel: '歌曲'),
-                textColor: _selection == 1 ? _textColor : _textColorUnselected,
-                onPressed: () {
-                  setSelection(1);
-                },
+              Container(
+                child: _widget,
               ),
-              FlatButton.icon(
-                icon: const Icon(Icons.people, size: 18.0),
-                label: const Text('参与', semanticsLabel: '参与'),
-                textColor: _selection == 2 ? _textColor : _textColorUnselected,
-                onPressed: () {
-                  setSelection(2);
-                },
+              Visibility(
+                visible: (artist?.imageList?.length ?? 0) > 0,
+                child: ImageGallery(imageList: artist.imageList),
               ),
             ],
           ),
-          Container(
-            child: _widget,
-          ),
-          Visibility(
-            visible: (artist?.imageList?.length ?? 0) > 0,
-            child: ImageGallery(imageList: artist.imageList),
-          ),
-        ],
+        ),
       ),
     );
   }

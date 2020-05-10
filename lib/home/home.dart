@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_golden_time/models.dart';
 
-import '../home/background_container.dart';
-import '../home/page_indicator_container.dart';
-import '../home/module_container.dart';
+import 'background_container.dart';
+import 'page_indicator_container.dart';
+import 'module_container.dart';
 import '../model/artist.dart';
 import '../model/module.dart';
 import '../model/record.dart';
 import '../util.dart';
-import '../home/quick_nav_container.dart';
+import 'quick_nav_container.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.gpmQuickNavItems, this.onSelectionChanged, this.onBrightnessChanged});

@@ -39,9 +39,9 @@ class _RecordsPageState extends State<RecordsPage> {
   @override
   void didUpdateWidget(RecordsPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget != widget) {
-      _handleDataSourceChanged();
-    }
+//    if (oldWidget != widget) {
+//      _handleDataSourceChanged();
+//    }
   }
 
   @override
@@ -215,16 +215,11 @@ class _RecordsListState extends State<RecordsList> {
     }
 
     int _crossAxisCount() {
-      Orientation orientation = MediaQuery.of(context).orientation;
-      return orientation == Orientation.portrait ? 2 : 4;
-    }
-
-    var _margin = EdgeInsets.fromLTRB(96, 32, 96, 32);
-    if (MediaQuery.of(context).size.width < 950) {
-      _margin = EdgeInsets_fromLTRB(context, 950, 96, 32, 96, 32);
-    }
-    if (MediaQuery.of(context).size.width < 450) {
-      _margin = EdgeInsets.fromLTRB(16, 16, 16, 16);
+      int crossAxisCount = querySize<int>(context, {1250: 4, 1400: 5});
+      if (!isLargeScreen(context)) {
+        crossAxisCount = 2;
+      }
+      return crossAxisCount;
     }
 
     return Container(
@@ -232,7 +227,7 @@ class _RecordsListState extends State<RecordsList> {
         scrollDirection: Axis.vertical,
         child: Container(
           child: Container(
-            margin: _margin,
+            margin: getListContainerMargin(context),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,

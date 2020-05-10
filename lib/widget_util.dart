@@ -114,11 +114,6 @@ void showDialogArtists(BuildContext context, List<Artist> artists) {
 
           leading: Stack(
             children: <Widget>[
-//              CircleAvatar(
-//                backgroundColor: Colors.white,
-//                backgroundImage:
-//                    AssetImage('assets/baseline_account_circle_black_24dp.png'),
-//              ),
               Container(
                 width: 40,
                 height: 40,
@@ -126,10 +121,14 @@ void showDialogArtists(BuildContext context, List<Artist> artists) {
                   color: Colors.grey[400],
                   shape: BoxShape.circle,
                 ),
-                child: Image.asset(
-                  'assets/baseline_account_circle_black_24dp.png',
-                  fit: BoxFit.contain,
-                  color: Colors.grey,
+                child: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                    return Icon(
+                      Icons.account_circle,
+                      color: Colors.grey,
+                      size: constraints.biggest.width,
+                    );
+                  },
                 ),
               ),
               CircleAvatar(
@@ -343,4 +342,30 @@ List<Map<String, dynamic>> getSongFields(Song song) {
   });
 
   return fields;
+}
+
+class DefaultIconWidget extends StatelessWidget {
+  final IconData icon;
+
+  DefaultIconWidget({this.icon = Icons.account_circle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+//      color: Colors.grey[400],
+      child: FractionallySizedBox(
+        widthFactor: 0.8,
+        heightFactor: 0.8,
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return Icon(
+              icon,
+              color: Colors.grey,
+              size: constraints.biggest.width,
+            );
+          },
+        ),
+      ),
+    );
+  }
 }

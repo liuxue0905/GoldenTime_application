@@ -113,8 +113,11 @@ class ArtistCompsListState extends State<ArtistCompsList> {
     List<Record> records = widget.pageList.results;
 
     int _crossAxisCount() {
-      Orientation orientation = MediaQuery.of(context).orientation;
-      return orientation == Orientation.portrait ? 2 : 4;
+      int crossAxisCount = querySize<int>(context, {1250: 4, 1400: 5});
+      if (!isLargeScreen(context)) {
+        crossAxisCount = 2;
+      }
+      return crossAxisCount;
     }
 
     Widget _itemBuilder(BuildContext context, int index) {
@@ -123,7 +126,7 @@ class ArtistCompsListState extends State<ArtistCompsList> {
         brightness: Brightness.light,
         url: getRecordCover(record, size: 160 * MediaQuery.of(context).devicePixelRatio),
         title: record.title,
-        subtitle: record.number,
+        subtitle: record.year,
         tag: record.getFormatText(),
         onTap: () {
           openRecord(context, record);
