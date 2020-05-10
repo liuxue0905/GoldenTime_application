@@ -91,7 +91,7 @@ const int int32MaxValue = 2147483647;
 class Home2PageState extends State<Home2Page> {
   List<Future<PageList<Artist>>> futures;
 
-  Map<int, dynamic> snapshots = {};
+  Map<int, AsyncSnapshot<PageList<Artist>>> snapshots = {};
   Map<int, PageList<Artist>> datas = {};
 
   @override
@@ -140,6 +140,7 @@ class Home2PageState extends State<Home2Page> {
 
       for (int i = 0; i < futures.length; i++) {
         Future<PageList<Artist>> future = futures[i];
+
         PageList<Artist> data = datas[i];
 
         count += 1;
@@ -159,6 +160,7 @@ class Home2PageState extends State<Home2Page> {
 
       for (int i = 0; i < futures.length; i++) {
         Future<PageList<Artist>> future = futures[i];
+        AsyncSnapshot<PageList<Artist>> snapshot = snapshots[i];
         PageList<Artist> data = datas[i];
 
         start = end;
@@ -218,6 +220,7 @@ class Home2PageState extends State<Home2Page> {
 
       for (int i = 0; i < futures.length; i++) {
         Future<PageList<Artist>> future = futures[i];
+        AsyncSnapshot<PageList<Artist>> snapshot = snapshots[i];
         PageList<Artist> data = datas[i];
 
         start = end;
