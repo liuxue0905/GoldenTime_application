@@ -130,6 +130,8 @@ class Home2PageState extends State<Home2Page> {
     print('datas: ${datas}');
     print('datas?.keys: ${datas?.keys}');
 
+    double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+
     String getTitle(int index) {
       List<String> titles = ['男歌手', '女歌手', '组合', '未知'];
       return titles[index];
@@ -194,7 +196,12 @@ class Home2PageState extends State<Home2Page> {
                       ),
                     ),
                     Positioned.fill(
-                      child: Image.network(artist?.cover ?? ''),
+                      child: ClipOval(
+                        child: Image.network(
+                          getArtistCover(artist, size: 40 * devicePixelRatio),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ],
                 ),

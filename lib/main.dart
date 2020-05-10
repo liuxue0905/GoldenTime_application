@@ -29,6 +29,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepOrange,
 
         primaryColorBrightness: Brightness.light,
+
+        appBarTheme: AppBarTheme(color: Colors.white),
       ),
       home: MyHomePage(title: '流金岁月'),
     );
@@ -238,7 +240,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
-        actions: buildActions(items),
+//        actions: buildActions(items),
       ),
       drawer: Drawer(
         child: Column(
