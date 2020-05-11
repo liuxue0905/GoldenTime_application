@@ -46,9 +46,9 @@ class _HomePageState extends State<HomePage> {
 
   void _incrementSelection() {
     setState(() {
-      print('_incrementSelection old _selection = ${_selection}');
+//      print('_incrementSelection old _selection = ${_selection}');
       _selection = (_selection + 1) % _backgroundCount;
-      print('_incrementSelection new _selection = ${_selection}');
+//      print('_incrementSelection new _selection = ${_selection}');
 
       _setSelection(_selection);
     });
@@ -102,6 +102,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    List<dynamic> historyList = ['abc', 'def'];
+
     return Container(
       child: Stack(
         children: <Widget>[
@@ -114,6 +117,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Positioned.fill(
             child: ModuleContainer(
+              historyList: historyList,
               modules: this.modules,
               brightness: _brightness,
               selection: _selection,
@@ -145,7 +149,7 @@ class _HomePageState extends State<HomePage> {
               selection: _selection,
               brightness: _brightness,
               backgroundColor: _backgroundColor,
-              history: true,
+              history: (historyList?.length ?? 0) != 0,
               onSelectionChanged: (int position) {
 
               },

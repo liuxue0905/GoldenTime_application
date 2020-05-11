@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selection = 0;
 
   List<GPMQuickNavItem> items = [
-//    GPMQuickNavItem(icon: Icons.home, text: '首页', key: 'home'),
+    GPMQuickNavItem(icon: Icons.home, text: '首页', key: 'home'),
     GPMQuickNavItem(icon: Icons.home, text: '首页', key: 'home2'),
     GPMQuickNavItem(icon: Icons.album, text: '唱片', key: 'records'),
     GPMQuickNavItem(icon: Icons.account_box, text: '歌手', key: 'artists'),
@@ -128,9 +128,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // "http://liujin.jios.org:8888/api/"
 
-//    ApiService service = ApiService(host: 'liujin.jios.org', port: 8888);
+    ApiService service = ApiService(host: 'liujin.jios.org', port: 8888);
 //    ApiService service = ApiService(host: '127.0.0.1', port: 8888);
-    ApiService service = ApiService(host: '192.168.50.248', port: 8888);
+//    ApiService service = ApiService(host: '192.168.50.248', port: 8888);
     ApiService.instance = service;
   }
 
