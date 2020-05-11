@@ -25,7 +25,7 @@ class SJScrollingMoudle extends StatelessWidget {
     if (moduleType == Module.MODULE_TOKEN_RECENT || moduleType == Module.MODULE_TOKEN_NOW) {
       top = scaleSize(context, 950, 32);
     } else {
-      top = querySize<double>(context, {950: 88, 1250: 116, 1400: 152});
+      top = querySize<double>(context, {950: 88, 1250: 116, 1400: 152, 1850: 168});
 
       if (MediaQuery.of(context).size.width < 950) {
         top = scaleSize(context, 950, 88);
@@ -35,7 +35,7 @@ class SJScrollingMoudle extends StatelessWidget {
   }
 
   double _getWidth(BuildContext context) {
-    double size = querySize<double>(context, {950: 704, 1250: 884, 1400: 1002});
+    double size = querySize<double>(context, {950: 704, 1250: 884, 1400: 1002, 1850: 1404});
 
     if (MediaQuery.of(context).size.width < 950) {
       size = scaleSize(context, 950, 704);

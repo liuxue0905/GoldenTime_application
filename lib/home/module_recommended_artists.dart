@@ -32,7 +32,7 @@ class ModuleRecommendedArtists extends StatelessWidget {
           ),
           GPMCardGrid(
             // 右 16， 上 24
-            crossAxisCount: 4,
+            crossAxisCount: querySize<int>(context, {1250: 4, 1850: 5}),
             mainAxisSpacing: isLargeScreen(context) ? 24 : 12,
             crossAxisSpacing: isLargeScreen(context) ? 16 : 8,
             children: module.dataList

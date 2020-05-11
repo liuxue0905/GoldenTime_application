@@ -64,7 +64,7 @@ Brightness getBrightness(Color color) {
 // sj_scrolling_moudle.dart
 // history now 32
 // <1250:88 >=1250:116  >=1400:152
-// <1250:704 >=1250:884  >=1400:1002
+// <1250:704 >=1250:884  >=1400:1002  >=1850:1404
 
 T querySize<T>(BuildContext context, Map<double, T> parameters,
     [Axis axis = Axis.horizontal]) {
