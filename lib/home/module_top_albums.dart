@@ -31,7 +31,7 @@ class ModuleTopAlbums extends StatelessWidget {
           ),
           GPMCardGrid(
             // 右 16， 上 24
-            crossAxisCount: querySize<int>(context, {1250: 5, 1850: 6}),
+            crossAxisCount: querySize<int>(context, {1250: 5, 1400:5, 1850: 6}),
             mainAxisSpacing: isLargeScreen(context) ? 24 : 12,
             crossAxisSpacing: isLargeScreen(context) ? 16 : 8,
             children: module.dataList

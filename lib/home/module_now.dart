@@ -45,7 +45,7 @@ class ModuleNowState extends State<ModuleNow> {
   @override
   Widget build(BuildContext context) {
     int _crossAxisCount() {
-      int crossAxisCount = querySize<int>(context, {1250: 2, 1400: 3});
+      int crossAxisCount = querySize<int>(context, {1250: 2, 1400: 3, 1850: 4});
       if (MediaQuery.of(context).size.width < 450) {
         crossAxisCount = 1;
       }
@@ -53,15 +53,11 @@ class ModuleNowState extends State<ModuleNow> {
     }
 
     int _rowsPerPage() {
-      int _rowsPerPage;
       if (_crossAxisCount() == 1) {
-        _rowsPerPage = 1;
-      } else if (_crossAxisCount() == 2) {
-        _rowsPerPage = 2 * 2;
-      } else if (_crossAxisCount() == 3) {
-        _rowsPerPage = 3 * 2;
+        return 1;
+      } else {
+        return _crossAxisCount() * 2;
       }
-      return _rowsPerPage;
     }
 
     List<Module> _modules = modules.sublist(

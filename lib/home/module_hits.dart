@@ -17,7 +17,7 @@ class ModuleHits extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int _crossAxisCount() {
-      return querySize<int>(context, {950: 2, 1250: 3, 1850: 4});
+      return querySize<int>(context, {950: 2, 1250: 3, 1400: 3, 1850: 4});
     }
 
     return SJScrollingMoudle(

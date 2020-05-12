@@ -68,6 +68,7 @@ Brightness getBrightness(Color color) {
 
 T querySize<T>(BuildContext context, Map<double, T> parameters,
     [Axis axis = Axis.horizontal]) {
+
   bool debug = false;
 
   if (debug) {
@@ -88,14 +89,15 @@ T querySize<T>(BuildContext context, Map<double, T> parameters,
     axisSize = screenSize.height;
   }
 
-  T result;
+  T result = parameters[keys[0]];
   for (int i = 0; i < keys.length; i++) {
     double key = keys[i];
-    result = parameters[key];
 
     if (key > axisSize) {
       break;
     }
+
+    result = parameters[key];
   }
   if (debug) {
     print('querySize parameters.keys:${parameters.keys}');
