@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_golden_time/home/recent_item.dart';
 import 'sj_scrolling_moudle.dart';
 import '../model/module.dart';
 
 class ModuleRecent extends StatelessWidget {
   final Brightness brightness;
+  final List<dynamic> historyList;
 
-  ModuleRecent({Key key, this.brightness = Brightness.light}) : super(key: key);
+  ModuleRecent({Key key, this.brightness = Brightness.light, this.historyList})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,19 @@ class ModuleRecent extends StatelessWidget {
                 Icon(Icons.chevron_right,
                     color: light ? Colors.grey[900] : Colors.white),
               ],
+            ),
+          ),
+          Container(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: historyList
+                    .map((e) => Container(
+                          margin: EdgeInsets.only(right: 8),
+                          child: RecentItem(),
+                        ))
+                    .toList(),
+              ),
             ),
           ),
         ],

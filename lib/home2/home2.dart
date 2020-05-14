@@ -87,7 +87,7 @@ class Home2PageState extends State<Home2Page> {
                         );
                       }
                       if (snapshot.hasData) {
-                        return aaaaaaa();
+                        return aaaaaaa(datas: snapshot.data);
                       }
                     } else {
                       return Center(
@@ -122,7 +122,9 @@ class Home2PageState extends State<Home2Page> {
 }
 
 class aaaaaaa extends StatelessWidget {
-  List<dynamic> datas = [];
+  final List<PageList<Artist>> datas;
+
+  aaaaaaa({this.datas});
 
   @override
   Widget build(BuildContext context) {
@@ -209,9 +211,13 @@ class aaaaaaa extends StatelessWidget {
       }
 
       print('_itemBuilder end');
+      return null;
     }
 
     int _crossAxisCount() {
+      if (MediaQuery.of(context).size.width <= 360) {
+        return 1;
+      }
       if (!isLargeScreen(context)) {
         return 2;
       }
@@ -241,6 +247,7 @@ class aaaaaaa extends StatelessWidget {
       }
 
       print('_staggeredTileBuilder end');
+      return null;
     }
 
     return Container(

@@ -3,7 +3,7 @@ import 'package:flutter_app_golden_time/api_service.dart';
 
 import './layout/artists.dart';
 import 'home/home.dart';
-import './layout/records.dart';
+import 'layout/records.dart';
 import './layout/songs.dart';
 import './models.dart';
 import 'home2/home2.dart';
@@ -128,8 +128,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // "http://liujin.jios.org:8888/api/"
 
-    ApiService service = ApiService(host: 'liujin.jios.org', port: 8888);
-//    ApiService service = ApiService(host: '127.0.0.1', port: 8888);
+//    ApiService service = ApiService(host: 'liujin.jios.org', port: 8888);
+    ApiService service = ApiService(host: '127.0.0.1', port: 8888);
 //    ApiService service = ApiService(host: '192.168.50.248', port: 8888);
     ApiService.instance = service;
   }

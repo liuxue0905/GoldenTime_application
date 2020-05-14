@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../models.dart';
-import './gpm-card-grid.dart';
+import 'gpm-card-grid.dart';
 import '../home/sj_card_recommended_tall.dart';
 import '../api_service.dart';
 import '../forms.dart';
-import '../layout/paginated_footer.dart';
+import 'paginated_footer.dart';
 import '../model/page_list.dart';
 import '../model/record.dart';
 import '../util.dart';

@@ -121,6 +121,7 @@ class ArtistSongsListState extends State<ArtistSongsList> {
         DataColumn(label: Text(""), numeric: true),
         DataColumn(label: Text("音乐标题")),
         DataColumn(label: Text("歌手")),
+        DataColumn(label: Text("唱片")),
         DataColumn(label: Icon(Icons.more_horiz)),
       ],
       rows: songs.map((Song song) {
@@ -137,6 +138,12 @@ class ArtistSongsListState extends State<ArtistSongsList> {
               getArtistsWidget(song.artists),
               onTap: () {
                 onTapArtists(context, song.artists);
+              },
+            ),
+            DataCell(
+              Text(song.record.title),
+              onTap: () {
+                openRecord(context, song.record);
               },
             ),
             DataCell(

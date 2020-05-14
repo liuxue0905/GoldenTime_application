@@ -151,6 +151,7 @@ class ModuleContainerState extends State<ModuleContainer> {
         return ModuleRecent(
           key: keyHistory,
           brightness: _brightness,
+          historyList: widget.historyList,
         );
       }
       if (index == 1) {
