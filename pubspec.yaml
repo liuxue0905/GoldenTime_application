@@ -28,6 +28,7 @@ dependencies:
   http: ^0.12.0+4
 
   flutter_staggered_grid_view: "^0.3.0"
+  flutter_svg: ^0.17.4
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +77,17 @@ flutter:
     - images/background_image/12b969.png
     - images/sj_dot.png
     - images/ifl.png
+    - images/backgroundImages/backgroundImages.json
+    - images/backgroundImages/1aN6mX4KtTKKOBfGwSftr-hxuHhHIUyxPoN7R1fEZYwZ02GrVCONCTQxtbLWxF85rUs49HCMaQ.png
+    - images/backgroundImages/3rSsn09XlksGOUhWrgB7vSJwPWzmlS0Zp7FZZ1o1cipRdFyJ_mQ0bbXg6KKeNaebF1OiXZKz.png
+    - images/backgroundImages/EgjW-j_s1J68IH6GIbxGd2sDNtvipdKPLjC-Nf3CZ41zzJuae7Y2UzsKVJdhYlyesID2RZVz.png
+    - images/backgroundImages/f-m-m5tQ9knrY3lPJQgFFhrdeoefL3FzY2SgEQjkxPP2HlcsI1FQd9A-Yxj8_HIOqjYPhrLf.jpg
+    - images/backgroundImages/HAS6pzVdYATF4MbFw6ZOhsLp8cU7D7qVj2jEtD5YzlXnVQyTUzcIs0O8KShMVoZa4bUOcnUC0w.png
+    - images/backgroundImages/HyaLITKzgLGwFY90pKkHW7fxiBaCko9kZB6awnDk2FQYb4iBq9Ndoj5fr0DCH2CmQLskFaZh.png
+    - images/backgroundImages/kkSI0jxnAYZ6_3jeLT7aZ9A9ITBaA5MQjGNS1jmhtdSCorKCgouBuUXg1Yvktfb_l6wflXDiFWI.png
+    - images/backgroundImages/maUoAOgHshpBAeTDmkULhnMe-8oGljo1TdCDMdUtY0jNEZ5iR3B6hhc6-Ghvuft-sOR0LXrAxA4.png
+    - images/backgroundImages/WwnaSyZar1s7gJWNsjWf-xmaLDDKpSs4i4bkbMtWGqFj24m-ucOwj3ltVjVy6NUsy5fTprCY.png
+    - images/backgroundImages/xLasi4eSHmkP_Fl0bVuDhvjiS9F6LihKFHa20lpO_9whutIgzfTMoPhxaxRKtlcqpbKyCA_cSTQ.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
