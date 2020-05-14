@@ -46,7 +46,6 @@ class ModuleRecent extends StatelessWidget {
               child: Row(
                 children: historyList
                     .map((e) => Container(
-                          margin: EdgeInsets.only(right: 8),
                           child: RecentItem(),
                         ))
                     .toList(),

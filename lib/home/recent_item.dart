@@ -8,18 +8,28 @@ class RecentItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(right: 8),
+      width: 90,
       child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Card(
-            clipBehavior: Clip.antiAlias,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(2.0),
-            ),
-            child: Container(
-              child: FadeInImage(
-                image: NetworkImage(url ?? ''),
-                placeholder: AssetImage('images/default_album.jpg'),
-                fit: BoxFit.cover,
+          Container(
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Container(
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(2.0),
+                ),
+                child: Container(
+                  child: FadeInImage(
+                    image: NetworkImage(url ?? ''),
+                    placeholder: AssetImage('images/default_album.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
           ),
@@ -28,6 +38,8 @@ class RecentItem extends StatelessWidget {
             margin: const EdgeInsets.only(top: 12),
             child: Text(
               'I Dare You (Multi-Language Duets) Radio',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.black,
