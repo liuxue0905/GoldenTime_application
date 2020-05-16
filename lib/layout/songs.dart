@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../api_service.dart';
 import '../forms.dart';
+import '../home/quick_nav_container.dart';
+import '../layout/headers.dart';
 import '../layout/paginated_footer.dart';
 import '../model/page_list.dart';
 import '../model/song.dart';
 import '../models.dart';
 import '../util.dart';
 import '../widget_util.dart';
-import '../home/quick_nav_container.dart';
-import 'paginated_header.dart';
 
 class SongsPage extends StatefulWidget {
   final List<GPMQuickNavItem> gpmQuickNavItems;
@@ -126,7 +126,7 @@ class SongsPageState extends State<SongsPage> {
 }
 
 class SongsList extends StatefulWidget {
-  final PaginatedFormObject form;
+  final SongsFormObject form;
   final PageList<Song> pageList;
 
   final ValueChanged<int> onPageChanged;
@@ -155,6 +155,18 @@ class SongsListState extends State<SongsList> {
   Widget build(BuildContext context) {
     List<Song> songs = widget.pageList.results;
 
+    String _getSubtitle() {
+      String text = '搜索条件    ';
+
+      if (widget.form.title?.isEmpty ?? true) {
+        text += '标题：全部';
+      } else {
+        text += '标题：${widget.form.title}';
+      }
+
+      return text;
+    }
+
     return Container(
       child: SingleChildScrollView(
         child: Container(
@@ -162,20 +174,17 @@ class SongsListState extends State<SongsList> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              PaginatedHeader(
-                header: Row(
-                  children: <Widget>[
-                    Text('TITLE'),
-                    IconButton(
-                      icon: Icon(Icons.search),
-                      onPressed: () {
-                        showDialogSearch(
-                            context, widget.form, widget.onDataSourceChanged);
-                      },
-                    ),
-                  ],
-                ),
+
+              PlayHeader(
+                title: '歌曲',
+                subtitle: _getSubtitle(),
+                buttonText: '搜索',
+                onPressed: () {
+                  showDialogSearch(
+                      context, widget.form, widget.onDataSourceChanged);
+                },
               ),
+
               buildDataTable(context, songs),
               PaginatedFooter(
                 onPageChanged: (int value) {
@@ -320,9 +329,9 @@ void showDialogSearch(BuildContext context, SongsFormObject form,
   ).then<void>((DialogDemoAction value) {
     // The value passed to Navigator.pop() or null.
     if (value != null) {
-      Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text('You selected: $value'),
-      ));
+//      Scaffold.of(context).showSnackBar(SnackBar(
+//        content: Text('You selected: $value'),
+//      ));
 
       if (value == DialogDemoAction.agree) {
         if (onFormChanged != null) {

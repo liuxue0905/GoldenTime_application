@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+
 import '../layout/gpm-card-grid.dart';
 import '../layout/gpm-headline-header.dart';
-import 'sj_card_recommended.dart';
-import 'sj_scrolling_moudle.dart';
 import '../model/module.dart';
-
 import '../util.dart';
 import '../widget_util.dart';
+import 'sj_card_recommended.dart';
+import 'sj_scrolling_moudle.dart';
 
 class ModuleTopAlbums extends StatelessWidget {
   final Brightness brightness;

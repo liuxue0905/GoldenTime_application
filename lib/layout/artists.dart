@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../models.dart';
 import './artist_detail.dart';
 import './artist_item.dart';
 import './gpm-card-grid.dart';
 import './paginated_footer.dart';
 import '../api_service.dart';
 import '../forms.dart';
+import '../home/quick_nav_container.dart';
 import '../model/artist.dart';
 import '../model/page_list.dart';
+import '../models.dart';
 import '../util.dart';
 import '../widget_util.dart';
-import '../home/quick_nav_container.dart';
+import 'headers.dart';
 
 class ArtistsPage extends StatefulWidget {
   final List<GPMQuickNavItem> gpmQuickNavItems;
@@ -184,7 +185,8 @@ class ArtistsListState extends State<ArtistsList> {
     Widget _itemBuilder(BuildContext context, int index) {
       Artist artist = artists[index];
       return ArtistItem(
-        url: getArtistCover(artist, size: 160 * MediaQuery.of(context).devicePixelRatio),
+        url: getArtistCover(artist,
+            size: 160 * MediaQuery.of(context).devicePixelRatio),
         title: artist.name,
         tag: artist.getTypeText() ?? '-',
         onTap: () {
@@ -199,6 +201,26 @@ class ArtistsListState extends State<ArtistsList> {
       );
     }
 
+    String _getSubtitle() {
+      String text = '搜索条件    ';
+
+      if (widget.form.name?.isEmpty ?? true) {
+        text += '名称：全部';
+      } else {
+        text += '名称：${widget.form.name}';
+      }
+
+      text += '，';
+
+      text += '类型：${Artist.getTypeTextStatic(widget.form.type) ?? '全部'}';
+
+      text += '，';
+
+      text += '有唱片：${!widget.form.recordIsNull ? '有个人唱片' : '无个人唱片'}';
+
+      return text;
+    }
+
     return Container(
       child: SingleChildScrollView(
         child: Container(
@@ -206,18 +228,14 @@ class ArtistsListState extends State<ArtistsList> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Card(
-                child: Row(
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.search),
-                      onPressed: () {
-                        showDialogSearch(
-                            context, widget.form, widget.onDataSourceChanged);
-                      },
-                    ),
-                  ],
-                ),
+              PlayHeader(
+                title: '歌手',
+                subtitle: _getSubtitle(),
+                buttonText: '搜索',
+                onPressed: () {
+                  showDialogSearch(
+                      context, widget.form, widget.onDataSourceChanged);
+                },
               ),
               GPMCardGrid(
                 crossAxisCount: _crossAxisCount(),
@@ -363,9 +381,9 @@ void showDialogSearch(BuildContext context, ArtistsFormObject form,
   ).then<void>((DialogDemoAction value) {
     // The value passed to Navigator.pop() or null.
     if (value != null) {
-      Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text('You selected: $value'),
-      ));
+//      Scaffold.of(context).showSnackBar(SnackBar(
+//        content: Text('You selected: $value'),
+//      ));
 
       if (value == DialogDemoAction.agree) {
         if (onFormChanged != null) {

@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_app_golden_time/home/recent_item.dart';
-import 'sj_scrolling_moudle.dart';
+
+import '../home/recent_item.dart';
 import '../model/module.dart';
+import '../util.dart';
+import 'sj_scrolling_moudle.dart';
 
 class ModuleRecent extends StatelessWidget {
   final Brightness brightness;
@@ -13,6 +17,10 @@ class ModuleRecent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool light = brightness == Brightness.light;
+
+    int maxLength = querySize<int>(context, {950: 6, 1250: 8, 1850: 12});
+    List<dynamic> historyListLimit =
+        historyList?.sublist(0, 0 + min(historyList.length, maxLength));
 
     return SJScrollingMoudle(
       moduleType: Module.MODULE_TOKEN_RECENT,
@@ -44,7 +52,7 @@ class ModuleRecent extends StatelessWidget {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: historyList
+                children: historyListLimit
                     .map((e) => Container(
                           child: RecentItem(),
                         ))

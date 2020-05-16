@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_golden_time/home/quick_nav_container.dart';
-import 'package:flutter_app_golden_time/util.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_app_golden_time/layout/gpm-headline-header.dart';
-import 'package:flutter_app_golden_time/model/artist.dart';
-import 'package:flutter_app_golden_time/model/page_list.dart';
 
 import '../api_service.dart';
+import '../home/quick_nav_container.dart';
+import '../home2/artist_type_header.dart';
+import '../model/artist.dart';
+import '../model/page_list.dart';
 import '../models.dart';
+import '../util.dart';
 import '../widget_util.dart';
 
 class Home2Page extends StatefulWidget {
@@ -165,8 +165,8 @@ class aaaaaaa extends StatelessWidget {
 
         if (index == start) {
           return Container(
-            margin: EdgeInsets.only(top: 24),
-            child: HeadlineHeader(
+            margin: EdgeInsets.only(top: 24.0),
+            child: ArtistTypeHeader(
               title: getTitle(i),
               subtitle: '共${data?.count ?? '-'}',
             ),

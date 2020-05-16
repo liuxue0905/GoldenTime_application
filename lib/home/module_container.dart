@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
+import '../model/module.dart';
 import 'module_hits.dart';
-import 'module_recent.dart';
 import 'module_now.dart';
+import 'module_recent.dart';
 import 'module_recommended_albums.dart';
 import 'module_recommended_artists.dart';
 import 'module_top_albums.dart';
-import '../model/module.dart';
 
 //    // now
 ////    querySize<int>(context, {1400: 3});

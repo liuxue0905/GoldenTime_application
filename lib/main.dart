@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_golden_time/api_service.dart';
 
+import './api_service.dart';
 import './layout/artists.dart';
-import 'home/home.dart';
-import 'layout/records.dart';
 import './layout/songs.dart';
 import './models.dart';
+import 'home/home.dart';
 import 'home2/home2.dart';
+import 'layout/records.dart';
 
 void main() => runApp(MyApp());
 
@@ -59,11 +59,13 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selection = 0;
 
   List<GPMQuickNavItem> items = [
-    GPMQuickNavItem(icon: Icons.home, text: '首页', key: 'home'),
+
     GPMQuickNavItem(icon: Icons.home, text: '首页', key: 'home2'),
     GPMQuickNavItem(icon: Icons.album, text: '唱片', key: 'records'),
     GPMQuickNavItem(icon: Icons.account_box, text: '歌手', key: 'artists'),
     GPMQuickNavItem(icon: Icons.library_music, text: '歌曲', key: 'songs'),
+
+    GPMQuickNavItem(icon: Icons.home, text: '首页', key: 'home'),
   ];
 
 //  final GlobalKey<ScaffoldState> _key4Scaffold = GlobalKey<ScaffoldState>();

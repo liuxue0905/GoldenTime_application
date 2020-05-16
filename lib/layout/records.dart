@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../models.dart';
-import 'gpm-card-grid.dart';
-import '../home/sj_card_recommended_tall.dart';
 import '../api_service.dart';
 import '../forms.dart';
-import 'paginated_footer.dart';
+import '../home/quick_nav_container.dart';
+import '../home/sj_card_recommended_tall.dart';
+import '../layout/headers.dart';
 import '../model/page_list.dart';
 import '../model/record.dart';
+import '../models.dart';
 import '../util.dart';
 import '../widget_util.dart';
-import '../home/quick_nav_container.dart';
+import 'gpm-card-grid.dart';
+import 'paginated_footer.dart';
 
 class RecordsPage extends StatefulWidget {
   final List<GPMQuickNavItem> gpmQuickNavItems;
@@ -203,7 +204,8 @@ class _RecordsListState extends State<RecordsList> {
 
       return SJCardRecommendedTall(
         brightness: Brightness.light,
-        url: getRecordCover(record, size: 160 * MediaQuery.of(context).devicePixelRatio),
+        url: getRecordCover(record,
+            size: 160 * MediaQuery.of(context).devicePixelRatio),
         title: record.title,
         subtitle: getArtistsString(record.artists),
         description: record.year + ' • ' + record.songs.length.toString() + "首",
@@ -222,6 +224,22 @@ class _RecordsListState extends State<RecordsList> {
       return crossAxisCount;
     }
 
+    String _getSubtitle() {
+      String text = '搜索条件    ';
+
+      if (widget.form.title?.isEmpty ?? true) {
+        text += '标题：全部';
+      } else {
+        text += '标题：${widget.form.title}';
+      }
+
+      text += '，';
+
+      text += '介质：${Record.getFormatTextStatic(widget.form.format) ?? '全部'}';
+
+      return text;
+    }
+
     return Container(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -233,18 +251,14 @@ class _RecordsListState extends State<RecordsList> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Card(
-                  child: Row(
-                    children: <Widget>[
-                      IconButton(
-                        icon: Icon(Icons.search),
-                        onPressed: () {
-                          showDialogSearch(
-                              context, widget.form, widget.onDataSourceChanged);
-                        },
-                      ),
-                    ],
-                  ),
+                PlayHeader(
+                  title: '唱片',
+                  subtitle: _getSubtitle(),
+                  buttonText: '搜索',
+                  onPressed: () {
+                    showDialogSearch(
+                        context, widget.form, widget.onDataSourceChanged);
+                  },
                 ),
                 GPMCardGrid(
                   crossAxisCount: _crossAxisCount(),
@@ -373,9 +387,10 @@ void showDialogSearch(BuildContext context, RecordsFormObject form,
   ).then<void>((DialogDemoAction value) {
     // The value passed to Navigator.pop() or null.
     if (value != null) {
-      Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text('You selected: $value'),
-      ));
+//      Scaffold.of(context).showSnackBar(SnackBar(
+//        content: Text('You selected: $value'),
+//      ));
+
       if (value == DialogDemoAction.agree) {
         if (onFormChanged != null) {
           onFormChanged(_form);

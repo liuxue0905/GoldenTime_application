@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../layout/gpm-card-grid.dart';
 import '../layout/gpm-headline-header.dart';
-import 'sj_card_hits.dart';
-import 'sj_scrolling_moudle.dart';
 import '../model/module.dart';
 import '../util.dart';
+import 'sj_card_hits.dart';
+import 'sj_scrolling_moudle.dart';
 
 class ModuleHits extends StatelessWidget {
   final Brightness brightness;

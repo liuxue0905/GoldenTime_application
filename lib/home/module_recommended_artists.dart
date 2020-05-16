@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'sj_card_recommended.dart';
-import '../model/artist.dart';
+
 import '../layout/gpm-card-grid.dart';
 import '../layout/gpm-headline-header.dart';
-import 'sj_scrolling_moudle.dart';
+import '../model/artist.dart';
 import '../model/module.dart';
 import '../util.dart';
 import '../widget_util.dart';
+import 'sj_card_recommended.dart';
+import 'sj_scrolling_moudle.dart';
 
 class ModuleRecommendedArtists extends StatelessWidget {
   final Brightness brightness;

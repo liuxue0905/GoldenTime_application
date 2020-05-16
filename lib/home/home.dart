@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_golden_time/models.dart';
 
-import 'background_container.dart';
-import 'page_indicator_container.dart';
-import 'module_container.dart';
-import '../model/artist.dart';
 import '../model/module.dart';
-import '../model/record.dart';
+import '../models.dart';
 import '../util.dart';
+import 'background_container.dart';
+import 'module_container.dart';
+import 'page_indicator_container.dart';
 import 'quick_nav_container.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,17 +23,21 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   //  CLIENT_SIDE_RECENTS
-  var historyList = [
-    Record(
-        id: 1836,
-        title: '一颗不变心',
-        artists: [Artist(id: 148, name: '张学友')],
-        songsCount: 12),
-    Record(
-        id: 1836,
-        title: '一颗不变心',
-        artists: [Artist(id: 148, name: '张学友')],
-        songsCount: 12),
+  List<dynamic> historyList = [
+    'abc1',
+    'abc2',
+    'abc3',
+    'abc4',
+    'abc5',
+    'abc6',
+    'abc7',
+    'abc8',
+    'abc9',
+    'abc10',
+    'abc11',
+    'abc12',
+    'abc13',
+    'abc14',
   ];
 
   bool history = true;
@@ -102,8 +104,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
-    List<dynamic> historyList = ['abc', 'def'];
 
     return Container(
       child: Stack(

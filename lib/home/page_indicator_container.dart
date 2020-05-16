@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../util.dart';
-
 class PageIndicatorContainer extends StatefulWidget {
   final int selection;
   final ValueChanged<int> onSelectionChanged;

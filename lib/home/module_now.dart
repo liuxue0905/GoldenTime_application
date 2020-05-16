@@ -1,16 +1,14 @@
-import 'package:flutter/material.dart';
-
 import 'dart:math' as math;
 
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 
 import '../layout/colored_now_card.dart';
 import '../layout/gpm-card-grid.dart';
 import '../layout/gpm-headline-header.dart';
-import 'sj_scrolling_moudle.dart';
 import '../model/module.dart';
-
 import '../util.dart';
+import 'sj_scrolling_moudle.dart';
 
 class ModuleNow extends StatefulWidget {
   final Brightness brightness;
