@@ -10,8 +10,8 @@ import '../model/record.dart';
 import '../models.dart';
 import '../util.dart';
 import '../widget_util.dart';
-import 'gpm-card-grid.dart';
-import 'paginated_footer.dart';
+import '../layout/gpm-card-grid.dart';
+import '../layout/paginated_footer.dart';
 
 class RecordsPage extends StatefulWidget {
   final List<GPMQuickNavItem> gpmQuickNavItems;

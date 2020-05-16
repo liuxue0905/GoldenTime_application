@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './gpm-card-grid.dart';
-import './paginated_footer.dart';
+import '../layout/gpm-card-grid.dart';
+import '../layout/paginated_footer.dart';
 import '../api_service.dart';
 import '../forms.dart';
 import '../home/sj_card_recommended.dart';
@@ -9,6 +9,7 @@ import '../model/page_list.dart';
 import '../model/record.dart';
 import '../util.dart';
 import '../widget_util.dart';
+import '../layout/empty.dart';
 
 class ArtistComps extends StatefulWidget {
   final int artistId;
@@ -124,7 +125,8 @@ class ArtistCompsListState extends State<ArtistCompsList> {
       Record record = records[index];
       return SJCardRecommended(
         brightness: Brightness.light,
-        url: getRecordCover(record, size: 160 * MediaQuery.of(context).devicePixelRatio),
+        url: getRecordCover(record,
+            size: 160 * MediaQuery.of(context).devicePixelRatio),
         title: record.title,
         subtitle: record.year,
         tag: record.getFormatText(),
@@ -134,10 +136,8 @@ class ArtistCompsListState extends State<ArtistCompsList> {
       );
     }
 
-    return records == null
-        ? Center(
-            child: Text('no records'),
-          )
+    return (records?.length ?? 0) == 0
+        ? EmptyWidget()
         : Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[

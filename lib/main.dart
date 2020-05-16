@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 import './api_service.dart';
-import './layout/artists.dart';
-import './layout/songs.dart';
+import 'artist/artists.dart';
+import 'song/songs.dart';
 import './models.dart';
 import 'home/home.dart';
 import 'home2/home2.dart';
-import 'layout/records.dart';
+import 'recrod/records.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_golden_time/widget_util.dart';
 
-import './overlay_text.dart';
+import '../layout/overlay_text.dart';
 
 class ArtistItem extends StatelessWidget {
   final String url;

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-import './paginated_footer.dart';
+import '../layout/paginated_footer.dart';
 import '../api_service.dart';
 import '../forms.dart';
 import '../model/page_list.dart';
 import '../model/song.dart';
 import '../util.dart';
 import '../widget_util.dart';
+import '../layout/empty.dart';
 
 class ArtistSongs extends StatefulWidget {
   final int artistId;
@@ -112,72 +113,70 @@ class ArtistSongsListState extends State<ArtistSongsList> {
   Widget build(BuildContext context) {
     List<Song> songs = widget.pageList.results;
 
-    var empty = Center(
-      child: Text('no records'),
-    );
-
-    var _dataTable = DataTable(
-      columns: <DataColumn>[
-        DataColumn(label: Text(""), numeric: true),
-        DataColumn(label: Text("音乐标题")),
-        DataColumn(label: Text("歌手")),
-        DataColumn(label: Text("唱片")),
-        DataColumn(label: Icon(Icons.more_horiz)),
-      ],
-      rows: songs.map((Song song) {
-        return DataRow(
-          cells: <DataCell>[
-            DataCell(Text((songs.indexOf(song) + 1).toString())),
-            DataCell(
-              Text(song.title),
-              onTap: () {
-                openSong(context, song);
-              },
-            ),
-            DataCell(
-              getArtistsWidget(song.artists),
-              onTap: () {
-                onTapArtists(context, song.artists);
-              },
-            ),
-            DataCell(
-              Text(song.record.title),
-              onTap: () {
-                openRecord(context, song.record);
-              },
-            ),
-            DataCell(
-              Icon(Icons.info),
-              onTap: () {
-                openSong(context, song);
-              },
-            ),
-          ],
-        );
-      }).toList(),
-    );
-
-    Widget list = Card(
-      semanticContainer: false,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: _dataTable,
-      ),
-    );
-
-    if (isLargeScreen(context)) {
-      list = Card(
-        semanticContainer: false,
-        child: _dataTable,
+    Widget _buildList(BuildContext context) {
+      Widget _dataTable = DataTable(
+        columns: <DataColumn>[
+          DataColumn(label: Text(""), numeric: true),
+          DataColumn(label: Text("音乐标题")),
+          DataColumn(label: Text("歌手")),
+          DataColumn(label: Text("唱片")),
+          DataColumn(label: Icon(Icons.more_horiz)),
+        ],
+        rows: songs.map((Song song) {
+          return DataRow(
+            cells: <DataCell>[
+              DataCell(Text((songs.indexOf(song) + 1).toString())),
+              DataCell(
+                Text(song.title),
+                onTap: () {
+                  openSong(context, song);
+                },
+              ),
+              DataCell(
+                getArtistsWidget(song.artists),
+                onTap: () {
+                  onTapArtists(context, song.artists);
+                },
+              ),
+              DataCell(
+                Text(song.record.title),
+                onTap: () {
+                  openRecord(context, song.record);
+                },
+              ),
+              DataCell(
+                Icon(Icons.info),
+                onTap: () {
+                  openSong(context, song);
+                },
+              ),
+            ],
+          );
+        }).toList(),
       );
+
+      if (isLargeScreen(context)) {
+        return Card(
+          semanticContainer: false,
+          child: _dataTable,
+        );
+      } else {
+        return Card(
+          semanticContainer: false,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: _dataTable,
+          ),
+        );
+      }
     }
 
-    return songs == null
-        ? empty
+    return (songs?.length ?? 0) == 0
+        ? EmptyWidget()
         : Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              list,
+              _buildList(context),
               PaginatedFooter(
                 onPageChanged: (int value) {
                   print('onPageChanged value = $value');
@@ -195,3 +194,5 @@ class ArtistSongsListState extends State<ArtistSongsList> {
           );
   }
 }
+
+

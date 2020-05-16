@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import './layout/artist_detail.dart';
+import 'artist/artist_detail.dart';
 import './layout/paginated_footer.dart';
-import './layout/record_detail.dart';
-import './layout/song_detial.dart';
+import 'recrod/record_detail.dart';
+import 'song/song_detial.dart';
 import './model/artist.dart';
 import './model/page_list.dart';
 import './model/record.dart';

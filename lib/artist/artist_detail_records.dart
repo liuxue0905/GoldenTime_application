@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './gpm-card-grid.dart';
+import '../layout/gpm-card-grid.dart';
 import '../api_service.dart';
 import '../forms.dart';
 import '../home/sj_card_recommended.dart';
@@ -9,6 +9,7 @@ import '../model/page_list.dart';
 import '../model/record.dart';
 import '../util.dart';
 import '../widget_util.dart';
+import '../layout/empty.dart';
 
 class ArtistRecords extends StatefulWidget {
   final int artistId;
@@ -134,10 +135,8 @@ class ArtistRecordsListState extends State<ArtistRecordsList> {
       );
     }
 
-    return records == null
-        ? Center(
-            child: Text('no records'),
-          )
+    return (records?.length ?? 0) == 0
+        ? EmptyWidget()
         : Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[

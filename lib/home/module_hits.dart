@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../layout/gpm-card-grid.dart';
-import '../layout/gpm-headline-header.dart';
+import 'gpm-headline-header.dart';
 import '../model/module.dart';
 import '../util.dart';
 import 'sj_card_hits.dart';

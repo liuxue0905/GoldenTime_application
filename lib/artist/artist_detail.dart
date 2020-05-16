@@ -10,7 +10,7 @@ import '../util.dart';
 import 'artist_detail_comps.dart';
 import 'artist_detail_records.dart';
 import 'artist_detail_songs.dart';
-import 'image_gallery.dart';
+import '../layout/image_gallery.dart';
 
 class ArtistDetailPage extends StatefulWidget {
   final Artist artist;

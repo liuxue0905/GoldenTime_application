@@ -8,7 +8,7 @@ import '../model/record.dart';
 import '../model/song.dart';
 import '../util.dart';
 import '../widget_util.dart';
-import 'image_gallery.dart';
+import '../layout/image_gallery.dart';
 
 class RecordDetailPage extends StatefulWidget {
   final Record record;

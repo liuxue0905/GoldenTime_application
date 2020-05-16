@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import './artist_detail.dart';
-import './artist_item.dart';
-import './gpm-card-grid.dart';
-import './paginated_footer.dart';
+import 'artist_detail.dart';
+import 'artist_item.dart';
+import '../layout/gpm-card-grid.dart';
+import '../layout/paginated_footer.dart';
 import '../api_service.dart';
 import '../forms.dart';
 import '../home/quick_nav_container.dart';
@@ -12,7 +12,7 @@ import '../model/page_list.dart';
 import '../models.dart';
 import '../util.dart';
 import '../widget_util.dart';
-import 'headers.dart';
+import '../layout/headers.dart';
 
 class ArtistsPage extends StatefulWidget {
   final List<GPMQuickNavItem> gpmQuickNavItems;
