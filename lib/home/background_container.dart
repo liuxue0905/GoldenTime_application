@@ -18,68 +18,13 @@ class BackgroundContainer extends StatefulWidget {
 }
 
 class _BackgroundContainerState extends State<BackgroundContainer> {
-  var gradients = [];
-
   @override
   void initState() {
     super.initState();
-
-    widget.backgroundColors.forEach((Color color) {
-      var map = {
-        'to top': <Color>[
-          Color.fromRGBO(color.red, color.green, color.blue, 1),
-          Color.fromRGBO(color.red, color.green, color.blue, 0)
-        ],
-        'to right': <Color>[
-          Color.fromRGBO(color.red, color.green, color.blue, 1),
-          Color.fromRGBO(color.red, color.green, color.blue, 0)
-        ]
-      };
-      gradients.add(map);
-    });
-
-    print('gradients = ${gradients}');
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget gradient = Container(
-      child: Stack(
-        children: <Widget>[
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                // to top
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: <Color>[
-                    gradients[widget.selection]['to top'][0],
-                    gradients[widget.selection]['to top'][1]
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                // to top
-                gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: <Color>[
-                    gradients[widget.selection]['to right'][0],
-                    gradients[widget.selection]['to right'][1]
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-
     return Container(
       child: Container(
         child: Stack(
@@ -92,41 +37,115 @@ class _BackgroundContainerState extends State<BackgroundContainer> {
               ),
             ),
             // backgroundImageContainer
-            Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                width: (60 * MediaQuery.of(context).size.width / 100)
-                    .roundToDouble(),
-                height: (30 * MediaQuery.of(context).size.width / 100)
-                    .roundToDouble(),
-                child: Stack(
-                  children: <Widget>[
-                    // backgroundImages
-                    Positioned.fill(
-                      child: Stack(
-                        children: <Widget>[
-                          Positioned.fill(
-//                          child: Image.asset(
-//                            widget.backgroundImages[widget.selection] ?? '',
-//                            fit: BoxFit.fill,
-//                          ),
-                            child: Image.network(
-                              widget.backgroundImages[widget.selection] ?? '',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned.fill(
-                      child: gradient,
-                    ),
-                  ],
-                ),
+            Positioned.fill(
+              child: BackgroundImageContainer(
+                backgroundImages: widget.backgroundImages,
+                backgroundImage:
+                    widget.backgroundImages[widget.selection] ?? '',
+                backgroundColor: widget.backgroundColors[widget.selection],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class BackgroundImageContainer extends StatelessWidget {
+  final List<String> backgroundImages;
+  final String backgroundImage;
+  final Color backgroundColor;
+
+  BackgroundImageContainer(
+      {this.backgroundImages, this.backgroundImage, this.backgroundColor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Align(
+        alignment: Alignment.topRight,
+        child: Container(
+          width: (60 * MediaQuery.of(context).size.width / 100).roundToDouble(),
+          height:
+              (30 * MediaQuery.of(context).size.width / 100).roundToDouble(),
+          child: Stack(
+            children: <Widget>[
+              // backgroundImages
+              Positioned.fill(
+                child: Stack(
+                  children: <Widget>[
+                    Positioned.fill(
+//                          child: Image.asset(
+//                            widget.backgroundImages[widget.selection] ?? '',
+//                            fit: BoxFit.fill,
+//                          ),
+                      child: Image.network(
+                        backgroundImage,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned.fill(
+                child: Gradient(
+                  backgroundColor: backgroundColor,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Gradient extends StatelessWidget {
+  final Color backgroundColor;
+
+  Gradient({this.backgroundColor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                // to top
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: <Color>[
+                    Color.fromRGBO(backgroundColor.red, backgroundColor.green,
+                        backgroundColor.blue, 1),
+                    Color.fromRGBO(backgroundColor.red, backgroundColor.green,
+                        backgroundColor.blue, 0),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                // to right
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: <Color>[
+                    Color.fromRGBO(backgroundColor.red, backgroundColor.green,
+                        backgroundColor.blue, 1),
+                    Color.fromRGBO(backgroundColor.red, backgroundColor.green,
+                        backgroundColor.blue, 0),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
