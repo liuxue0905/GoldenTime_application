@@ -37,14 +37,15 @@ class ModuleRecent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  '最近活动',
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle1
-                      .apply(color: light ? Colors.black : Colors.white),
+                  '最近查看',
+                  style: Theme.of(context).textTheme.subtitle1.apply(
+                        color: light ? Colors.black : Colors.white,
+                      ),
                 ),
-                Icon(Icons.chevron_right,
-                    color: light ? Colors.grey[900] : Colors.white),
+                Icon(
+                  Icons.chevron_right,
+                  color: light ? Colors.grey[900] : Colors.white,
+                ),
               ],
             ),
           ),
@@ -54,7 +55,9 @@ class ModuleRecent extends StatelessWidget {
               child: Row(
                 children: historyListLimit
                     .map((e) => Container(
-                          child: RecentItem(),
+                          child: RecentItem(
+                            brightness: brightness,
+                          ),
                         ))
                     .toList(),
               ),

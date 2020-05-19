@@ -28,7 +28,7 @@ dependencies:
   http: ^0.12.0+4
 
   flutter_staggered_grid_view: "^0.3.0"
-  flutter_svg: ^0.17.4
+  #flutter_svg: ^0.17.4
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +77,12 @@ flutter:
     - images/background_image/12b969.png
     - images/sj_dot.png
     - images/ifl.png
+    - images/home.jpg
+
+    - images/svg/default_album.svg
+    - images/svg/ifl.svg
+    - images/svg/splash_screen.svg
+
     - images/backgroundImages/backgroundImages.json
     - images/backgroundImages/1aN6mX4KtTKKOBfGwSftr-hxuHhHIUyxPoN7R1fEZYwZ02GrVCONCTQxtbLWxF85rUs49HCMaQ.png
     - images/backgroundImages/3rSsn09XlksGOUhWrgB7vSJwPWzmlS0Zp7FZZ1o1cipRdFyJ_mQ0bbXg6KKeNaebF1OiXZKz.png

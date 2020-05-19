@@ -5,11 +5,12 @@ class BackgroundContainer extends StatefulWidget {
   final List<String> backgroundImages;
   final int selection;
 
-  BackgroundContainer(
-      {Key key,
-      this.backgroundColors,
-      this.backgroundImages,
-      this.selection = 0});
+  BackgroundContainer({
+    Key key,
+    this.backgroundColors,
+    this.backgroundImages,
+    this.selection = 0,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -57,8 +58,11 @@ class BackgroundImageContainer extends StatelessWidget {
   final String backgroundImage;
   final Color backgroundColor;
 
-  BackgroundImageContainer(
-      {this.backgroundImages, this.backgroundImage, this.backgroundColor});
+  BackgroundImageContainer({
+    this.backgroundImages,
+    this.backgroundImage,
+    this.backgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +80,6 @@ class BackgroundImageContainer extends StatelessWidget {
                 child: Stack(
                   children: <Widget>[
                     Positioned.fill(
-//                          child: Image.asset(
-//                            widget.backgroundImages[widget.selection] ?? '',
-//                            fit: BoxFit.fill,
-//                          ),
                       child: Image.network(
                         backgroundImage,
                         fit: BoxFit.cover,
@@ -89,7 +89,7 @@ class BackgroundImageContainer extends StatelessWidget {
                 ),
               ),
               Positioned.fill(
-                child: Gradient(
+                child: BackgroundImageContainerGradient(
                   backgroundColor: backgroundColor,
                 ),
               ),
@@ -101,10 +101,10 @@ class BackgroundImageContainer extends StatelessWidget {
   }
 }
 
-class Gradient extends StatelessWidget {
+class BackgroundImageContainerGradient extends StatelessWidget {
   final Color backgroundColor;
 
-  Gradient({this.backgroundColor});
+  BackgroundImageContainerGradient({this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
@@ -119,10 +119,8 @@ class Gradient extends StatelessWidget {
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
                   colors: <Color>[
-                    Color.fromRGBO(backgroundColor.red, backgroundColor.green,
-                        backgroundColor.blue, 1),
-                    Color.fromRGBO(backgroundColor.red, backgroundColor.green,
-                        backgroundColor.blue, 0),
+                    backgroundColor.withOpacity(1.0),
+                    backgroundColor.withOpacity(0.0),
                   ],
                 ),
               ),
@@ -136,10 +134,8 @@ class Gradient extends StatelessWidget {
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                   colors: <Color>[
-                    Color.fromRGBO(backgroundColor.red, backgroundColor.green,
-                        backgroundColor.blue, 1),
-                    Color.fromRGBO(backgroundColor.red, backgroundColor.green,
-                        backgroundColor.blue, 0),
+                    backgroundColor.withOpacity(1.0),
+                    backgroundColor.withOpacity(0.0),
                   ],
                 ),
               ),

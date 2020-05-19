@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_golden_time/home/background_container.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../api_service.dart';
@@ -56,10 +57,36 @@ class Home2PageState extends State<Home2Page> {
 
   @override
   Widget build(BuildContext context) {
+    Color backgroundColor = Colors.black;
+    Brightness brightness = getBrightness(backgroundColor);
+
     return Container(
       child: Container(
+        color: backgroundColor,
         child: Stack(
           children: <Widget>[
+            Positioned(
+              left: 0,
+              top: 0,
+              right: 0,
+              child: Expanded(
+                child: Stack(
+                  children: <Widget>[
+                    Positioned.fill(
+                      child: Image.asset(
+                        'images/home.jpg',
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                    Positioned.fill(
+                      child: BackgroundImageContainerGradient(
+                        backgroundColor: backgroundColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Positioned.fill(
               child: Container(
                 child: FutureBuilder(
@@ -87,7 +114,8 @@ class Home2PageState extends State<Home2Page> {
                         );
                       }
                       if (snapshot.hasData) {
-                        return aaaaaaa(datas: snapshot.data);
+                        return ArtistsWidget(
+                            brightness: brightness, datas: snapshot.data);
                       }
                     } else {
                       return Center(
@@ -104,7 +132,7 @@ class Home2PageState extends State<Home2Page> {
               left: 0,
               bottom: 0,
               child: QuickNavContainer(
-                brightness: Brightness.light,
+                brightness: brightness,
                 items: widget.gpmQuickNavItems,
                 selection: 0,
                 onSelectionChanged: (int position) {
@@ -121,13 +149,19 @@ class Home2PageState extends State<Home2Page> {
   }
 }
 
-class aaaaaaa extends StatelessWidget {
+class ArtistsWidget extends StatelessWidget {
+  final Brightness brightness;
   final List<PageList<Artist>> datas;
 
-  aaaaaaa({this.datas});
+  ArtistsWidget({
+    this.brightness = Brightness.light,
+    this.datas,
+  });
 
   @override
   Widget build(BuildContext context) {
+    bool light = brightness == Brightness.light;
+
     String getTitle(int index) {
       List<String> titles = ['男歌手', '女歌手', '组合', '未知'];
       return titles[index];
@@ -167,6 +201,7 @@ class aaaaaaa extends StatelessWidget {
           return Container(
             margin: EdgeInsets.only(top: 24.0),
             child: ArtistTypeHeader(
+              brightness: brightness,
               title: getTitle(i),
               subtitle: '共${data?.count ?? '-'}',
             ),
@@ -201,8 +236,18 @@ class aaaaaaa extends StatelessWidget {
                 ),
               ),
             ),
-            title: Text(artist?.name),
-            subtitle: Text('${artist?.recordsCount}张唱片'),
+            title: Text(
+              artist?.name,
+              style: TextStyle(
+                color: light ? Colors.black : Colors.white,
+              ),
+            ),
+            subtitle: Text(
+              '${artist?.recordsCount}张唱片',
+              style: TextStyle(
+                color: light ? Colors.black : Colors.white,
+              ),
+            ),
             onTap: () {
               openArtist(context, artist);
             },
@@ -221,7 +266,7 @@ class aaaaaaa extends StatelessWidget {
       if (!isLargeScreen(context)) {
         return 2;
       }
-      return querySize<int>(context, {950: 4, 1400: 5});
+      return querySize<int>(context, {950: 3, 1250: 4, 1400: 5});
     }
 
     StaggeredTile _staggeredTileBuilder(int index) {

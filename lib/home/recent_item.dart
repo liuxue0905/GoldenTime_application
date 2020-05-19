@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
 class RecentItem extends StatelessWidget {
+  final Brightness brightness;
   final String url;
 
-  RecentItem({this.url});
+  RecentItem({this.brightness, this.url});
 
   @override
   Widget build(BuildContext context) {
+    bool light = brightness == Brightness.light;
+
     return Container(
       margin: EdgeInsets.only(right: 8),
       width: 90,
@@ -42,7 +45,7 @@ class RecentItem extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.black,
+                color: light ? Colors.black : Colors.white,
               ),
             ),
           ),

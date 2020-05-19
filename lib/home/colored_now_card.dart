@@ -51,20 +51,12 @@ class ColoredNowCard extends StatelessWidget {
 //              ),
               child: Image.network(backgroundImage ?? ''),
             ),
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [
-//                      Color.fromRGBO(0, 0, 0, 1.0),
-//                      Color.fromRGBO(0, 0, 0, 0.5)
-                    backgroundColor.withOpacity(1.0),
-                    backgroundColor.withOpacity(0.5),
-                  ],
-                ),
-              ),
+
+            // textProtection
+            TextProtection(
+              backgroundColor: backgroundColor,
             ),
+
             Container(
               padding: EdgeInsets.all(24),
               child: Column(
@@ -104,14 +96,16 @@ class ColoredNowCard extends StatelessWidget {
                     margin: EdgeInsets.only(top: 16, bottom: 16),
                     width: 40,
                     height: 2,
-                    color:
-                        separatorColor ?? (light ? Colors.grey[900] : Colors.white),
+                    color: separatorColor ??
+                        (light ? Colors.grey[900] : Colors.white),
                   ),
                   Visibility(
                     visible: title?.isNotEmpty ?? false,
                     child: Container(
                       margin: EdgeInsets.only(bottom: 4),
-                      padding: isLargeScreen(context) ? EdgeInsets.only(right: 64) : EdgeInsets_only(context, 950, right: 64),
+                      padding: isLargeScreen(context)
+                          ? EdgeInsets.only(right: 64)
+                          : EdgeInsets_only(context, 950, right: 64),
                       child: Text(
                         title ?? '',
                         maxLines: 1,
@@ -129,7 +123,9 @@ class ColoredNowCard extends StatelessWidget {
                   Visibility(
                     visible: description?.isNotEmpty ?? false,
                     child: Container(
-                      padding: isLargeScreen(context) ? EdgeInsets.only(right: 64) : EdgeInsets_only(context, 950, right: 64),
+                      padding: isLargeScreen(context)
+                          ? EdgeInsets.only(right: 64)
+                          : EdgeInsets_only(context, 950, right: 64),
                       child: Text(
                         description ?? '',
                         maxLines: 2,
@@ -145,6 +141,28 @@ class ColoredNowCard extends StatelessWidget {
                 ],
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TextProtection extends StatelessWidget {
+  final Color backgroundColor;
+
+  TextProtection({this.backgroundColor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+          colors: [
+            backgroundColor.withOpacity(1.0),
+            backgroundColor.withOpacity(0.5),
           ],
         ),
       ),
