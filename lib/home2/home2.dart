@@ -62,29 +62,32 @@ class Home2PageState extends State<Home2Page> {
 
     return Container(
       child: Container(
-        color: backgroundColor,
         child: Stack(
           children: <Widget>[
-            Positioned(
-              left: 0,
-              top: 0,
-              right: 0,
-              child: Expanded(
-                child: Stack(
-                  children: <Widget>[
-                    Positioned.fill(
-                      child: Image.asset(
-                        'images/home.jpg',
-                        fit: BoxFit.fitWidth,
-                      ),
+            Expanded(
+              child: Container(
+                color: backgroundColor,
+              ),
+            ),
+            Container(
+              color: Colors.blue,
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: <Widget>[
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    child: Image.asset(
+                      'images/home.jpg',
+                      fit: BoxFit.fitWidth,
                     ),
-                    Positioned.fill(
-                      child: BackgroundImageContainerGradient(
-                        backgroundColor: backgroundColor,
-                      ),
+                  ),
+                  Positioned.fill(
+                    child: BackgroundImageContainerGradient(
+                      backgroundColor: Colors.red,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             Positioned.fill(
