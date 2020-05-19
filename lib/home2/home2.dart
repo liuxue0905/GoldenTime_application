@@ -26,26 +26,24 @@ class Home2Page extends StatefulWidget {
 const int int32MaxValue = 2147483647;
 
 class Home2PageState extends State<Home2Page> {
-  Future<List<PageList<Artist>>> future;
+  Future<Map<int, List<Artist>>> future;
 
-  Future<List<PageList<Artist>>> waitFutures() async {
-    List<Future<PageList<Artist>>> futures = <Future<PageList<Artist>>>[
-      ApiService.instance
-          .getArtists(type: 1, recordIsNull: false, limit: int32MaxValue),
-      ApiService.instance
-          .getArtists(type: 0, recordIsNull: false, limit: int32MaxValue),
-      ApiService.instance
-          .getArtists(type: 2, recordIsNull: false, limit: int32MaxValue),
-      ApiService.instance.getArtists(
-          recordIsNull: false, typeIsNull: true, limit: int32MaxValue),
-    ];
-    return await Future.wait(futures);
-  }
-
-  void aaa() async {
+  Future<Map<int, List<Artist>>> getArtistMap() async {
     PageList<Artist> pageList = await ApiService.instance
         .getArtists(recordIsNull: false, limit: int32MaxValue);
 
+    Map<int, List<Artist>> artistMap = {
+      1: <Artist>[],
+      0: <Artist>[],
+      2: <Artist>[],
+      null: <Artist>[],
+    };
+
+    pageList?.results?.forEach((Artist artist) {
+      artistMap[artist.type].add(artist);
+    });
+
+    return artistMap;
   }
 
   @override
@@ -57,7 +55,7 @@ class Home2PageState extends State<Home2Page> {
 
   void _handleDataSourceChanged() {
     setState(() {
-      future = waitFutures();
+      future = getArtistMap();
     });
   }
 
@@ -127,11 +125,14 @@ class Home2PageState extends State<Home2Page> {
                       }
                       if (snapshot.hasData) {
                         return ArtistsWidget(
-                            brightness: brightness, datas: snapshot.data);
+                          brightness: brightness,
+                          datas: snapshot.data,
+                        );
                       }
                     } else {
                       return Center(
-                          child: Text(snapshot.connectionState.toString()));
+                        child: Text(snapshot.connectionState.toString()),
+                      );
                     }
 
                     return null;
@@ -166,7 +167,8 @@ class Home2PageState extends State<Home2Page> {
 
 class ArtistsWidget extends StatelessWidget {
   final Brightness brightness;
-  final List<PageList<Artist>> datas;
+//  final List<PageList<Artist>> datas;
+  final Map<int, List<Artist>> datas;
 
   ArtistsWidget({
     this.brightness = Brightness.light,
@@ -182,14 +184,22 @@ class ArtistsWidget extends StatelessWidget {
       return titles[index];
     }
 
+    int getGroupCount() {
+      return datas?.keys?.length ?? 0;
+    }
+
+    List<Artist> getGroup(int group) {
+      return datas[datas?.keys?.toList()[group]];
+    }
+
     int _itemCount() {
       int count = 0;
 
-      for (int i = 0; i < datas?.length ?? 0; i++) {
-        PageList<Artist> data = datas[i];
+      for (int i = 0; i < getGroupCount(); i++) {
+        List<Artist> data = getGroup(i);
 
         count += 1;
-        count += data?.count ?? 0;
+        count += data?.length ?? 0;
 
 //        print('_itemCount ${i} ${getTitle(i)} ${data?.count}');
       }
@@ -203,11 +213,11 @@ class ArtistsWidget extends StatelessWidget {
       int start = 0;
       int end = 0;
 
-      for (int i = 0; i < datas?.length ?? 0; i++) {
-        PageList<Artist> data = datas[i];
+      for (int i = 0; i < getGroupCount(); i++) {
+        List<Artist> data = getGroup(i);
 
         start = end;
-        end = start + 1 + data?.count ?? 0;
+        end = start + 1 + data?.length ?? 0;
 
 //        print(
 //            '_itemBuilder ${i} ${getTitle(i)} ${data?.count} start: ${start} end: ${end} ${index}');
@@ -218,14 +228,14 @@ class ArtistsWidget extends StatelessWidget {
             child: ArtistTypeHeader(
               brightness: brightness,
               title: getTitle(i),
-              subtitle: '共${data?.count ?? '-'}',
+              subtitle: '共${data?.length ?? '-'}',
             ),
           );
         }
 
         if (index > start && index < end) {
           int realIndex = index - 1 - start;
-          Artist artist = data?.results[realIndex];
+          Artist artist = data[realIndex];
           return ListTile(
             leading: ExcludeSemantics(
               child: CircleAvatar(
@@ -288,11 +298,11 @@ class ArtistsWidget extends StatelessWidget {
       int start = 0;
       int end = 0;
 
-      for (int i = 0; i < datas?.length ?? 0; i++) {
-        PageList<Artist> data = datas[i];
+      for (int i = 0; i < getGroupCount(); i++) {
+        List<Artist> data = getGroup(i);
 
         start = end;
-        end = start + 1 + data?.count ?? 0;
+        end = start + 1 + data?.length ?? 0;
 
 //        print(
 //            '_staggeredTileBuilder ${i} ${getTitle(i)} ${data?.count} start: ${start} end: ${end} ${index}');
