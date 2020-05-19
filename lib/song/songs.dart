@@ -108,15 +108,18 @@ class SongsPageState extends State<SongsPage> {
             top: 0,
             left: 0,
             bottom: 0,
-            child: QuickNavContainer(
-              brightness: Brightness.light,
-              items: widget.gpmQuickNavItems,
-              selection: 3,
-              onSelectionChanged: (int position) {
-                if (widget.onSelectionChanged != null) {
-                  widget.onSelectionChanged(position);
-                }
-              },
+            child: Visibility(
+              visible: isLargeScreen(context),
+              child: QuickNavContainer(
+                brightness: Brightness.light,
+                items: widget.gpmQuickNavItems,
+                selection: 3,
+                onSelectionChanged: (int position) {
+                  if (widget.onSelectionChanged != null) {
+                    widget.onSelectionChanged(position);
+                  }
+                },
+              ),
             ),
           ),
         ],

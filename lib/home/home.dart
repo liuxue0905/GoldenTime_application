@@ -130,29 +130,35 @@ class _HomePageState extends State<HomePage> {
             top: 0,
             left: 0,
             bottom: 0,
-            child: QuickNavContainer(
-              brightness: _brightness,
-              items: widget.gpmQuickNavItems,
-              selection: 0,
-              onSelectionChanged: (int position) {
-                if (widget.onSelectionChanged != null) {
-                  widget.onSelectionChanged(position);
-                }
-              },
+            child: Visibility(
+              visible: isLargeScreen(context),
+              child: QuickNavContainer(
+                brightness: _brightness,
+                items: widget.gpmQuickNavItems,
+                selection: 0,
+                onSelectionChanged: (int position) {
+                  if (widget.onSelectionChanged != null) {
+                    widget.onSelectionChanged(position);
+                  }
+                },
+              ),
             ),
           ),
           Positioned(
             top: 0,
             right: MediaQuery.of(context).size.width >= 950 ? 36.0 : scaleSize(context, 950, 36.0),
-            child: PageIndicatorContainer(
-              count: modules.length,
-              selection: _selection,
-              brightness: _brightness,
-              backgroundColor: _backgroundColor,
-              history: (historyList?.length ?? 0) != 0,
-              onSelectionChanged: (int position) {
+            child: Visibility(
+              visible: isLargeScreen(context),
+              child: PageIndicatorContainer(
+                count: modules.length,
+                selection: _selection,
+                brightness: _brightness,
+                backgroundColor: _backgroundColor,
+                history: (historyList?.length ?? 0) != 0,
+                onSelectionChanged: (int position) {
 
-              },
+                },
+              ),
             ),
           ),
           Positioned.fill(

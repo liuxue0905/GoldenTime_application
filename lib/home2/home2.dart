@@ -42,6 +42,12 @@ class Home2PageState extends State<Home2Page> {
     return await Future.wait(futures);
   }
 
+  void aaa() async {
+    PageList<Artist> pageList = await ApiService.instance
+        .getArtists(recordIsNull: false, limit: int32MaxValue);
+
+  }
+
   @override
   void initState() {
     super.initState();
@@ -58,36 +64,39 @@ class Home2PageState extends State<Home2Page> {
   @override
   Widget build(BuildContext context) {
     Color backgroundColor = Colors.black;
+//    Color backgroundColor = Colors.green;
     Brightness brightness = getBrightness(backgroundColor);
 
     return Container(
       child: Container(
         child: Stack(
+          fit: StackFit.loose,
           children: <Widget>[
-            Expanded(
+            Positioned.fill(
               child: Container(
                 color: backgroundColor,
               ),
             ),
-            Container(
-              color: Colors.blue,
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: <Widget>[
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    child: Image.asset(
+            Positioned(
+              left: 0,
+              right: 0,
+              top: 0,
+              child: Container(
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  fit: StackFit.loose,
+                  children: <Widget>[
+                    Image.asset(
                       'images/home.jpg',
                       fit: BoxFit.fitWidth,
                     ),
-                  ),
-                  Positioned.fill(
-                    child: BackgroundImageContainerGradient(
-                      backgroundColor: Colors.red,
+                    Positioned.fill(
+                      child: BackgroundImageContainerGradient(
+                        backgroundColor: backgroundColor,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Positioned.fill(
@@ -134,15 +143,18 @@ class Home2PageState extends State<Home2Page> {
               top: 0,
               left: 0,
               bottom: 0,
-              child: QuickNavContainer(
-                brightness: brightness,
-                items: widget.gpmQuickNavItems,
-                selection: 0,
-                onSelectionChanged: (int position) {
-                  if (widget.onSelectionChanged != null) {
-                    widget.onSelectionChanged(position);
-                  }
-                },
+              child: Visibility(
+                visible: isLargeScreen(context),
+                child: QuickNavContainer(
+                  brightness: brightness,
+                  items: widget.gpmQuickNavItems,
+                  selection: 0,
+                  onSelectionChanged: (int position) {
+                    if (widget.onSelectionChanged != null) {
+                      widget.onSelectionChanged(position);
+                    }
+                  },
+                ),
               ),
             ),
           ],
