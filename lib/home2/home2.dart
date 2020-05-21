@@ -80,13 +80,17 @@ class Home2PageState extends State<Home2Page> {
               right: 0,
               top: 0,
               child: Container(
+                color: Colors.transparent,
                 child: Stack(
                   alignment: Alignment.topCenter,
                   fit: StackFit.loose,
                   children: <Widget>[
-                    Image.asset(
-                      'images/home.jpg',
-                      fit: BoxFit.fitWidth,
+                    Container(
+                      width: double.infinity,
+                      child: Image.asset(
+                        'images/home.jpg',
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
                     Positioned.fill(
                       child: BackgroundImageContainerGradient(

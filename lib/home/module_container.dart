@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../model/module.dart';
 import 'module_hits.dart';
@@ -243,15 +242,11 @@ class ModuleContainerState extends State<ModuleContainer> {
 //    );
 
     return Container(
-      child: StaggeredGridView.countBuilder(
+      child: ListView.builder(
         key: _key4SingleChildScrollView,
         controller: _controller,
-        crossAxisCount: 1,
-        itemCount: count,
         itemBuilder: _itemBuilder,
-        staggeredTileBuilder: (int index) {
-          return StaggeredTile.fit(1);
-        },
+        itemCount: count,
       ),
     );
   }
