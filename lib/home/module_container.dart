@@ -228,19 +228,6 @@ class ModuleContainerState extends State<ModuleContainer> {
       count += widget.modules.length;
     }
 
-//    return Container(
-//      child: SingleChildScrollView(
-//        key: _key4SingleChildScrollView,
-//        controller: _controller,
-//        child: Column(
-//          crossAxisAlignment: CrossAxisAlignment.stretch,
-//          children: Iterable.generate(count)
-//              .map((e) => _itemBuilder(context, e))
-//              .toList(),
-//        ),
-//      ),
-//    );
-
     return Container(
       child: ListView.builder(
         key: _key4SingleChildScrollView,
