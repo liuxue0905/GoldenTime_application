@@ -12,10 +12,16 @@ import '../util.dart';
 import '../widget_util.dart';
 
 class SongsPage extends StatefulWidget {
-  final List<GPMQuickNavItem> gpmQuickNavItems;
-  final ValueChanged<int> onSelectionChanged;
+  static const String route = '/songs';
 
-  SongsPage({this.gpmQuickNavItems, this.onSelectionChanged});
+  final List<GPMQuickNavItem> gpmQuickNavItems;
+  final ValueChanged<String> onRouteNameChanged;
+
+  const SongsPage({
+    Key key,
+    this.gpmQuickNavItems,
+    this.onRouteNameChanged,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -115,8 +121,8 @@ class SongsPageState extends State<SongsPage> {
                 items: widget.gpmQuickNavItems,
                 selection: 3,
                 onSelectionChanged: (int position) {
-                  if (widget.onSelectionChanged != null) {
-                    widget.onSelectionChanged(position);
+                  if (widget.onRouteNameChanged != null) {
+                    widget.onRouteNameChanged(widget.gpmQuickNavItems[position].routeName);
                   }
                 },
               ),
@@ -177,7 +183,6 @@ class SongsListState extends State<SongsList> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-
               PlayHeader(
                 title: '歌曲',
                 subtitle: _getSubtitle(),
@@ -187,7 +192,6 @@ class SongsListState extends State<SongsList> {
                       context, widget.form, widget.onDataSourceChanged);
                 },
               ),
-
               buildDataTable(context, songs),
               PaginatedFooter(
                 onPageChanged: (int value) {

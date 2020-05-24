@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app_golden_time/routes.dart';
 
 import 'artist/artist_detail.dart';
 import './layout/paginated_footer.dart';
@@ -13,11 +14,16 @@ import './model/song.dart';
 
 void openRecord(BuildContext context, Record record) {
   Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => RecordDetailPage(
-                record: record,
-              )));
+    context,
+    MaterialPageRoute(
+      builder: (context) => RecordDetailPage(
+        record: record,
+      ),
+    ),
+  );
+
+//  Navigator.of(context).pushNamed('record/xxx',
+//      arguments: RecordDetailArguments(record: record, id: record?.id));
 }
 
 void openArtist(BuildContext context, Artist artist) {

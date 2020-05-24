@@ -6,6 +6,7 @@ import '../layout_sw600dp/record_detail_header_sw600.dart';
 import '../layout_swNdp/record_detail_header_swndp.dart';
 import '../model/record.dart';
 import '../model/song.dart';
+import '../routes.dart';
 import '../util.dart';
 import '../widget_util.dart';
 import '../layout/image_gallery.dart';
@@ -24,6 +25,9 @@ class RecordDetailPage extends StatefulWidget {
 class _RecordDetailPageState extends State<RecordDetailPage> {
   @override
   Widget build(BuildContext context) {
+
+    final RecordDetailArguments args = ModalRoute.of(context).settings.arguments;
+
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     return Scaffold(

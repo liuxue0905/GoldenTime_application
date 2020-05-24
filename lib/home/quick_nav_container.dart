@@ -61,7 +61,7 @@ class _QuickNavContainer extends State<QuickNavContainer> {
           width: 72,
           padding: EdgeInsets.only(top: 16),
           child: Column(
-            children: widget.items.map<Widget>((GPMQuickNavItem item) {
+            children: widget.items?.map<Widget>((GPMQuickNavItem item) {
               int index = widget.items.indexOf(item);
 
               return QuickNavItem(
@@ -70,7 +70,6 @@ class _QuickNavContainer extends State<QuickNavContainer> {
                 text: item.text,
                 selected: index == _selection,
                 onPress: () {
-                  print('onPress');
                   setState(() {
                     _selection = index;
                   });
@@ -80,7 +79,7 @@ class _QuickNavContainer extends State<QuickNavContainer> {
                   }
                 },
               );
-            }).toList(),
+            })?.toList(),
           ),
         ),
       ),

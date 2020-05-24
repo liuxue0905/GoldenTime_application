@@ -15,10 +15,16 @@ import '../widget_util.dart';
 import '../layout/headers.dart';
 
 class ArtistsPage extends StatefulWidget {
-  final List<GPMQuickNavItem> gpmQuickNavItems;
-  final ValueChanged<int> onSelectionChanged;
+  static const String route = '/artists';
 
-  ArtistsPage({this.gpmQuickNavItems, this.onSelectionChanged});
+  final List<GPMQuickNavItem> gpmQuickNavItems;
+  final ValueChanged<String> onRouteNameChanged;
+
+  const ArtistsPage({
+    Key key,
+    this.gpmQuickNavItems,
+    this.onRouteNameChanged,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -132,8 +138,8 @@ class _ArtistsPageState extends State<ArtistsPage> {
                 items: widget.gpmQuickNavItems,
                 selection: 2,
                 onSelectionChanged: (int position) {
-                  if (widget.onSelectionChanged != null) {
-                    widget.onSelectionChanged(position);
+                  if (widget.onRouteNameChanged != null) {
+                    widget.onRouteNameChanged(widget.gpmQuickNavItems[position].routeName);
                   }
                 },
               ),

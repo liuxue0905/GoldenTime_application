@@ -9,11 +9,18 @@ import 'page_indicator_container.dart';
 import 'quick_nav_container.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.gpmQuickNavItems, this.onSelectionChanged, this.onBrightnessChanged});
+//  static const String route = '/home';
 
   final List<GPMQuickNavItem> gpmQuickNavItems;
-  final ValueChanged<int> onSelectionChanged;
+  final ValueChanged<String> onRouteNameChanged;
   final ValueChanged<Brightness> onBrightnessChanged;
+
+  const HomePage({
+    Key key,
+    this.gpmQuickNavItems,
+    this.onRouteNameChanged,
+    this.onBrightnessChanged,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -104,7 +111,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       child: Stack(
         children: <Widget>[
@@ -121,9 +127,7 @@ class _HomePageState extends State<HomePage> {
               modules: this.modules,
               brightness: _brightness,
               selection: _selection,
-              onSelectionChanged: (int position) {
-
-              },
+              onSelectionChanged: (int position) {},
             ),
           ),
           Positioned(
@@ -137,8 +141,8 @@ class _HomePageState extends State<HomePage> {
                 items: widget.gpmQuickNavItems,
                 selection: 0,
                 onSelectionChanged: (int position) {
-                  if (widget.onSelectionChanged != null) {
-                    widget.onSelectionChanged(position);
+                  if (widget.onRouteNameChanged != null) {
+                    widget.onRouteNameChanged(widget.gpmQuickNavItems[position].routeName);
                   }
                 },
               ),
@@ -146,7 +150,9 @@ class _HomePageState extends State<HomePage> {
           ),
           Positioned(
             top: 0,
-            right: MediaQuery.of(context).size.width >= 950 ? 36.0 : scaleSize(context, 950, 36.0),
+            right: MediaQuery.of(context).size.width >= 950
+                ? 36.0
+                : scaleSize(context, 950, 36.0),
             child: Visibility(
               visible: isLargeScreen(context),
               child: PageIndicatorContainer(
@@ -155,9 +161,7 @@ class _HomePageState extends State<HomePage> {
                 brightness: _brightness,
                 backgroundColor: _backgroundColor,
                 history: (historyList?.length ?? 0) != 0,
-                onSelectionChanged: (int position) {
-
-                },
+                onSelectionChanged: (int position) {},
               ),
             ),
           ),

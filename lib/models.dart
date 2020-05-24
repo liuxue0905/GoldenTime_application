@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 
 class GPMQuickNavItem {
-  GPMQuickNavItem({this.icon, this.text, this.key});
+  const GPMQuickNavItem({
+    this.icon,
+    this.text,
+    this.routeName,
+  }) : super();
 
-  IconData icon;
-  String text;
-  String key;
+  final IconData icon;
+  final String text;
+  final String routeName;
 }
-
-
-
-
-
-
-
-

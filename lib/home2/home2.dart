@@ -12,10 +12,16 @@ import '../util.dart';
 import '../widget_util.dart';
 
 class Home2Page extends StatefulWidget {
-  final List<GPMQuickNavItem> gpmQuickNavItems;
-  final ValueChanged<int> onSelectionChanged;
+  static const String route = '/home';
 
-  Home2Page({this.gpmQuickNavItems, this.onSelectionChanged});
+  final List<GPMQuickNavItem> gpmQuickNavItems;
+  final ValueChanged<String> onRouteNameChanged;
+
+  const Home2Page({
+    Key key,
+    this.gpmQuickNavItems,
+    this.onRouteNameChanged,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -155,8 +161,9 @@ class Home2PageState extends State<Home2Page> {
                   items: widget.gpmQuickNavItems,
                   selection: 0,
                   onSelectionChanged: (int position) {
-                    if (widget.onSelectionChanged != null) {
-                      widget.onSelectionChanged(position);
+                    if (widget.onRouteNameChanged != null) {
+                      widget.onRouteNameChanged(
+                          widget.gpmQuickNavItems[position].routeName);
                     }
                   },
                 ),
@@ -171,6 +178,7 @@ class Home2PageState extends State<Home2Page> {
 
 class ArtistsWidget extends StatelessWidget {
   final Brightness brightness;
+
 //  final List<PageList<Artist>> datas;
   final Map<int, List<Artist>> datas;
 
