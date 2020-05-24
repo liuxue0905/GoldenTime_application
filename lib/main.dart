@@ -269,6 +269,10 @@ class _MyHomePageState extends State<MyHomePage> {
         if (RouteConfiguration.routeNameHelp == value) {
           return;
         } else if (RouteConfiguration.routeNameAndroid == value) {
+//          String url = 'http://liujin.jios.org:8000/web/android/app-arm64-v8a-release.apk';
+          String url = 'http://liujin.jios.org:8000/web/android/index.html';
+          if (kIsWeb) {
+          }
           return;
         }
 
@@ -347,18 +351,20 @@ class ScaffoldWrapper extends StatelessWidget {
       ),
     ));
 
-    children.add(ListTile(
-      dense: false,
-      leading: Icon(Icons.android),
-      title: Text('安卓客户端'),
-      onTap: () {
-        Navigator.pop(context); // Dismiss the drawer.
+    if (kIsWeb) {
+      children.add(ListTile(
+        dense: false,
+        leading: Icon(Icons.android),
+        title: Text('安卓客户端'),
+        onTap: () {
+          Navigator.pop(context); // Dismiss the drawer.
 
-        if (onValueChanged != null) {
-          onValueChanged(RouteConfiguration.routeNameAndroid);
-        }
-      },
-    ));
+          if (onValueChanged != null) {
+            onValueChanged(RouteConfiguration.routeNameAndroid);
+          }
+        },
+      ));
+    }
 
     children.add(ListTile(
       dense: false,
@@ -380,52 +386,64 @@ class ScaffoldWrapper extends StatelessWidget {
     return children;
   }
 
-  List<Widget> buildActions(BuildContext context, List<GPMQuickNavItem> items) {
+  List<Widget> buildActions(BuildContext context) {
+
+    var items = ScaffoldWrapper.gpmQuickNavItems;
+
     List<Widget> _actions = <Widget>[];
-    final Orientation orientation = MediaQuery.of(context).orientation;
-    if (orientation == Orientation.portrait) {
-      _actions.add(PopupMenuButton<GPMQuickNavItem>(
-        itemBuilder: (BuildContext context) {
-          return items.map((GPMQuickNavItem item) {
-            int index = items.indexOf(item);
-            return PopupMenuItem<GPMQuickNavItem>(
-              value: item,
-              child: ListTile(
-                leading: Icon(item.icon),
-                title: Text(item.text),
-                selected: selection == item.routeName,
-              ),
-            );
-          }).toList();
-        },
-        onSelected: (GPMQuickNavItem item) {
-          int index = items.indexOf(item);
-//          setSelection(index);
-          if (onValueChanged != null) {
-            onValueChanged(item.routeName);
-          }
-        },
-      ));
-    } else {
-      _actions.addAll(items.map((GPMQuickNavItem item) {
-        int index = items.indexOf(item);
-        return FlatButton.icon(
-          icon: Icon(item.icon, size: 18.0),
-          label: Text(
-            item.text,
-            semanticsLabel: item.text,
-          ),
-          textColor: selection == item.routeName ? Colors.white : Colors.black,
-          onPressed: () {
-            int index = items.indexOf(item);
-//            setSelection(index);
-            if (onValueChanged != null) {
-              onValueChanged(item.routeName);
-            }
-          },
-        );
-      }).toList());
-    }
+//    final Orientation orientation = MediaQuery.of(context).orientation;
+//    if (orientation == Orientation.portrait) {
+//      _actions.add(PopupMenuButton<GPMQuickNavItem>(
+//        itemBuilder: (BuildContext context) {
+//          return items.map((GPMQuickNavItem item) {
+//            int index = items.indexOf(item);
+//            return PopupMenuItem<GPMQuickNavItem>(
+//              value: item,
+//              child: ListTile(
+//                leading: Icon(item.icon),
+//                title: Text(item.text),
+//                selected: selection == item.routeName,
+//              ),
+//            );
+//          }).toList();
+//        },
+//        onSelected: (GPMQuickNavItem item) {
+//          int index = items.indexOf(item);
+////          setSelection(index);
+//          if (onValueChanged != null) {
+//            onValueChanged(item.routeName);
+//          }
+//        },
+//      ));
+//    } else {
+//      _actions.addAll(items.map((GPMQuickNavItem item) {
+//        int index = items.indexOf(item);
+//        return FlatButton.icon(
+//          icon: Icon(item.icon, size: 18.0),
+//          label: Text(
+//            item.text,
+//            semanticsLabel: item.text,
+//          ),
+//          textColor: selection == item.routeName ? Colors.white : Colors.black,
+//          onPressed: () {
+//            int index = items.indexOf(item);
+////            setSelection(index);
+//            if (onValueChanged != null) {
+//              onValueChanged(item.routeName);
+//            }
+//          },
+//        );
+//      }).toList());
+//    }
+
+    _actions.add(IconButton(
+      icon: const Icon(Icons.android),
+//      tooltip: GalleryLocalizations.of(context).starterAppTooltipShare,
+      tooltip: '安卓客户端',
+      onPressed: () {
+
+      },
+    ));
 
     return _actions;
   }
@@ -437,7 +455,7 @@ class ScaffoldWrapper extends StatelessWidget {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(title ?? ''),
-//        actions: buildActions(items),
+        actions: buildActions(context),
       ),
       drawer: Drawer(
         child: Column(
