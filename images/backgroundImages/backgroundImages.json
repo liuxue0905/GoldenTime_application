@@ -8,6 +8,9 @@
     },
     {
       "big": "=s2400-e100-rwu-v1"
+    },
+    {
+      "aa": "w350-h280-n-e100-v1"
     }
   ],
   "backgroundImages": [
@@ -40,6 +43,12 @@
       "background-image": "https://lh3.googleusercontent.com/f-m-m5tQ9knrY3lPJQgFFhrdeoefL3FzY2SgEQjkxPP2HlcsI1FQd9A-Yxj8_HIOqjYPhrLf",
       "background-color": "#000000",
       "separator-color": "#ffffff"
+    },
+    {
+      "id": "hAMSKUNGa1LVaq51oBlBA8hIUYCFmg6l6S5GIcDsbNemlSVJPrzf0S4bDS4EuRpGkajSQPXlDQ",
+      "background-image": "https://lh3.googleusercontent.com/hAMSKUNGa1LVaq51oBlBA8hIUYCFmg6l6S5GIcDsbNemlSVJPrzf0S4bDS4EuRpGkajSQPXlDQ",
+      "background-color": "#12b969",
+      "separator-color": "#fbc137"
     },
     {
       "id": "HAS6pzVdYATF4MbFw6ZOhsLp8cU7D7qVj2jEtD5YzlXnVQyTUzcIs0O8KShMVoZa4bUOcnUC0w",
