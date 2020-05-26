@@ -1,7 +1,7 @@
 {
   "sizes": [
     {
-      "": "=w350-h280-n-e100-rwu-v1"
+      "NOW": "=w350-h280-n-e100-rwu-v1"
     },
     {
       "small": "=w700-h560-n-e100-rwu-v1"
@@ -24,7 +24,9 @@
       "id": "1aN6mX4KtTKKOBfGwSftr-hxuHhHIUyxPoN7R1fEZYwZ02GrVCONCTQxtbLWxF85rUs49HCMaQ",
       "background-image": "https://lh3.googleusercontent.com/1aN6mX4KtTKKOBfGwSftr-hxuHhHIUyxPoN7R1fEZYwZ02GrVCONCTQxtbLWxF85rUs49HCMaQ",
       "background-color": "#531e65",
-      "separator-color": "#fbc737"
+      "separator-color": "#fbc737",
+      "header": "Today's biggest hits",
+      "title": "The Hit List"
     },
     {
       "id": "3rSsn09XlksGOUhWrgB7vSJwPWzmlS0Zp7FZZ1o1cipRdFyJ_mQ0bbXg6KKeNaebF1OiXZKz",
@@ -64,7 +66,9 @@
       "id": "HAS6pzVdYATF4MbFw6ZOhsLp8cU7D7qVj2jEtD5YzlXnVQyTUzcIs0O8KShMVoZa4bUOcnUC0w",
       "background-image": "https://lh3.googleusercontent.com/HAS6pzVdYATF4MbFw6ZOhsLp8cU7D7qVj2jEtD5YzlXnVQyTUzcIs0O8KShMVoZa4bUOcnUC0w",
       "background-color": "#bfb2ff",
-      "separator-color": "#fff576"
+      "separator-color": "#fff576",
+      "header": "Energy boosters",
+      "title": "Pump-Up Pop"
     },
     {
       "id": "HyaLITKzgLGwFY90pKkHW7fxiBaCko9kZB6awnDk2FQYb4iBq9Ndoj5fr0DCH2CmQLskFaZh",
