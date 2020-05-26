@@ -30,7 +30,9 @@
       "id": "3rSsn09XlksGOUhWrgB7vSJwPWzmlS0Zp7FZZ1o1cipRdFyJ_mQ0bbXg6KKeNaebF1OiXZKz",
       "background-image": "https://lh3.googleusercontent.com/3rSsn09XlksGOUhWrgB7vSJwPWzmlS0Zp7FZZ1o1cipRdFyJ_mQ0bbXg6KKeNaebF1OiXZKz",
       "background-color": "#c6fbe5",
-      "separator-color": "#ff3347"
+      "separator-color": "#ff3347",
+      "header": "Throwback jams",
+      "title": "The Millennial Mixtape"
     },
     {
       "id": "_8EG31lZMoy4IDmwvCvDvjuapJN77vw-NBDDob5tS0i5jI0RKV0sgi-SVqeu3UjA4-HdBi3DZ7M",
@@ -48,7 +50,9 @@
       "id": "f-m-m5tQ9knrY3lPJQgFFhrdeoefL3FzY2SgEQjkxPP2HlcsI1FQd9A-Yxj8_HIOqjYPhrLf",
       "background-image": "https://lh3.googleusercontent.com/f-m-m5tQ9knrY3lPJQgFFhrdeoefL3FzY2SgEQjkxPP2HlcsI1FQd9A-Yxj8_HIOqjYPhrLf",
       "background-color": "#000000",
-      "separator-color": "#ffffff"
+      "separator-color": "#ffffff",
+      "header": "Recommended new releases",
+      "title": "New Release Radio"
     },
     {
       "id": "hAMSKUNGa1LVaq51oBlBA8hIUYCFmg6l6S5GIcDsbNemlSVJPrzf0S4bDS4EuRpGkajSQPXlDQ",
@@ -66,7 +70,9 @@
       "id": "HyaLITKzgLGwFY90pKkHW7fxiBaCko9kZB6awnDk2FQYb4iBq9Ndoj5fr0DCH2CmQLskFaZh",
       "background-image": "https://lh3.googleusercontent.com/HyaLITKzgLGwFY90pKkHW7fxiBaCko9kZB6awnDk2FQYb4iBq9Ndoj5fr0DCH2CmQLskFaZh",
       "background-color": "#4413ba",
-      "separator-color": "#e05252"
+      "separator-color": "#e05252",
+      "header": "Deep focus instrumentals",
+      "title": "Instrumental Hip Hop"
     },
     {
       "id": "jSui6tIhAbLrf4Bl5BAUzjMpxAChWAGU5WeS_0LLOgevP8XJvH8vbqfuBaVlVyrp-AylAKtn",
@@ -78,7 +84,9 @@
       "id": "kkSI0jxnAYZ6_3jeLT7aZ9A9ITBaA5MQjGNS1jmhtdSCorKCgouBuUXg1Yvktfb_l6wflXDiFWI",
       "background-image": "https://lh3.googleusercontent.com/kkSI0jxnAYZ6_3jeLT7aZ9A9ITBaA5MQjGNS1jmhtdSCorKCgouBuUXg1Yvktfb_l6wflXDiFWI",
       "background-color": "#54215f",
-      "separator-color": "#eb8fed"
+      "separator-color": "#eb8fed",
+      "header": "Mellow moods",
+      "title": "Unwind"
     },
     {
       "id": "maUoAOgHshpBAeTDmkULhnMe-8oGljo1TdCDMdUtY0jNEZ5iR3B6hhc6-Ghvuft-sOR0LXrAxA4",
@@ -87,16 +95,28 @@
       "separator-color": "#f9f26a"
     },
     {
+      "id": "W3aWdmqv2N7wUpA34H-ruEJ9SvGm5TYRW6T31kiUbEc14DpB80hKgfne1hKQHu9SCoKgEYyifg",
+      "backgound-image": "https://lh3.googleusercontent.com/W3aWdmqv2N7wUpA34H-ruEJ9SvGm5TYRW6T31kiUbEc14DpB80hKgfne1hKQHu9SCoKgEYyifg",
+      "background-color": "#ef8722",
+      "separator-color": "#48eaa4",
+      "header": "Summer",
+      "title": "Summer House"
+    },
+    {
       "id": "WwnaSyZar1s7gJWNsjWf-xmaLDDKpSs4i4bkbMtWGqFj24m-ucOwj3ltVjVy6NUsy5fTprCY",
       "backgound-image": "https://lh3.googleusercontent.com/WwnaSyZar1s7gJWNsjWf-xmaLDDKpSs4i4bkbMtWGqFj24m-ucOwj3ltVjVy6NUsy5fTprCY",
       "background-color": "#5dced6",
-      "separator-color": "#f9b339"
+      "separator-color": "#f9b339",
+      "header": "Feel-good favorites",
+      "title": "Cloud Nine R&B"
     },
     {
       "id": "xLasi4eSHmkP_Fl0bVuDhvjiS9F6LihKFHa20lpO_9whutIgzfTMoPhxaxRKtlcqpbKyCA_cSTQ",
       "backgound-image": "https://lh3.googleusercontent.com/xLasi4eSHmkP_Fl0bVuDhvjiS9F6LihKFHa20lpO_9whutIgzfTMoPhxaxRKtlcqpbKyCA_cSTQ",
       "background-color": "#532164",
-      "separator-color": "#f8ffb8"
+      "separator-color": "#f8ffb8",
+      "header": "Irresistible sing-alongs",
+      "title": "Hairbrush Karaoke"
     }
   ]
 }
