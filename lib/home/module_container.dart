@@ -100,6 +100,11 @@ class ModuleContainerState extends State<ModuleContainer> {
             'isScrollingNotifier listener position.isScrollingNotifier.value = ${_controller.position.isScrollingNotifier.value}');
 
         if (_controller.position.isScrollingNotifier.value == false) {
+
+          // 1 通常情况，如果当前module的top到达1/2，则当作则selected
+          // 2 第二个，或前面的item比较短的情况 module的前一个module是否超过一个页面高，超过的话同1，没超过，则前一个的1/2被滚动出边界，则selected
+
+
           RenderBox singleChildScrollViewRenderBox =
               _getRenderBox(_key4SingleChildScrollView);
           Offset singleChildScrollViewOffset =
