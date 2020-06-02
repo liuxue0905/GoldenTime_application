@@ -105,7 +105,9 @@
       "id": "maUoAOgHshpBAeTDmkULhnMe-8oGljo1TdCDMdUtY0jNEZ5iR3B6hhc6-Ghvuft-sOR0LXrAxA4",
       "background-image": "https://lh3.googleusercontent.com/maUoAOgHshpBAeTDmkULhnMe-8oGljo1TdCDMdUtY0jNEZ5iR3B6hhc6-Ghvuft-sOR0LXrAxA4",
       "background-color": "#63230a",
-      "separator-color": "#f9f26a"
+      "separator-color": "#f9f26a",
+      "header": "New & trending songs",
+      "title": "Pop with Drops"
     },
     {
       "id": "W3aWdmqv2N7wUpA34H-ruEJ9SvGm5TYRW6T31kiUbEc14DpB80hKgfne1hKQHu9SCoKgEYyifg",
@@ -113,7 +115,8 @@
       "background-color": "#ef8722",
       "separator-color": "#48eaa4",
       "header": "Summer",
-      "title": "Summer House"
+      "reason": "Spring into:",
+      "title": "Summer House | 2020 Songs of Summer"
     },
     {
       "id": "WwnaSyZar1s7gJWNsjWf-xmaLDDKpSs4i4bkbMtWGqFj24m-ucOwj3ltVjVy6NUsy5fTprCY",
