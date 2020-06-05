@@ -41,9 +41,8 @@ class _BackgroundContainerState extends State<BackgroundContainer> {
             Positioned.fill(
               child: BackgroundImageContainer(
                 backgroundImages: widget.backgroundImages,
-                backgroundImage:
-                    widget.backgroundImages[widget.selection] ?? '',
-                backgroundColor: widget.backgroundColors[widget.selection],
+                backgroundColors: widget.backgroundColors,
+                selection: widget.selection,
               ),
             ),
           ],
@@ -55,13 +54,14 @@ class _BackgroundContainerState extends State<BackgroundContainer> {
 
 class BackgroundImageContainer extends StatelessWidget {
   final List<String> backgroundImages;
-  final String backgroundImage;
-  final Color backgroundColor;
+  final List<Color> backgroundColors;
+
+  final int selection;
 
   BackgroundImageContainer({
     this.backgroundImages,
-    this.backgroundImage,
-    this.backgroundColor,
+    this.backgroundColors,
+    this.selection,
   });
 
   @override
@@ -76,21 +76,38 @@ class BackgroundImageContainer extends StatelessWidget {
           child: Stack(
             children: <Widget>[
               // backgroundImages
+//              Positioned.fill(
+//                child: Stack(
+//                  children: <Widget>[
+//                    Positioned.fill(
+//                      child: Image.network(
+//                        backgroundImage,
+//                        fit: BoxFit.cover,
+//                      ),
+//                    ),
+//                  ],
+//                ),
+//              ),
               Positioned.fill(
                 child: Stack(
-                  children: <Widget>[
-                    Positioned.fill(
-                      child: Image.network(
-                        backgroundImage,
-                        fit: BoxFit.cover,
+                  children: backgroundImages.map((String url) {
+                    int index = backgroundImages.indexOf(url);
+                    return Positioned.fill(
+                      child: Opacity(
+                        opacity: index == selection ? 1.0 : 0.0,
+                        child: Image.network(
+                          url ?? '',
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                  ],
+                    );
+                  }).toList(),
                 ),
               ),
+
               Positioned.fill(
                 child: BackgroundImageContainerGradient(
-                  backgroundColor: backgroundColor,
+                  backgroundColor: backgroundColors[selection],
                 ),
               ),
             ],
