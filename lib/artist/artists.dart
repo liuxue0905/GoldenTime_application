@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
 import 'artist_detail.dart';
 import 'artist_item.dart';
 import '../layout/gpm-card-grid.dart';
@@ -22,7 +23,7 @@ class ArtistsPage extends StatefulWidget {
 
   const ArtistsPage({
     Key key,
-    this.gpmQuickNavItems,
+    this.gpmQuickNavItems = kGPMQuickNavItems,
     this.onRouteNameChanged,
   }) : super(key: key);
 
@@ -199,13 +200,7 @@ class ArtistsListState extends State<ArtistsList> {
         title: artist.name,
         tag: artist.getTypeText() ?? '-',
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ArtistDetailPage(
-                  artist: artist,
-                ),
-              ));
+          openArtist(context, artist);
         },
       );
     }

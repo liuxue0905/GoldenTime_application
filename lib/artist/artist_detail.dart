@@ -27,7 +27,7 @@ class _ArtistDetailPageState extends State<ArtistDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.artist.name)),
+      appBar: AppBar(title: Text(widget.artist?.name ?? '')),
       body: Container(
         child: FutureBuilder(
           future: ApiService.instance.fetchArtist(widget.artist.id),
@@ -139,7 +139,8 @@ class _ArtistDetialState extends State<ArtistDetial> {
                   FlatButton.icon(
                     icon: const Icon(Icons.album, size: 18.0),
                     label: const Text('唱片', semanticsLabel: '唱片'),
-                    textColor: _selection == 0 ? _textColor : _textColorUnselected,
+                    textColor:
+                        _selection == 0 ? _textColor : _textColorUnselected,
                     onPressed: () {
                       setSelection(0);
                     },
@@ -147,7 +148,8 @@ class _ArtistDetialState extends State<ArtistDetial> {
                   FlatButton.icon(
                     icon: const Icon(Icons.library_music, size: 18.0),
                     label: const Text('歌曲', semanticsLabel: '歌曲'),
-                    textColor: _selection == 1 ? _textColor : _textColorUnselected,
+                    textColor:
+                        _selection == 1 ? _textColor : _textColorUnselected,
                     onPressed: () {
                       setSelection(1);
                     },
@@ -155,7 +157,8 @@ class _ArtistDetialState extends State<ArtistDetial> {
                   FlatButton.icon(
                     icon: const Icon(Icons.people, size: 18.0),
                     label: const Text('参与', semanticsLabel: '参与'),
-                    textColor: _selection == 2 ? _textColor : _textColorUnselected,
+                    textColor:
+                        _selection == 2 ? _textColor : _textColorUnselected,
                     onPressed: () {
                       setSelection(2);
                     },

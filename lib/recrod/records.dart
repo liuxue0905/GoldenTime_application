@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../api_service.dart';
+import '../constants.dart';
 import '../forms.dart';
 import '../home/quick_nav_container.dart';
 import '../home/sj_card_recommended_tall.dart';
@@ -21,7 +22,7 @@ class RecordsPage extends StatefulWidget {
 
   const RecordsPage({
     Key key,
-    this.gpmQuickNavItems,
+    this.gpmQuickNavItems = kGPMQuickNavItems,
     this.onRouteNameChanged,
   }) : super(key: key);
 

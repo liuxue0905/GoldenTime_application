@@ -4,8 +4,13 @@ import 'package:flutter_app_golden_time/home2/home2.dart';
 import 'package:flutter_app_golden_time/recrod/records.dart';
 import 'package:flutter_app_golden_time/song/songs.dart';
 
+import 'artist/artist_detail.dart';
 import 'artist/artists.dart';
+import 'model/artist.dart';
 import 'model/record.dart';
+import 'model/song.dart';
+import 'recrod/record_detail.dart';
+import 'song/song_detial.dart';
 
 typedef PathWidgetBuilder = Widget Function(BuildContext, String);
 
@@ -30,11 +35,21 @@ class Path {
 
 class RouteConfiguration {
   static const String routeNameHome = 'home';
+  static const String patternHome = '/';
+
   static const String routeNameRecordList = 'record-list';
+  static const String patternRecordList = '/record';
+
   static const String routeNameRecordDetail = 'record-detail';
+
   static const String routeNameArtistList = 'artist-list';
+  static const String patternArtistList = '/artist';
+
   static const String routeNameArtistDetail = 'artist-detail';
+
   static const String routeNameSongList = 'song-list';
+
+
   static const String routeNameSongDetail = 'song-detail';
   static const String routeNameHelp = 'help';
   static const String routeNameTest = 'test';
@@ -75,29 +90,48 @@ class RouteConfiguration {
 //          (context, match) => const RootPage(),
 //    ),
 
-    Path(
-      r'^' + RecordsPage.route,
-      (context, match) => const RecordsPage(),
-    ),
+//    Path(
+//      r'^' + RecordsPage.route,
+//      (context, match) => const RecordsPage(),
+//    ),
+//
+//    Path(
+//      r'^' + RecordsPage.route + r'/([\w-]+)$',
+//      (context, match) => const RecordsPage(),
+//    ),
+//
+//    Path(
+//      r'^' + ArtistsPage.route,
+//      (context, match) => const ArtistsPage(),
+//    ),
+//
+//    Path(
+//      r'^' + SongsPage.route,
+//      (context, match) => const SongsPage(),
+//    ),
+//
+//    Path(
+//      r'^/',
+//      (context, match) => const Home2Page(),
+//    ),
 
     Path(
       r'^' + RecordsPage.route + r'/([\w-]+)$',
-      (context, match) => const RecordsPage(),
+          (context, match) => RecordDetailPage(
+        record: Record(id: int.parse(match)),
+      ),
     ),
-
     Path(
-      r'^' + ArtistsPage.route,
-      (context, match) => const ArtistsPage(),
+      r'^' + ArtistsPage.route + r'/([\w-]+)$',
+          (context, match) => ArtistDetailPage(
+        artist: Artist(id: int.parse(match)),
+      ),
     ),
-
     Path(
-      r'^' + SongsPage.route,
-      (context, match) => const SongsPage(),
-    ),
-
-    Path(
-      r'^/',
-      (context, match) => const Home2Page(),
+      r'^' + SongsPage.route + r'/([\w-]+)$',
+          (context, match) => SongDetailPage(
+        song: Song(id: int.parse(match)),
+      ),
     ),
   ];
 

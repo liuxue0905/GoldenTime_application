@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:flutter_app_golden_time/routes.dart';
+import 'package:flutter_app_golden_time/model/artist.dart';
+import 'package:flutter_app_golden_time/model/song.dart';
+import './routes.dart';
+import './constants.dart';
 
 import './api_service.dart';
+import 'artist/artist_detail.dart';
 import 'artist/artists.dart';
+import 'model/record.dart';
+import 'recrod/record_detail.dart';
+import 'song/song_detial.dart';
 import 'song/songs.dart';
 import './models.dart';
 import 'home/home.dart';
@@ -25,9 +32,9 @@ class MyApp extends StatelessWidget {
 
         var routeNameToPattern = {
           RouteConfiguration.routeNameHome: '/',
-          RouteConfiguration.routeNameRecordList: '/record',
-          RouteConfiguration.routeNameArtistList: '/artist',
-          RouteConfiguration.routeNameSongList: '/song',
+          RouteConfiguration.routeNameRecordList: '/records',
+          RouteConfiguration.routeNameArtistList: '/artists',
+          RouteConfiguration.routeNameSongList: '/songs',
           RouteConfiguration.routeNameTest: '/test',
         };
 
@@ -38,7 +45,6 @@ class MyApp extends StatelessWidget {
         '/': (context) => ScaffoldWrapper(
               title: '流金岁月',
               body: Home2Page(
-                gpmQuickNavItems: ScaffoldWrapper.gpmQuickNavItems,
                 onRouteNameChanged: (String routeName) {
                   _onRouteNameChanged(context, routeName);
                 },
@@ -51,7 +57,6 @@ class MyApp extends StatelessWidget {
         '/home': (context) => ScaffoldWrapper(
               title: '流金岁月',
               body: Home2Page(
-                gpmQuickNavItems: ScaffoldWrapper.gpmQuickNavItems,
                 onRouteNameChanged: (String routeName) {
                   _onRouteNameChanged(context, routeName);
                 },
@@ -61,10 +66,9 @@ class MyApp extends StatelessWidget {
                 _onRouteNameChanged(context, value);
               },
             ),
-        '/artist': (context) => ScaffoldWrapper(
+        '/artists': (context) => ScaffoldWrapper(
               title: '流金岁月 - 歌手',
               body: ArtistsPage(
-                gpmQuickNavItems: ScaffoldWrapper.gpmQuickNavItems,
                 onRouteNameChanged: (String routeName) {
                   _onRouteNameChanged(context, routeName);
                 },
@@ -74,10 +78,10 @@ class MyApp extends StatelessWidget {
                 _onRouteNameChanged(context, value);
               },
             ),
-        '/record': (context) => ScaffoldWrapper(
+        '/records': (context) => ScaffoldWrapper(
               title: '流金岁月 - 唱片',
               body: RecordsPage(
-                gpmQuickNavItems: ScaffoldWrapper.gpmQuickNavItems,
+                gpmQuickNavItems: kGPMQuickNavItems,
                 onRouteNameChanged: (String routeName) {
                   _onRouteNameChanged(context, routeName);
                 },
@@ -87,10 +91,10 @@ class MyApp extends StatelessWidget {
                 _onRouteNameChanged(context, value);
               },
             ),
-        '/song': (context) => ScaffoldWrapper(
+        '/songs': (context) => ScaffoldWrapper(
               title: '流金岁月 - 歌曲',
               body: SongsPage(
-                gpmQuickNavItems: ScaffoldWrapper.gpmQuickNavItems,
+                gpmQuickNavItems: kGPMQuickNavItems,
                 onRouteNameChanged: (String routeName) {
                   _onRouteNameChanged(context, routeName);
                 },
@@ -103,7 +107,7 @@ class MyApp extends StatelessWidget {
         '/test': (context) => ScaffoldWrapper(
               title: '流金岁月',
               body: HomePage(
-                gpmQuickNavItems: ScaffoldWrapper.gpmQuickNavItems,
+                gpmQuickNavItems: kGPMQuickNavItems,
                 onRouteNameChanged: (String routeName) {
                   _onRouteNameChanged(context, routeName);
                 },
@@ -119,10 +123,23 @@ class MyApp extends StatelessWidget {
         title: '流金岁月',
         initialRoute: '/',
         onGenerateRoute: (RouteSettings settings) {
-          String pattern = settings.name;
+          var paths = RouteConfiguration.paths;
+
+          for (final path in paths) {
+            final regExpPattern = RegExp(path.pattern);
+            if (regExpPattern.hasMatch(settings.name)) {
+              final firstMatch = regExpPattern.firstMatch(settings.name);
+              final match =
+                  (firstMatch.groupCount == 1) ? firstMatch.group(1) : null;
+              return MaterialPageRoute<void>(
+                builder: (context) => path.builder(context, match),
+                settings: settings,
+              );
+            }
+          }
 
           return NoAnimationMaterialPageRoute(
-            builder: routes[pattern],
+            builder: routes[settings.name],
             settings: settings,
           );
         },
@@ -201,7 +218,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     if (_routeName == RouteConfiguration.routeNameTest) {
       child = HomePage(
-        gpmQuickNavItems: ScaffoldWrapper.gpmQuickNavItems,
         onBrightnessChanged: (Brightness brightness) {
           // setBrightness(brightness);
         },
@@ -211,28 +227,24 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     } else if (_routeName == RouteConfiguration.routeNameHome) {
       child = Home2Page(
-        gpmQuickNavItems: ScaffoldWrapper.gpmQuickNavItems,
         onRouteNameChanged: (String routeName) {
           setRouteName(routeName);
         },
       );
     } else if (_routeName == RouteConfiguration.routeNameRecordList) {
       child = RecordsPage(
-        gpmQuickNavItems: ScaffoldWrapper.gpmQuickNavItems,
         onRouteNameChanged: (String routeName) {
           setRouteName(routeName);
         },
       );
     } else if (_routeName == RouteConfiguration.routeNameArtistList) {
       child = ArtistsPage(
-        gpmQuickNavItems: ScaffoldWrapper.gpmQuickNavItems,
         onRouteNameChanged: (String routeName) {
           setRouteName(routeName);
         },
       );
     } else if (_routeName == RouteConfiguration.routeNameSongList) {
       child = SongsPage(
-        gpmQuickNavItems: ScaffoldWrapper.gpmQuickNavItems,
         onRouteNameChanged: (String routeName) {
           setRouteName(routeName);
         },
@@ -271,8 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
         } else if (RouteConfiguration.routeNameAndroid == value) {
 //          String url = 'http://liujin.jios.org:8000/web/android/app-arm64-v8a-release.apk';
           String url = 'http://liujin.jios.org:8000/web/android/index.html';
-          if (kIsWeb) {
-          }
+          if (kIsWeb) {}
           return;
         }
 
@@ -283,29 +294,6 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class ScaffoldWrapper extends StatelessWidget {
-  static const List<GPMQuickNavItem> gpmQuickNavItems = [
-    GPMQuickNavItem(
-        icon: Icons.home,
-        text: '首页',
-        routeName: RouteConfiguration.routeNameHome),
-    GPMQuickNavItem(
-        icon: Icons.album,
-        text: '唱片',
-        routeName: RouteConfiguration.routeNameRecordList),
-    GPMQuickNavItem(
-        icon: Icons.account_box,
-        text: '歌手',
-        routeName: RouteConfiguration.routeNameArtistList),
-    GPMQuickNavItem(
-        icon: Icons.library_music,
-        text: '歌曲',
-        routeName: RouteConfiguration.routeNameSongList),
-    GPMQuickNavItem(
-        icon: Icons.home,
-        text: '测试',
-        routeName: RouteConfiguration.routeNameTest),
-  ];
-
   final String title;
   final Widget body;
   final String selection;
@@ -387,8 +375,7 @@ class ScaffoldWrapper extends StatelessWidget {
   }
 
   List<Widget> buildActions(BuildContext context) {
-
-    var items = ScaffoldWrapper.gpmQuickNavItems;
+    var items = kGPMQuickNavItems;
 
     List<Widget> _actions = <Widget>[];
 //    final Orientation orientation = MediaQuery.of(context).orientation;
@@ -440,9 +427,7 @@ class ScaffoldWrapper extends StatelessWidget {
       icon: const Icon(Icons.android),
 //      tooltip: GalleryLocalizations.of(context).starterAppTooltipShare,
       tooltip: '安卓客户端',
-      onPressed: () {
-
-      },
+      onPressed: () {},
     ));
 
     return _actions;
@@ -467,7 +452,7 @@ class ScaffoldWrapper extends StatelessWidget {
                 context: context,
                 child: Expanded(
                   child: ListView(
-                    children: buildListTiles(context, gpmQuickNavItems),
+                    children: buildListTiles(context, kGPMQuickNavItems),
                   ),
                 ))
           ],

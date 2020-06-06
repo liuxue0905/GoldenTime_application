@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
 import '../model/module.dart';
 import '../models.dart';
 import '../util.dart';
@@ -17,7 +18,7 @@ class HomePage extends StatefulWidget {
 
   const HomePage({
     Key key,
-    this.gpmQuickNavItems,
+    this.gpmQuickNavItems = kGPMQuickNavItems,
     this.onRouteNameChanged,
     this.onBrightnessChanged,
   }) : super(key: key);
@@ -91,17 +92,12 @@ class _HomePageState extends State<HomePage> {
 
     if (history) {
       _backgroundColors.add(Color.fromRGBO(250, 250, 250, 1.0));
-    }
-    _backgroundColors.add(Color.fromRGBO(250, 250, 250, 1.0));
-    modules.forEach((element) {
-      _backgroundColors.add(element.backgroundColor);
-    });
-
-    if (history) {
       _backgroundImages.add(null);
     }
+    _backgroundColors.add(Color.fromRGBO(250, 250, 250, 1.0));
     _backgroundImages.add(null);
     modules.forEach((element) {
+      _backgroundColors.add(element.backgroundColor);
       _backgroundImages.add(element.backgroundImage);
     });
 

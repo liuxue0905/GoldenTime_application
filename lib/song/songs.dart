@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../api_service.dart';
+import '../constants.dart';
 import '../forms.dart';
 import '../home/quick_nav_container.dart';
 import '../layout/headers.dart';
@@ -19,7 +20,7 @@ class SongsPage extends StatefulWidget {
 
   const SongsPage({
     Key key,
-    this.gpmQuickNavItems,
+    this.gpmQuickNavItems = kGPMQuickNavItems,
     this.onRouteNameChanged,
   }) : super(key: key);
 

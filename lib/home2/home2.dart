@@ -3,6 +3,7 @@ import 'package:flutter_app_golden_time/home/background_container.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../api_service.dart';
+import '../constants.dart';
 import '../home/quick_nav_container.dart';
 import '../home2/artist_type_header.dart';
 import '../model/artist.dart';
@@ -19,7 +20,7 @@ class Home2Page extends StatefulWidget {
 
   const Home2Page({
     Key key,
-    this.gpmQuickNavItems,
+    this.gpmQuickNavItems = kGPMQuickNavItems,
     this.onRouteNameChanged,
   }) : super(key: key);
 

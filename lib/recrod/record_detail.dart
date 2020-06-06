@@ -14,7 +14,7 @@ import '../layout/image_gallery.dart';
 class RecordDetailPage extends StatefulWidget {
   final Record record;
 
-  RecordDetailPage({this.record});
+  RecordDetailPage({Key key, this.record}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -25,14 +25,14 @@ class RecordDetailPage extends StatefulWidget {
 class _RecordDetailPageState extends State<RecordDetailPage> {
   @override
   Widget build(BuildContext context) {
-
-    final RecordDetailArguments args = ModalRoute.of(context).settings.arguments;
+    final RecordDetailArguments args =
+        ModalRoute.of(context).settings.arguments;
 
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.record.title),
+        title: Text(widget.record?.title ?? ''),
       ),
       body: Container(
         child: FutureBuilder(

@@ -17,7 +17,7 @@ class SongDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
       child: Scaffold(
-        appBar: AppBar(title: Text(song.title)),
+        appBar: AppBar(title: Text(song.title ?? '')),
         body: Container(
           child: FutureBuilder(
             future: ApiService.instance.fetchSong(song.id),
