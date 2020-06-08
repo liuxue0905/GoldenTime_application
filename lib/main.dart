@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:flutter_app_golden_time/model/artist.dart';
-import 'package:flutter_app_golden_time/model/song.dart';
 import './routes.dart';
 import './constants.dart';
 
 import './api_service.dart';
-import 'artist/artist_detail.dart';
 import 'artist/artists.dart';
-import 'model/record.dart';
-import 'recrod/record_detail.dart';
-import 'song/song_detial.dart';
 import 'song/songs.dart';
 import './models.dart';
 import 'home/home.dart';
@@ -28,109 +22,115 @@ class MyApp extends StatelessWidget {
 
     if (kIsWeb) {
       _onRouteNameChanged(BuildContext context, String routeName) {
-        print('routeName: ${routeName}');
-
-        var routeNameToPattern = {
-          RouteConfiguration.routeNameHome: '/',
-          RouteConfiguration.routeNameRecordList: '/records',
-          RouteConfiguration.routeNameArtistList: '/artists',
-          RouteConfiguration.routeNameSongList: '/songs',
-          RouteConfiguration.routeNameTest: '/test',
-        };
-
-        Navigator.of(context).pushNamed(routeNameToPattern[routeName]);
+        Navigator.of(context).pushNamed(routeName);
       }
 
-      Map<String, WidgetBuilder> routes = {
-        '/': (context) => ScaffoldWrapper(
-              title: '流金岁月',
-              body: Home2Page(
-                onRouteNameChanged: (String routeName) {
-                  _onRouteNameChanged(context, routeName);
-                },
-              ),
-              selection: RouteConfiguration.routeNameHome,
-              onValueChanged: (String value) {
-                _onRouteNameChanged(context, value);
+      List<Path> paths = [
+        Path(
+          r'^' + Home2Page.route,
+          (context, match) => ScaffoldWrapper(
+            title: '流金岁月',
+            body: Home2Page(
+              onRouteNameChanged: (String routeName) {
+                _onRouteNameChanged(context, routeName);
               },
             ),
-        '/home': (context) => ScaffoldWrapper(
-              title: '流金岁月',
-              body: Home2Page(
-                onRouteNameChanged: (String routeName) {
-                  _onRouteNameChanged(context, routeName);
-                },
-              ),
-              selection: RouteConfiguration.routeNameHome,
-              onValueChanged: (String value) {
-                _onRouteNameChanged(context, value);
+            routeName: Home2Page.route,
+            onRouteNameValueChanged: (String routeName) {
+              _onRouteNameChanged(context, routeName);
+            },
+          ),
+        ),
+        Path(
+          r'^' + HomePage.route,
+          (context, match) => ScaffoldWrapper(
+            title: '流金岁月',
+            body: HomePage(
+              gpmQuickNavItems: kGPMQuickNavItems,
+              onRouteNameChanged: (String routeName) {
+                _onRouteNameChanged(context, routeName);
               },
             ),
-        '/artists': (context) => ScaffoldWrapper(
-              title: '流金岁月 - 歌手',
-              body: ArtistsPage(
-                onRouteNameChanged: (String routeName) {
-                  _onRouteNameChanged(context, routeName);
-                },
-              ),
-              selection: RouteConfiguration.routeNameArtistList,
-              onValueChanged: (String value) {
-                _onRouteNameChanged(context, value);
+            routeName: HomePage.route,
+            onRouteNameValueChanged: (String value) {
+              _onRouteNameChanged(context, value);
+            },
+          ),
+        ),
+        Path(
+          r'^' + RecordsPage.route,
+          (context, match) => ScaffoldWrapper(
+            title: '流金岁月 - 唱片',
+            body: RecordsPage(
+              gpmQuickNavItems: kGPMQuickNavItems,
+              onRouteNameChanged: (String routeName) {
+                _onRouteNameChanged(context, routeName);
               },
             ),
-        '/records': (context) => ScaffoldWrapper(
-              title: '流金岁月 - 唱片',
-              body: RecordsPage(
-                gpmQuickNavItems: kGPMQuickNavItems,
-                onRouteNameChanged: (String routeName) {
-                  _onRouteNameChanged(context, routeName);
-                },
-              ),
-              selection: RouteConfiguration.routeNameRecordList,
-              onValueChanged: (String value) {
-                _onRouteNameChanged(context, value);
+            routeName: RecordsPage.route,
+            onRouteNameValueChanged: (String value) {
+              _onRouteNameChanged(context, value);
+            },
+          ),
+        ),
+        Path(
+          r'^' + ArtistsPage.route,
+          (context, match) => ScaffoldWrapper(
+            title: '流金岁月 - 歌手',
+            body: ArtistsPage(
+              onRouteNameChanged: (String routeName) {
+                _onRouteNameChanged(context, routeName);
               },
             ),
-        '/songs': (context) => ScaffoldWrapper(
-              title: '流金岁月 - 歌曲',
-              body: SongsPage(
-                gpmQuickNavItems: kGPMQuickNavItems,
-                onRouteNameChanged: (String routeName) {
-                  _onRouteNameChanged(context, routeName);
-                },
-              ),
-              selection: RouteConfiguration.routeNameSongList,
-              onValueChanged: (String value) {
-                _onRouteNameChanged(context, value);
+            routeName: ArtistsPage.routeName,
+            onRouteNameValueChanged: (String routeName) {
+              _onRouteNameChanged(context, routeName);
+            },
+          ),
+        ),
+        Path(
+          r'^' + SongsPage.route,
+          (context, match) => ScaffoldWrapper(
+            title: '流金岁月 - 歌曲',
+            body: SongsPage(
+              gpmQuickNavItems: kGPMQuickNavItems,
+              onRouteNameChanged: (String routeName) {
+                _onRouteNameChanged(context, routeName);
               },
             ),
-        '/test': (context) => ScaffoldWrapper(
-              title: '流金岁月',
-              body: HomePage(
-                gpmQuickNavItems: kGPMQuickNavItems,
-                onRouteNameChanged: (String routeName) {
-                  _onRouteNameChanged(context, routeName);
-                },
-              ),
-              selection: RouteConfiguration.routeNameTest,
-              onValueChanged: (String value) {
-                _onRouteNameChanged(context, value);
-              },
-            ),
-      };
+            routeName: SongsPage.route,
+            onRouteNameValueChanged: (String value) {
+              _onRouteNameChanged(context, value);
+            },
+          ),
+        ),
+      ];
 
       return MaterialApp(
         title: '流金岁月',
-        initialRoute: '/',
+        initialRoute: '/home',
         onGenerateRoute: (RouteSettings settings) {
-          var paths = RouteConfiguration.paths;
 
-          for (final path in paths) {
+          var paths2 = [];
+          paths2.addAll(paths);
+          paths2.addAll(RouteConfiguration.paths);
+
+          for (final path in paths2) {
             final regExpPattern = RegExp(path.pattern);
+            print('regExpPattern=${regExpPattern}');
+            print('path.pattern=${path.pattern}');
+            print('settings.name=${settings.name}');
+            print('regExpPattern.hasMatch(settings.name)=${regExpPattern.hasMatch(settings.name)}');
             if (regExpPattern.hasMatch(settings.name)) {
               final firstMatch = regExpPattern.firstMatch(settings.name);
               final match =
                   (firstMatch.groupCount == 1) ? firstMatch.group(1) : null;
+              if (kIsWeb) {
+                return NoAnimationMaterialPageRoute<void>(
+                  builder: (context) => path.builder(context, match),
+                  settings: settings,
+                );
+              }
               return MaterialPageRoute<void>(
                 builder: (context) => path.builder(context, match),
                 settings: settings,
@@ -138,10 +138,7 @@ class MyApp extends StatelessWidget {
             }
           }
 
-          return NoAnimationMaterialPageRoute(
-            builder: routes[settings.name],
-            settings: settings,
-          );
+          return null;
         },
 //        onGenerateRoute: RouteConfiguration.onGenerateRoute,
         theme: ThemeData(
@@ -205,7 +202,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _routeName = RouteConfiguration.routeNameHome;
+  String _routeName = Home2Page.routeName;
 
   void setRouteName(String routeName) {
     setState(() {
@@ -214,44 +211,77 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildChild(BuildContext context) {
-    Widget child;
+    List<Path> paths = [
+      Path(
+        r'^' + Home2Page.route,
+        (context, match) => Home2Page(
+          onRouteNameChanged: (String routeName) {
+            setRouteName(routeName);
+          },
+        ),
+      ),
+      Path(
+        r'^' + HomePage.route,
+        (context, match) => HomePage(
+          gpmQuickNavItems: kGPMQuickNavItems,
+          onRouteNameChanged: (String routeName) {
+            setRouteName(routeName);
+          },
+        ),
+      ),
+      Path(
+        r'^' + RecordsPage.route,
+        (context, match) => RecordsPage(
+          gpmQuickNavItems: kGPMQuickNavItems,
+          onRouteNameChanged: (String routeName) {
+            setRouteName(routeName);
+          },
+        ),
+      ),
+      Path(
+        r'^' + ArtistsPage.route,
+        (context, match) => ArtistsPage(
+          onRouteNameChanged: (String routeName) {
+            setRouteName(routeName);
+          },
+        ),
+      ),
+      Path(
+        r'^' + SongsPage.route,
+        (context, match) => SongsPage(
+          gpmQuickNavItems: kGPMQuickNavItems,
+          onRouteNameChanged: (String routeName) {
+            setRouteName(routeName);
+          },
+        ),
+      ),
+    ];
 
-    if (_routeName == RouteConfiguration.routeNameTest) {
-      child = HomePage(
-        onBrightnessChanged: (Brightness brightness) {
-          // setBrightness(brightness);
-        },
-        onRouteNameChanged: (String routeName) {
-          setRouteName(routeName);
-        },
-      );
-    } else if (_routeName == RouteConfiguration.routeNameHome) {
-      child = Home2Page(
-        onRouteNameChanged: (String routeName) {
-          setRouteName(routeName);
-        },
-      );
-    } else if (_routeName == RouteConfiguration.routeNameRecordList) {
-      child = RecordsPage(
-        onRouteNameChanged: (String routeName) {
-          setRouteName(routeName);
-        },
-      );
-    } else if (_routeName == RouteConfiguration.routeNameArtistList) {
-      child = ArtistsPage(
-        onRouteNameChanged: (String routeName) {
-          setRouteName(routeName);
-        },
-      );
-    } else if (_routeName == RouteConfiguration.routeNameSongList) {
-      child = SongsPage(
-        onRouteNameChanged: (String routeName) {
-          setRouteName(routeName);
-        },
-      );
+    var routeName2Route = {
+      Home2Page.routeName: Home2Page.route,
+      HomePage.routeName: HomePage.route,
+      RecordsPage.routeName: RecordsPage.route,
+      ArtistsPage.routeName: ArtistsPage.route,
+      SongsPage.routeName: SongsPage.route,
+    };
+
+    var paths2 = [];
+    paths2.addAll(paths);
+    paths2.addAll(RouteConfiguration.paths);
+
+    var name = routeName2Route[_routeName];
+
+    for (final path in paths2) {
+      final regExpPattern = RegExp(path.pattern);
+      print('regExpPattern=${regExpPattern}');
+      print('name=${name}');
+      print('regExpPattern.hasMatch(name)=${regExpPattern.hasMatch(name)}');
+      if (regExpPattern.hasMatch(name)) {
+        final firstMatch = regExpPattern.firstMatch(name);
+        final match = (firstMatch.groupCount == 1) ? firstMatch.group(1) : null;
+        return path.builder(context, match);
+      }
     }
-
-    return child;
   }
 
   @override
@@ -274,8 +304,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return ScaffoldWrapper(
       title: widget.title,
       body: _buildChild(context),
-      selection: _routeName,
-      onValueChanged: (String value) {
+      routeName: _routeName,
+      onRouteNameValueChanged: (String value) {
         print('value: ${value}');
 
         if (RouteConfiguration.routeNameHelp == value) {
@@ -296,15 +326,15 @@ class _MyHomePageState extends State<MyHomePage> {
 class ScaffoldWrapper extends StatelessWidget {
   final String title;
   final Widget body;
-  final String selection;
-  final ValueChanged<String> onValueChanged;
+  final String routeName;
+  final ValueChanged<String> onRouteNameValueChanged;
 
   const ScaffoldWrapper({
     Key key,
     this.title,
     this.body,
-    this.selection,
-    this.onValueChanged,
+    this.routeName,
+    this.onRouteNameValueChanged,
   }) : super(key: key);
 
   List<Widget> buildListTiles(
@@ -316,13 +346,13 @@ class ScaffoldWrapper extends StatelessWidget {
           dense: false,
           leading: Icon(item.icon),
           title: Text(item.text),
-          selected: selection == item.routeName,
+          selected: routeName == item.routeName,
           onTap: () {
             Navigator.pop(context); // Dismiss the drawer.
 
 //            setSelection(index);
-            if (onValueChanged != null) {
-              onValueChanged(item.routeName);
+            if (onRouteNameValueChanged != null) {
+              onRouteNameValueChanged(item.routeName);
             }
           },
           subtitle: null,
@@ -347,8 +377,8 @@ class ScaffoldWrapper extends StatelessWidget {
         onTap: () {
           Navigator.pop(context); // Dismiss the drawer.
 
-          if (onValueChanged != null) {
-            onValueChanged(RouteConfiguration.routeNameAndroid);
+          if (onRouteNameValueChanged != null) {
+            onRouteNameValueChanged('');
           }
         },
       ));
@@ -361,8 +391,8 @@ class ScaffoldWrapper extends StatelessWidget {
       onTap: () {
         Navigator.pop(context); // Dismiss the drawer.
 
-        if (onValueChanged != null) {
-          onValueChanged(RouteConfiguration.routeNameHelp);
+        if (onRouteNameValueChanged != null) {
+          onRouteNameValueChanged('');
         }
       },
     ));
@@ -462,46 +492,3 @@ class ScaffoldWrapper extends StatelessWidget {
     );
   }
 }
-
-//class QuickNavContainerWrapper extends StatelessWidget {
-//  final Brightness brightness;
-//  final Widget child;
-//  final int selection;
-//  final ValueChanged<int> onValueChanged;
-//
-//  const QuickNavContainerWrapper({
-//    this.brightness,
-//    this.child,
-//    this.selection,
-//    this.onValueChanged,
-//  }) : super();
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return Container(
-//      child: Stack(
-//        children: [
-//          Positioned.fill(child: child),
-//          Positioned(
-//            top: 0,
-//            left: 0,
-//            bottom: 0,
-//            child: Visibility(
-//              visible: isLargeScreen(context),
-//              child: QuickNavContainer(
-//                brightness: brightness,
-//                items: ScaffoldWrapper.gpmQuickNavItems,
-//                selection: selection,
-//                onSelectionChanged: (int position) {
-//                  if (onValueChanged != null) {
-//                    onValueChanged(position);
-//                  }
-//                },
-//              ),
-//            ),
-//          ),
-//        ],
-//      ),
-//    );
-//  }
-//}

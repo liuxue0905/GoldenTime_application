@@ -15,7 +15,8 @@ import '../layout/gpm-card-grid.dart';
 import '../layout/paginated_footer.dart';
 
 class RecordsPage extends StatefulWidget {
-  static const String route = '/records';
+  static const String route = '/record';
+  static const String routeName = 'record-list';
 
   final List<GPMQuickNavItem> gpmQuickNavItems;
   final ValueChanged<String> onRouteNameChanged;

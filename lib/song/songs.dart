@@ -13,7 +13,8 @@ import '../util.dart';
 import '../widget_util.dart';
 
 class SongsPage extends StatefulWidget {
-  static const String route = '/songs';
+  static const String route = '/song';
+  static const String routeName = 'song-list';
 
   final List<GPMQuickNavItem> gpmQuickNavItems;
   final ValueChanged<String> onRouteNameChanged;

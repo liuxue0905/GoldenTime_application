@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_golden_time/home/home.dart';
 import 'package:flutter_app_golden_time/home2/home2.dart';
 import 'package:flutter_app_golden_time/recrod/records.dart';
 import 'package:flutter_app_golden_time/song/songs.dart';
@@ -34,25 +35,7 @@ class Path {
 }
 
 class RouteConfiguration {
-  static const String routeNameHome = 'home';
-  static const String patternHome = '/';
-
-  static const String routeNameRecordList = 'record-list';
-  static const String patternRecordList = '/record';
-
-  static const String routeNameRecordDetail = 'record-detail';
-
-  static const String routeNameArtistList = 'artist-list';
-  static const String patternArtistList = '/artist';
-
-  static const String routeNameArtistDetail = 'artist-detail';
-
-  static const String routeNameSongList = 'song-list';
-
-
-  static const String routeNameSongDetail = 'song-detail';
   static const String routeNameHelp = 'help';
-  static const String routeNameTest = 'test';
   static const String routeNameAndroid = 'android';
 
   /// List of [Path] to for route matching. When a named route is pushed with
@@ -90,46 +73,21 @@ class RouteConfiguration {
 //          (context, match) => const RootPage(),
 //    ),
 
-//    Path(
-//      r'^' + RecordsPage.route,
-//      (context, match) => const RecordsPage(),
-//    ),
-//
-//    Path(
-//      r'^' + RecordsPage.route + r'/([\w-]+)$',
-//      (context, match) => const RecordsPage(),
-//    ),
-//
-//    Path(
-//      r'^' + ArtistsPage.route,
-//      (context, match) => const ArtistsPage(),
-//    ),
-//
-//    Path(
-//      r'^' + SongsPage.route,
-//      (context, match) => const SongsPage(),
-//    ),
-//
-//    Path(
-//      r'^/',
-//      (context, match) => const Home2Page(),
-//    ),
-
     Path(
       r'^' + RecordsPage.route + r'/([\w-]+)$',
-          (context, match) => RecordDetailPage(
+      (context, match) => RecordDetailPage(
         record: Record(id: int.parse(match)),
       ),
     ),
     Path(
       r'^' + ArtistsPage.route + r'/([\w-]+)$',
-          (context, match) => ArtistDetailPage(
+      (context, match) => ArtistDetailPage(
         artist: Artist(id: int.parse(match)),
       ),
     ),
     Path(
       r'^' + SongsPage.route + r'/([\w-]+)$',
-          (context, match) => SongDetailPage(
+      (context, match) => SongDetailPage(
         song: Song(id: int.parse(match)),
       ),
     ),

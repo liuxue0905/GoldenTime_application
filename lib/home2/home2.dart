@@ -14,6 +14,7 @@ import '../widget_util.dart';
 
 class Home2Page extends StatefulWidget {
   static const String route = '/home';
+  static const String routeName = 'home';
 
   final List<GPMQuickNavItem> gpmQuickNavItems;
   final ValueChanged<String> onRouteNameChanged;

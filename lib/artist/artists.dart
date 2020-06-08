@@ -16,7 +16,8 @@ import '../widget_util.dart';
 import '../layout/headers.dart';
 
 class ArtistsPage extends StatefulWidget {
-  static const String route = '/artists';
+  static const String route = '/artist';
+  static const String routeName = 'artist-list';
 
   final List<GPMQuickNavItem> gpmQuickNavItems;
   final ValueChanged<String> onRouteNameChanged;

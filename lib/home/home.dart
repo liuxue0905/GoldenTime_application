@@ -10,7 +10,8 @@ import 'page_indicator_container.dart';
 import 'quick_nav_container.dart';
 
 class HomePage extends StatefulWidget {
-//  static const String route = '/home';
+  static const String route = '/test';
+  static const String routeName = 'test';
 
   final List<GPMQuickNavItem> gpmQuickNavItems;
   final ValueChanged<String> onRouteNameChanged;
@@ -138,7 +139,8 @@ class _HomePageState extends State<HomePage> {
                 selection: 0,
                 onSelectionChanged: (int position) {
                   if (widget.onRouteNameChanged != null) {
-                    widget.onRouteNameChanged(widget.gpmQuickNavItems[position].routeName);
+                    widget.onRouteNameChanged(
+                        widget.gpmQuickNavItems[position].routeName);
                   }
                 },
               ),
