@@ -12,6 +12,11 @@ import '../widget_util.dart';
 import '../layout/image_gallery.dart';
 
 class RecordDetailPage extends StatefulWidget {
+
+  static const String baseRoute = '/record';
+  static String Function(String slug) routeFromSlug =
+      (String slug) => baseRoute + '/$slug';
+
   final Record record;
 
   RecordDetailPage({Key key, this.record}) : super(key: key);

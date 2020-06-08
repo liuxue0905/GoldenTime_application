@@ -9,6 +9,11 @@ import '../util.dart';
 import '../widget_util.dart';
 
 class SongDetailPage extends StatelessWidget {
+
+  static const String baseRoute = '/song';
+  static String Function(String slug) routeFromSlug =
+      (String slug) => baseRoute + '/$slug';
+
   final Song song;
 
   SongDetailPage({this.song});

@@ -32,6 +32,11 @@ class Path {
   /// )
   /// ```
   final PathWidgetBuilder builder;
+
+  @override
+  String toString() {
+    return 'Path{pattern: $pattern}';
+  }
 }
 
 class RouteConfiguration {

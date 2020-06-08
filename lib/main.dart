@@ -112,12 +112,13 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (RouteSettings settings) {
 
           var paths2 = [];
-          paths2.addAll(paths);
           paths2.addAll(RouteConfiguration.paths);
+          paths2.addAll(paths);
+
+          print('paths2=${paths2}');
 
           for (final path in paths2) {
             final regExpPattern = RegExp(path.pattern);
-            print('regExpPattern=${regExpPattern}');
             print('path.pattern=${path.pattern}');
             print('settings.name=${settings.name}');
             print('regExpPattern.hasMatch(settings.name)=${regExpPattern.hasMatch(settings.name)}');
@@ -273,7 +274,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     for (final path in paths2) {
       final regExpPattern = RegExp(path.pattern);
-      print('regExpPattern=${regExpPattern}');
+      print('path.pattern=${path.pattern}');
       print('name=${name}');
       print('regExpPattern.hasMatch(name)=${regExpPattern.hasMatch(name)}');
       if (regExpPattern.hasMatch(name)) {

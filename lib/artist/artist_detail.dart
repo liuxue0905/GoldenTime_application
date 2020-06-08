@@ -13,6 +13,11 @@ import 'artist_detail_songs.dart';
 import '../layout/image_gallery.dart';
 
 class ArtistDetailPage extends StatefulWidget {
+
+  static const String baseRoute = '/artist';
+  static String Function(String slug) routeFromSlug =
+      (String slug) => baseRoute + '/$slug';
+
   final Artist artist;
 
   ArtistDetailPage({this.artist});

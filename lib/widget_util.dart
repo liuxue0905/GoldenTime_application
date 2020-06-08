@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import './routes.dart';
 
 import 'artist/artist_detail.dart';
 import './layout/paginated_footer.dart';
@@ -14,9 +13,9 @@ import './model/record.dart';
 import './model/song.dart';
 
 void openRecord(BuildContext context, Record record) {
-
   if (kIsWeb) {
-    Navigator.of(context).pushNamed('/records/${record.id}');
+    Navigator.of(context)
+        .pushNamed(RecordDetailPage.routeFromSlug(record?.id?.toString()));
     return;
   }
 
@@ -34,9 +33,9 @@ void openRecord(BuildContext context, Record record) {
 }
 
 void openArtist(BuildContext context, Artist artist) {
-
   if (kIsWeb) {
-    Navigator.of(context).pushNamed('/artists/${artist.id}');
+    Navigator.of(context)
+        .pushNamed(ArtistDetailPage.routeFromSlug(artist?.id?.toString()));
     return;
   }
 
@@ -49,9 +48,9 @@ void openArtist(BuildContext context, Artist artist) {
 }
 
 void openSong(BuildContext context, Song song) {
-
   if (kIsWeb) {
-    Navigator.of(context).pushNamed('/songs/${song.id}');
+    Navigator.of(context)
+        .pushNamed(SongDetailPage.routeFromSlug(song?.id?.toString()));
     return;
   }
 
