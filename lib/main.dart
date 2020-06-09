@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:url_launcher/url_launcher.dart';
 import './routes.dart';
 import './constants.dart';
 
@@ -325,6 +326,15 @@ class ScaffoldWrapper extends StatelessWidget {
     this.onRouteNameValueChanged,
   }) : super(key: key);
 
+  _launchURL() async {
+    const url = 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   List<Widget> buildListTiles(
       BuildContext context, List<GPMQuickNavItem> items) {
     List<Widget> children = items.map<Widget>((GPMQuickNavItem item) {
@@ -365,9 +375,7 @@ class ScaffoldWrapper extends StatelessWidget {
         onTap: () {
           Navigator.pop(context); // Dismiss the drawer.
 
-          if (onRouteNameValueChanged != null) {
-            onRouteNameValueChanged('');
-          }
+          _launchURL();
         },
       ));
     }
@@ -446,7 +454,9 @@ class ScaffoldWrapper extends StatelessWidget {
         icon: const Icon(Icons.android),
 //      tooltip: GalleryLocalizations.of(context).starterAppTooltipShare,
         tooltip: '安卓客户端',
-        onPressed: () {},
+        onPressed: () {
+          _launchURL();
+        },
       ));
     }
 

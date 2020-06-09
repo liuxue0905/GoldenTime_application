@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_golden_time/widget_util.dart';
 
 import '../layout/artist_bar.dart';
 import '../layout_swNdp/record_detail_header_swndp.dart';
@@ -38,20 +39,25 @@ class Sw320dpRecordDetailHeaderContainer
     var _titleTextColor = Color.fromRGBO(0, 0, 0, 0.87);
     var _subtitleTextColor = Color.fromRGBO(0, 0, 0, 0.54);
 
-    Widget imageWrapper = Container(
-      child: AspectRatio(
-        aspectRatio: 1.0,
-        child: FadeInImage(
-          image: url != null ? NetworkImage(url) : NetworkImage(""),
-          placeholder: AssetImage('images/default_album.jpg'),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
+    var mediaQuery = MediaQuery.of(context);
 
     return Column(
       children: <Widget>[
-        imageWrapper,
+        GestureDetector(
+          child: Container(
+            child: AspectRatio(
+              aspectRatio: 1.0,
+              child: FadeInImage(
+                image: NetworkImage(getImageUrl(url, resize: 'fill', size: (mediaQuery.size.width * mediaQuery.devicePixelRatio).toInt()) ?? ''),
+                placeholder: AssetImage('images/default_album.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          onTap: () {
+            launchURL(url);
+          },
+        ),
         Container(
           padding: EdgeInsets.all(16),
           child: Column(

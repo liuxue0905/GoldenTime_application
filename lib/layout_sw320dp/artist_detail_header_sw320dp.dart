@@ -10,32 +10,40 @@ class ArtistDetailHeader_sw320dp extends ArtistDetailHeader_swndp {
 
   @override
   Widget build(BuildContext context) {
+
+    var mediaQuery = MediaQuery.of(context);
+
     return Container(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Container(
-            color: Colors.grey[400],
-            child: AspectRatio(
-              aspectRatio: 1.0,
-              child: Stack(
-                children: <Widget>[
-                  Positioned.fill(
-                    child: DefaultIconWidget(
-                      icon: Icons.account_circle,
+          GestureDetector(
+            child: Container(
+              color: Colors.grey[400],
+              child: AspectRatio(
+                aspectRatio: 1.0,
+                child: Stack(
+                  children: <Widget>[
+                    Positioned.fill(
+                      child: DefaultIconWidget(
+                        icon: Icons.account_circle,
+                      ),
                     ),
-                  ),
-                  Positioned.fill(
-                    child: Image.network(
-                      url ?? '',
-                      fit: BoxFit.cover,
+                    Positioned.fill(
+                      child: Image.network(
+                        getImageUrl(url, resize: 'fill', size: (mediaQuery.size.width * mediaQuery.devicePixelRatio).toInt()) ?? '',
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
+            onTap: () {
+              launchURL(url);
+            },
           ),
           Container(
             padding: EdgeInsets.all(16),

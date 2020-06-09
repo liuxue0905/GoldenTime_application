@@ -66,8 +66,7 @@ class RecordDetial extends StatelessWidget {
 
     header = !isLargeScreen(context)
         ? Sw320dpRecordDetailHeaderContainer(
-            url: getRecordCover(record,
-                size: 320 * MediaQuery.of(context).devicePixelRatio),
+            url: record.cover,
             title: record.title,
             subtitle: '编号：${record.number}',
             record: record,

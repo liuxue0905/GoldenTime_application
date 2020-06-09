@@ -10,32 +10,37 @@ class ArtistDetailHeader_sw600dp extends ArtistDetailHeader_swndp {
 
   @override
   Widget build(BuildContext context) {
-    Widget image = Container(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(2),
-        child: Container(
-          color: Colors.grey[400],
+    Widget image = GestureDetector(
+      child: Container(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(2),
           child: Container(
-            width: 180,
-            height: 180,
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: DefaultIconWidget(
-                    icon: Icons.account_circle,
+            color: Colors.grey[400],
+            child: Container(
+              width: 180,
+              height: 180,
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(
+                    child: DefaultIconWidget(
+                      icon: Icons.account_circle,
+                    ),
                   ),
-                ),
-                Positioned.fill(
-                  child: Image.network(
-                    url ?? '',
-                    fit: BoxFit.cover,
+                  Positioned.fill(
+                    child: Image.network(
+                      url ?? '',
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
       ),
+      onTap: () {
+        launchURL(url);
+      },
     );
 
     return Container(

@@ -13,7 +13,6 @@ import 'artist_detail_songs.dart';
 import '../layout/image_gallery.dart';
 
 class ArtistDetailPage extends StatefulWidget {
-
   static const String baseRoute = '/artist';
   static String Function(String slug) routeFromSlug =
       (String slug) => baseRoute + '/$slug';
@@ -116,8 +115,7 @@ class _ArtistDetialState extends State<ArtistDetial> {
 
     if (!isLargeScreen(context)) {
       _header = ArtistDetailHeader_sw320dp(
-        url: getArtistCover(artist,
-            size: 320 * MediaQuery.of(context).devicePixelRatio),
+        url: artist.cover,
         artist: artist,
       );
     } else {

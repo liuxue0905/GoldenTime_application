@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_golden_time/widget_util.dart';
 
 import '../layout/artist_bar.dart';
 import '../layout_swNdp/record_detail_header_swndp.dart';
@@ -30,20 +31,25 @@ class Sw600dpRecordDetailHeaderContainer
     var _titleTextColor = Color.fromRGBO(0, 0, 0, 0.87);
     var _subtitleTextColor = Color.fromRGBO(0, 0, 0, 0.54);
 
-    Widget imageWrapper = Container(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(2),
-        child: Container(
-          color: Colors.black,
-          child: FadeInImage(
-            width: 180,
-            height: 180,
-            image: NetworkImage(url),
-            placeholder: AssetImage('images/default_album.jpg'),
-            fit: BoxFit.cover,
+    Widget imageWrapper = GestureDetector(
+      child: Container(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(2),
+          child: Container(
+            color: Colors.black,
+            child: FadeInImage(
+              width: 180,
+              height: 180,
+              image: NetworkImage(url),
+              placeholder: AssetImage('images/default_album.jpg'),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),
+      onTap: () {
+        launchURL(url);
+      },
     );
 
     return Container(
@@ -84,30 +90,33 @@ class Sw600dpRecordDetailHeaderContainer
 //                          ),
                             child: Text(
                               title,
-                              style: Theme.of(context).textTheme.headline4.apply(
-                                    color: _titleTextColor,
+                              style:
+                                  Theme.of(context).textTheme.headline4.apply(
+                                        color: _titleTextColor,
 //                            height: 40 / 34,
-                                  ),
+                                      ),
                             ),
                           ),
                           Container(
                             margin: EdgeInsets.only(bottom: 4),
                             child: Text(
                               subtitle,
-                              style: Theme.of(context).textTheme.bodyText2.apply(
-                                    color: _subtitleTextColor,
+                              style:
+                                  Theme.of(context).textTheme.bodyText2.apply(
+                                        color: _subtitleTextColor,
 //                          height: 20 / 14,
-                                  ),
+                                      ),
                             ),
                           ),
                           Container(
                             margin: EdgeInsets.only(bottom: 4),
                             child: Text(
                               '介质：${record.getFormatText() ?? '-'}',
-                              style: Theme.of(context).textTheme.bodyText2.apply(
-                                color: _subtitleTextColor,
+                              style:
+                                  Theme.of(context).textTheme.bodyText2.apply(
+                                        color: _subtitleTextColor,
 //                          height: 20 / 14,
-                              ),
+                                      ),
                             ),
                           ),
                           SizedBox(
@@ -117,10 +126,11 @@ class Sw600dpRecordDetailHeaderContainer
                             margin: EdgeInsets.only(bottom: 4),
                             child: Text(
                               '年代：${record?.year}',
-                              style: Theme.of(context).textTheme.bodyText2.apply(
-                                color: _subtitleTextColor,
+                              style:
+                                  Theme.of(context).textTheme.bodyText2.apply(
+                                        color: _subtitleTextColor,
 //                          height: 20 / 14,
-                              ),
+                                      ),
                             ),
                           ),
                           SizedBox(
@@ -129,10 +139,11 @@ class Sw600dpRecordDetailHeaderContainer
                           Container(
                             child: Text(
                               '唱片公司：${record?.company?.name}',
-                              style: Theme.of(context).textTheme.bodyText2.apply(
-                                color: _subtitleTextColor,
+                              style:
+                                  Theme.of(context).textTheme.bodyText2.apply(
+                                        color: _subtitleTextColor,
 //                          height: 20 / 14,
-                              ),
+                                      ),
                             ),
                           ),
                           SizedBox(
@@ -143,7 +154,6 @@ class Sw600dpRecordDetailHeaderContainer
                               artists: record.artists,
                             ),
                           ),
-
                           SizedBox(
                             height: 4,
                           ),

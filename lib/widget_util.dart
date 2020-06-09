@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:url_launcher/url_launcher.dart';
 
 import 'artist/artist_detail.dart';
 import './layout/paginated_footer.dart';
@@ -365,6 +366,14 @@ List<Map<String, dynamic>> getSongFields(Song song) {
   });
 
   return fields;
+}
+
+launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
 }
 
 class DefaultIconWidget extends StatelessWidget {
