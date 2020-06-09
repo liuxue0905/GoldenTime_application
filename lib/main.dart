@@ -13,37 +13,44 @@ import 'recrod/records.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    ApiService service = ApiService(host: 'liujin.jios.org', port: 8888);
-    ApiService.instance = service;
+var routeName2Route = {
+  Home2Page.routeName: Home2Page.route,
+  HomePage.routeName: HomePage.route,
+  RecordsPage.routeName: RecordsPage.route,
+  ArtistsPage.routeName: ArtistsPage.route,
+  SongsPage.routeName: SongsPage.route,
+};
 
-    if (kIsWeb) {
-      _onRouteNameChanged(BuildContext context, String routeName) {
-        Navigator.of(context).pushNamed(routeName);
-      }
+_onRouteNameChanged(BuildContext context, String routeName) {
+  Navigator.of(context).pushNamed(routeName2Route[routeName]);
+}
 
-      List<Path> paths = [
-        Path(
-          r'^' + Home2Page.route,
-          (context, match) => ScaffoldWrapper(
+List<Path> paths = [
+  Path(
+    r'^' + Home2Page.route,
+    (context, match) => kIsWeb
+        ? ScaffoldWrapper(
             title: '流金岁月',
             body: Home2Page(
               onRouteNameChanged: (String routeName) {
                 _onRouteNameChanged(context, routeName);
               },
             ),
-            routeName: Home2Page.route,
+            routeName: Home2Page.routeName,
             onRouteNameValueChanged: (String routeName) {
               _onRouteNameChanged(context, routeName);
             },
+          )
+        : Home2Page(
+            onRouteNameChanged: (String routeName) {
+              _onRouteNameChanged(context, routeName);
+            },
           ),
-        ),
-        Path(
-          r'^' + HomePage.route,
-          (context, match) => ScaffoldWrapper(
+  ),
+  Path(
+    r'^' + HomePage.route,
+    (context, match) => kIsWeb
+        ? ScaffoldWrapper(
             title: '流金岁月',
             body: HomePage(
               gpmQuickNavItems: kGPMQuickNavItems,
@@ -51,15 +58,22 @@ class MyApp extends StatelessWidget {
                 _onRouteNameChanged(context, routeName);
               },
             ),
-            routeName: HomePage.route,
+            routeName: HomePage.routeName,
             onRouteNameValueChanged: (String value) {
               _onRouteNameChanged(context, value);
             },
+          )
+        : HomePage(
+            gpmQuickNavItems: kGPMQuickNavItems,
+            onRouteNameChanged: (String routeName) {
+              _onRouteNameChanged(context, routeName);
+            },
           ),
-        ),
-        Path(
-          r'^' + RecordsPage.route,
-          (context, match) => ScaffoldWrapper(
+  ),
+  Path(
+    r'^' + RecordsPage.route,
+    (context, match) => kIsWeb
+        ? ScaffoldWrapper(
             title: '流金岁月 - 唱片',
             body: RecordsPage(
               gpmQuickNavItems: kGPMQuickNavItems,
@@ -67,15 +81,22 @@ class MyApp extends StatelessWidget {
                 _onRouteNameChanged(context, routeName);
               },
             ),
-            routeName: RecordsPage.route,
+            routeName: RecordsPage.routeName,
             onRouteNameValueChanged: (String value) {
               _onRouteNameChanged(context, value);
             },
+          )
+        : RecordsPage(
+            gpmQuickNavItems: kGPMQuickNavItems,
+            onRouteNameChanged: (String routeName) {
+              _onRouteNameChanged(context, routeName);
+            },
           ),
-        ),
-        Path(
-          r'^' + ArtistsPage.route,
-          (context, match) => ScaffoldWrapper(
+  ),
+  Path(
+    r'^' + ArtistsPage.route,
+    (context, match) => kIsWeb
+        ? ScaffoldWrapper(
             title: '流金岁月 - 歌手',
             body: ArtistsPage(
               onRouteNameChanged: (String routeName) {
@@ -86,11 +107,17 @@ class MyApp extends StatelessWidget {
             onRouteNameValueChanged: (String routeName) {
               _onRouteNameChanged(context, routeName);
             },
+          )
+        : ArtistsPage(
+            onRouteNameChanged: (String routeName) {
+              _onRouteNameChanged(context, routeName);
+            },
           ),
-        ),
-        Path(
-          r'^' + SongsPage.route,
-          (context, match) => ScaffoldWrapper(
+  ),
+  Path(
+    r'^' + SongsPage.route,
+    (context, match) => kIsWeb
+        ? ScaffoldWrapper(
             title: '流金岁月 - 歌曲',
             body: SongsPage(
               gpmQuickNavItems: kGPMQuickNavItems,
@@ -102,15 +129,28 @@ class MyApp extends StatelessWidget {
             onRouteNameValueChanged: (String value) {
               _onRouteNameChanged(context, value);
             },
+          )
+        : SongsPage(
+            gpmQuickNavItems: kGPMQuickNavItems,
+            onRouteNameChanged: (String routeName) {
+              _onRouteNameChanged(context, routeName);
+            },
           ),
-        ),
-      ];
+  ),
+];
 
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    ApiService service = ApiService(host: 'liujin.jios.org', port: 8888);
+    ApiService.instance = service;
+
+    if (kIsWeb) {
       return MaterialApp(
         title: '流金岁月',
         initialRoute: '/home',
         onGenerateRoute: (RouteSettings settings) {
-
           var paths2 = [];
           paths2.addAll(RouteConfiguration.paths);
           paths2.addAll(paths);
@@ -121,7 +161,8 @@ class MyApp extends StatelessWidget {
             final regExpPattern = RegExp(path.pattern);
             print('path.pattern=${path.pattern}');
             print('settings.name=${settings.name}');
-            print('regExpPattern.hasMatch(settings.name)=${regExpPattern.hasMatch(settings.name)}');
+            print(
+                'regExpPattern.hasMatch(settings.name)=${regExpPattern.hasMatch(settings.name)}');
             if (regExpPattern.hasMatch(settings.name)) {
               final firstMatch = regExpPattern.firstMatch(settings.name);
               final match =
@@ -212,60 +253,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildChild(BuildContext context) {
-    List<Path> paths = [
-      Path(
-        r'^' + Home2Page.route,
-        (context, match) => Home2Page(
-          onRouteNameChanged: (String routeName) {
-            setRouteName(routeName);
-          },
-        ),
-      ),
-      Path(
-        r'^' + HomePage.route,
-        (context, match) => HomePage(
-          gpmQuickNavItems: kGPMQuickNavItems,
-          onRouteNameChanged: (String routeName) {
-            setRouteName(routeName);
-          },
-        ),
-      ),
-      Path(
-        r'^' + RecordsPage.route,
-        (context, match) => RecordsPage(
-          gpmQuickNavItems: kGPMQuickNavItems,
-          onRouteNameChanged: (String routeName) {
-            setRouteName(routeName);
-          },
-        ),
-      ),
-      Path(
-        r'^' + ArtistsPage.route,
-        (context, match) => ArtistsPage(
-          onRouteNameChanged: (String routeName) {
-            setRouteName(routeName);
-          },
-        ),
-      ),
-      Path(
-        r'^' + SongsPage.route,
-        (context, match) => SongsPage(
-          gpmQuickNavItems: kGPMQuickNavItems,
-          onRouteNameChanged: (String routeName) {
-            setRouteName(routeName);
-          },
-        ),
-      ),
-    ];
-
-    var routeName2Route = {
-      Home2Page.routeName: Home2Page.route,
-      HomePage.routeName: HomePage.route,
-      RecordsPage.routeName: RecordsPage.route,
-      ArtistsPage.routeName: ArtistsPage.route,
-      SongsPage.routeName: SongsPage.route,
-    };
-
     var paths2 = [];
     paths2.addAll(paths);
     paths2.addAll(RouteConfiguration.paths);
@@ -454,12 +441,14 @@ class ScaffoldWrapper extends StatelessWidget {
 //      }).toList());
 //    }
 
-    _actions.add(IconButton(
-      icon: const Icon(Icons.android),
+    if (kIsWeb) {
+      _actions.add(IconButton(
+        icon: const Icon(Icons.android),
 //      tooltip: GalleryLocalizations.of(context).starterAppTooltipShare,
-      tooltip: '安卓客户端',
-      onPressed: () {},
-    ));
+        tooltip: '安卓客户端',
+        onPressed: () {},
+      ));
+    }
 
     return _actions;
   }

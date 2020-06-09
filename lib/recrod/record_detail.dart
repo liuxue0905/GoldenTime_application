@@ -208,7 +208,7 @@ class _RecordSongsState extends State<RecordSongs> {
     var _dataTable = DataTable(
       columnSpacing: isLargeScreen(context) ? 16 : 56,
       columns: <DataColumn>[
-        DataColumn(label: Text(""), numeric: true),
+        DataColumn(label: Text(""), numeric: false),
         DataColumn(label: Text("音乐标题")),
         DataColumn(label: Text("歌手")),
         DataColumn(label: Icon(Icons.more_horiz)),

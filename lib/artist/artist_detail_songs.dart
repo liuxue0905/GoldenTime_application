@@ -116,7 +116,7 @@ class ArtistSongsListState extends State<ArtistSongsList> {
     Widget _buildList(BuildContext context) {
       Widget _dataTable = DataTable(
         columns: <DataColumn>[
-          DataColumn(label: Text(""), numeric: true),
+          DataColumn(label: Text(""), numeric: false),
           DataColumn(label: Text("音乐标题")),
           DataColumn(label: Text("歌手")),
           DataColumn(label: Text("唱片")),
