@@ -65,17 +65,17 @@ class _ArtistDetailPageState extends State<ArtistDetailPage> {
         ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.artist?.name ?? args.artist?.name ?? '')),
+      appBar: AppBar(title: Text(widget.artist?.name ?? args?.artist?.name ?? '')),
       body: Container(
         child: FutureBuilder(
           future: future,
           builder: (context, snapshot) {
-            if (kDebugMode) {
-              print('snapshot.connectionState = ${snapshot.connectionState}');
-              print('snapshot.hasData = ${snapshot.hasData.toString()}');
-              print('snapshot.hasError = ${snapshot.hasError.toString()}');
-              print('snapshot.error = ${snapshot.error.toString()}');
-            }
+//            if (kDebugMode) {
+//              print('snapshot.connectionState = ${snapshot.connectionState}');
+//              print('snapshot.hasData = ${snapshot.hasData.toString()}');
+//              print('snapshot.hasError = ${snapshot.hasError.toString()}');
+//              print('snapshot.error = ${snapshot.error.toString()}');
+//            }
 
             if (snapshot.connectionState == ConnectionState.waiting) {
               return WaitingWidget();

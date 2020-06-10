@@ -60,25 +60,25 @@ class _RecordDetailPageState extends State<RecordDetailPage> {
     final RecordDetailArguments args =
         ModalRoute.of(context).settings.arguments;
 
-    if (kDebugMode) {
-      print('widget.record?.title = ${widget.record?.title}');
-      print('args.record?.title = ${args.record?.title}');
-    }
+//    if (kDebugMode) {
+//      print('widget.record?.title = ${widget.record?.title}');
+//      print('args.record?.title = ${args?.record?.title}');
+//    }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.record?.title ?? args.record?.title ?? ''),
+        title: Text(widget.record?.title ?? args?.record?.title ?? ''),
       ),
       body: Container(
         child: FutureBuilder(
           future: future,
           builder: (context, snapshot) {
-            if (kDebugMode) {
-              print('snapshot.connectionState = ${snapshot.connectionState}');
-              print('snapshot.hasData = ${snapshot.hasData.toString()}');
-              print('snapshot.hasError = ${snapshot.hasError.toString()}');
-              print('snapshot.error = ${snapshot.error.toString()}');
-            }
+//            if (kDebugMode) {
+//              print('snapshot.connectionState = ${snapshot.connectionState}');
+//              print('snapshot.hasData = ${snapshot.hasData.toString()}');
+//              print('snapshot.hasError = ${snapshot.hasError.toString()}');
+//              print('snapshot.error = ${snapshot.error.toString()}');
+//            }
 
             if (snapshot.connectionState == ConnectionState.waiting) {
               return WaitingWidget();

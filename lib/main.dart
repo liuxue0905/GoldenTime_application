@@ -160,10 +160,10 @@ class MyApp extends StatelessWidget {
 
           for (final path in paths2) {
             final regExpPattern = RegExp(path.pattern);
-            print('path.pattern=${path.pattern}');
-            print('settings.name=${settings.name}');
-            print(
-                'regExpPattern.hasMatch(settings.name)=${regExpPattern.hasMatch(settings.name)}');
+//            print('path.pattern=${path.pattern}');
+//            print('settings.name=${settings.name}');
+//            print(
+//                'regExpPattern.hasMatch(settings.name)=${regExpPattern.hasMatch(settings.name)}');
             if (regExpPattern.hasMatch(settings.name)) {
               final firstMatch = regExpPattern.firstMatch(settings.name);
               final match =
@@ -262,9 +262,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     for (final path in paths2) {
       final regExpPattern = RegExp(path.pattern);
-      print('path.pattern=${path.pattern}');
-      print('name=${name}');
-      print('regExpPattern.hasMatch(name)=${regExpPattern.hasMatch(name)}');
+//      print('path.pattern=${path.pattern}');
+//      print('name=${name}');
+//      print('regExpPattern.hasMatch(name)=${regExpPattern.hasMatch(name)}');
       if (regExpPattern.hasMatch(name)) {
         final firstMatch = regExpPattern.firstMatch(name);
         final match = (firstMatch.groupCount == 1) ? firstMatch.group(1) : null;

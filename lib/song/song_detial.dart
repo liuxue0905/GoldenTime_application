@@ -66,12 +66,12 @@ class _SongDetailPageState extends State<SongDetailPage> {
           child: FutureBuilder(
             future: future,
             builder: (context, snapshot) {
-              if (kDebugMode) {
-                print('snapshot.connectionState = ${snapshot.connectionState}');
-                print('snapshot.hasData = ${snapshot.hasData.toString()}');
-                print('snapshot.hasError = ${snapshot.hasError.toString()}');
-                print('snapshot.error = ${snapshot.error.toString()}');
-              }
+//              if (kDebugMode) {
+//                print('snapshot.connectionState = ${snapshot.connectionState}');
+//                print('snapshot.hasData = ${snapshot.hasData.toString()}');
+//                print('snapshot.hasError = ${snapshot.hasError.toString()}');
+//                print('snapshot.error = ${snapshot.error.toString()}');
+//              }
 
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return WaitingWidget();

@@ -114,14 +114,14 @@ class Home2PageState extends State<Home2Page> {
                 child: FutureBuilder(
                   future: future,
                   builder: (context, snapshot) {
-                    print('snapshot = ${snapshot}');
-                    print(
-                        'snapshot.connectionState = ${snapshot.connectionState}');
-                    print('snapshot.hasData = ${snapshot.hasData.toString()}');
-                    print(
-                        'snapshot.hasError = ${snapshot.hasError.toString()}');
-                    print('snapshot.error = ${snapshot.error.toString()}');
-                    print('snapshot.data = ${snapshot.data}');
+//                    print('snapshot = ${snapshot}');
+//                    print(
+//                        'snapshot.connectionState = ${snapshot.connectionState}');
+//                    print('snapshot.hasData = ${snapshot.hasData.toString()}');
+//                    print(
+//                        'snapshot.hasError = ${snapshot.hasError.toString()}');
+//                    print('snapshot.error = ${snapshot.error.toString()}');
+//                    print('snapshot.data = ${snapshot.data}');
 
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return WaitingWidget();
@@ -335,14 +335,17 @@ class ArtistsWidget extends StatelessWidget {
     }
 
     return Container(
-      child: StaggeredGridView.countBuilder(
-        padding: getListContainerMargin(context),
-        crossAxisCount: _crossAxisCount(),
-        mainAxisSpacing: 4.0,
-        crossAxisSpacing: 4.0,
-        itemCount: _itemCount(),
-        itemBuilder: _itemBuilder,
-        staggeredTileBuilder: _staggeredTileBuilder,
+      child: Scrollbar(
+        isAlwaysShown: true,
+        child: StaggeredGridView.countBuilder(
+          padding: getListContainerMargin(context),
+          crossAxisCount: _crossAxisCount(),
+          mainAxisSpacing: 4.0,
+          crossAxisSpacing: 4.0,
+          itemCount: _itemCount(),
+          itemBuilder: _itemBuilder,
+          staggeredTileBuilder: _staggeredTileBuilder,
+        ),
       ),
     );
   }
