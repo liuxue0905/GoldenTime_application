@@ -15,8 +15,15 @@ import './model/song.dart';
 
 void openRecord(BuildContext context, Record record) {
   if (kIsWeb) {
-    Navigator.of(context)
-        .pushNamed(RecordDetailPage.routeFromSlug(record?.id?.toString()));
+//    Navigator.of(context)
+//        .pushNamed(RecordDetailPage.routeFromSlug(record?.id?.toString()));
+    Navigator.of(context).pushNamed(
+      RecordDetailPage.routeFromSlug(record?.id?.toString()),
+      arguments: RecordDetailArguments(
+        record: record,
+        id: record?.id,
+      ),
+    );
     return;
   }
 
@@ -28,30 +35,43 @@ void openRecord(BuildContext context, Record record) {
       ),
     ),
   );
-
-//  Navigator.of(context).pushNamed('record/xxx',
-//      arguments: RecordDetailArguments(record: record, id: record?.id));
 }
 
 void openArtist(BuildContext context, Artist artist) {
   if (kIsWeb) {
-    Navigator.of(context)
-        .pushNamed(ArtistDetailPage.routeFromSlug(artist?.id?.toString()));
+//    Navigator.of(context)
+//        .pushNamed(ArtistDetailPage.routeFromSlug(artist?.id?.toString()));
+    Navigator.of(context).pushNamed(
+      ArtistDetailPage.routeFromSlug(artist?.id?.toString()),
+      arguments: ArtistDetailArguments(
+        artist: artist,
+        id: artist?.id,
+      ),
+    );
     return;
   }
 
   Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => ArtistDetailPage(
-                artist: artist,
-              )));
+    context,
+    MaterialPageRoute(
+      builder: (context) => ArtistDetailPage(
+        artist: artist,
+      ),
+    ),
+  );
 }
 
 void openSong(BuildContext context, Song song) {
   if (kIsWeb) {
-    Navigator.of(context)
-        .pushNamed(SongDetailPage.routeFromSlug(song?.id?.toString()));
+//    Navigator.of(context)
+//        .pushNamed(SongDetailPage.routeFromSlug(song?.id?.toString()));
+    Navigator.of(context).pushNamed(
+      SongDetailPage.routeFromSlug(song?.id?.toString()),
+      arguments: SongDetailArguments(
+        song: song,
+        id: song?.id,
+      ),
+    );
     return;
   }
 

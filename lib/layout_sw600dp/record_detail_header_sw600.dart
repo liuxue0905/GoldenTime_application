@@ -40,7 +40,8 @@ class Sw600dpRecordDetailHeaderContainer
             child: FadeInImage(
               width: 180,
               height: 180,
-              image: NetworkImage(url),
+              image: NetworkImage(
+                  getImageUrl(url, resize: 'fill', size: 240) ?? ''),
               placeholder: AssetImage('images/default_album.jpg'),
               fit: BoxFit.cover,
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 
 import '../api_service.dart';
 import '../constants.dart';
@@ -81,11 +82,13 @@ class _RecordsPageState extends State<RecordsPage> {
               child: FutureBuilder<PageList<Record>>(
                 future: future,
                 builder: (context, snapshot) {
-                  print(
-                      'snapshot.connectionState = ${snapshot.connectionState}');
-                  print('snapshot.hasData = ${snapshot.hasData.toString()}');
-                  print('snapshot.hasError = ${snapshot.hasError.toString()}');
-                  print('snapshot.error = ${snapshot.error.toString()}');
+                  if (kDebugMode) {
+                    print(
+                        'snapshot.connectionState = ${snapshot.connectionState}');
+                    print('snapshot.hasData = ${snapshot.hasData.toString()}');
+                    print('snapshot.hasError = ${snapshot.hasError.toString()}');
+                    print('snapshot.error = ${snapshot.error.toString()}');
+                  }
 
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return WaitingWidget();

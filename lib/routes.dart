@@ -142,14 +142,3 @@ class NoAnimationMaterialPageRoute<T> extends MaterialPageRoute<T> {
     return child;
   }
 }
-
-class RecordDetailArguments {
-  Record record;
-
-  int id;
-
-  RecordDetailArguments({
-    this.record,
-    this.id,
-  });
-}

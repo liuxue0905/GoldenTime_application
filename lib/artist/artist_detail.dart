@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_golden_time/api_service.dart';
-import 'package:flutter_app_golden_time/widget_util.dart';
 
 import '../layout_sw320dp/artist_detail_header_sw320dp.dart';
 import '../layout_sw600dp/artist_detail_header_sw600dp.dart';
@@ -30,8 +29,12 @@ class ArtistDetailPage extends StatefulWidget {
 class _ArtistDetailPageState extends State<ArtistDetailPage> {
   @override
   Widget build(BuildContext context) {
+
+    final ArtistDetailArguments args =
+        ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
-      appBar: AppBar(title: Text(widget.artist?.name ?? '')),
+      appBar: AppBar(title: Text(widget.artist?.name ?? args.artist?.name ?? '')),
       body: Container(
         child: FutureBuilder(
           future: ApiService.instance.fetchArtist(widget.artist.id),
@@ -120,8 +123,7 @@ class _ArtistDetialState extends State<ArtistDetial> {
       );
     } else {
       _header = ArtistDetailHeader_sw600dp(
-        url: getArtistCover(artist,
-            size: 240 * MediaQuery.of(context).devicePixelRatio),
+        url: artist.cover,
         artist: artist,
       );
     }
@@ -181,4 +183,14 @@ class _ArtistDetialState extends State<ArtistDetial> {
       ),
     );
   }
+}
+
+class ArtistDetailArguments {
+  int id;
+  Artist artist;
+
+  ArtistDetailArguments({
+    this.id,
+    this.artist,
+  });
 }

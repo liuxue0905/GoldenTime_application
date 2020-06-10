@@ -28,7 +28,7 @@ class ArtistDetailHeader_sw600dp extends ArtistDetailHeader_swndp {
                   ),
                   Positioned.fill(
                     child: Image.network(
-                      url ?? '',
+                      getImageUrl(url, resize: 'fill', size: 240) ?? '',
                       fit: BoxFit.cover,
                     ),
                   ),

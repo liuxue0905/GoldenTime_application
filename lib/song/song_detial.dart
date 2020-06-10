@@ -9,7 +9,6 @@ import '../util.dart';
 import '../widget_util.dart';
 
 class SongDetailPage extends StatelessWidget {
-
   static const String baseRoute = '/song';
   static String Function(String slug) routeFromSlug =
       (String slug) => baseRoute + '/$slug';
@@ -20,9 +19,11 @@ class SongDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SongDetailArguments args = ModalRoute.of(context).settings.arguments;
+
     return new Container(
       child: Scaffold(
-        appBar: AppBar(title: Text(song.title ?? '')),
+        appBar: AppBar(title: Text(song.title ?? args?.song?.title ?? '')),
         body: Container(
           child: FutureBuilder(
             future: ApiService.instance.fetchSong(song.id),
@@ -95,54 +96,20 @@ class SongDetail extends StatelessWidget {
                       .toList(),
                 ),
               ),
-//              Card(
-//                child: Container(
-//                  padding: EdgeInsets.all(16),
-//                  child: Table(
-//                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-//                    columnWidths: <int, TableColumnWidth>{
-//                      0: MaxColumnWidth(
-//                          FractionColumnWidth(0.2), FixedColumnWidth(40)),
-//                      1: FractionColumnWidth(0.8),
-//                    },
-//                    children: getSongFields(song)
-//                        .map((e) => TableRow(
-//                              children: <Widget>[
-//                                TableCell(
-//                                  child: Container(
-//                                    color: Colors.transparent,
-//                                    child: Container(
-//                                      padding:
-//                                          EdgeInsets.only(top: 4, bottom: 4),
-//                                      child: Text(
-//                                        e['name'] ?? '',
-//                                        style: Theme.of(context)
-//                                            .textTheme
-//                                            .bodyText1,
-//                                      ),
-//                                    ),
-//                                  ),
-//                                ),
-//                                TableCell(
-//                                  child: Container(
-//                                    color: Colors.transparent,
-//                                    child: Text(
-//                                      e['value'] ?? '',
-//                                      style:
-//                                          Theme.of(context).textTheme.bodyText2,
-//                                    ),
-//                                  ),
-//                                ),
-//                              ],
-//                            ))
-//                        .toList(),
-//                  ),
-//                ),
-//              ),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+class SongDetailArguments {
+  int id;
+  Song song;
+
+  SongDetailArguments({
+    this.id,
+    this.song,
+  });
 }

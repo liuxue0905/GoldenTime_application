@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 
 import '../api_service.dart';
 import '../layout_sw320dp/record_detail_header_sw320dp.dart';
@@ -6,13 +7,11 @@ import '../layout_sw600dp/record_detail_header_sw600.dart';
 import '../layout_swNdp/record_detail_header_swndp.dart';
 import '../model/record.dart';
 import '../model/song.dart';
-import '../routes.dart';
 import '../util.dart';
 import '../widget_util.dart';
 import '../layout/image_gallery.dart';
 
 class RecordDetailPage extends StatefulWidget {
-
   static const String baseRoute = '/record';
   static String Function(String slug) routeFromSlug =
       (String slug) => baseRoute + '/$slug';
@@ -28,26 +27,80 @@ class RecordDetailPage extends StatefulWidget {
 }
 
 class _RecordDetailPageState extends State<RecordDetailPage> {
+  Future<Record> future;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _handleDataSourceChanged();
+  }
+
+  @override
+  void didUpdateWidget(RecordDetailPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+//    if (oldWidget != widget) {
+//      _handleDataSourceChanged();
+//    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void _handleDataSourceChanged() {
+    setState(() {
+      this.future = ApiService.instance.fetchRecord(widget.record.id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final RecordDetailArguments args =
         ModalRoute.of(context).settings.arguments;
 
-    final TextTheme textTheme = Theme.of(context).textTheme;
+    if (kDebugMode) {
+      print('widget.record?.title = ${widget.record?.title}');
+      print('args.record?.title = ${args.record?.title}');
+    }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.record?.title ?? ''),
+        title: Text(widget.record?.title ?? args.record?.title ?? ''),
       ),
       body: Container(
         child: FutureBuilder(
-          future: ApiService.instance.fetchRecord(widget.record.id),
+          future: future,
           builder: (context, snapshot) {
-            if (snapshot.hasError) print(snapshot.error);
+            if (kDebugMode) {
+              print('snapshot.connectionState = ${snapshot.connectionState}');
+              print('snapshot.hasData = ${snapshot.hasData.toString()}');
+              print('snapshot.hasError = ${snapshot.hasError.toString()}');
+              print('snapshot.error = ${snapshot.error.toString()}');
+            }
 
-            return snapshot.hasData
-                ? RecordDetial(record: snapshot.data)
-                : Center(child: CircularProgressIndicator());
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return WaitingWidget();
+            } else if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                return FutureErrorWidget(
+                    onPressed: () {
+                      _handleDataSourceChanged();
+                    },
+                    error: snapshot.error);
+              }
+              if (snapshot.hasData) {
+//                setState(() {
+//                  record = snapshot.data;
+//                });
+                return RecordDetial(record: snapshot.data);
+              }
+            } else {
+              return Center(child: Text(snapshot.connectionState.toString()));
+            }
+
+            return null;
           },
         ),
       ),
@@ -72,8 +125,7 @@ class RecordDetial extends StatelessWidget {
             record: record,
           )
         : Sw600dpRecordDetailHeaderContainer(
-            url: getRecordCover(record,
-                size: 240 * MediaQuery.of(context).devicePixelRatio),
+            url: record.cover,
             title: record.title,
             subtitle: '编号：${record.number}',
             record: record,
@@ -88,7 +140,6 @@ class RecordDetial extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               header,
-
               Card(
                 clipBehavior: Clip.antiAlias,
                 child: DataTable(
@@ -122,56 +173,6 @@ class RecordDetial extends StatelessWidget {
                       .toList(),
                 ),
               ),
-
-//              Container(
-//                child: Card(
-//                  child: Container(
-//                    padding: EdgeInsets.all(16),
-//                    child: Table(
-//                      defaultVerticalAlignment:
-//                          TableCellVerticalAlignment.middle,
-//                      columnWidths: <int, TableColumnWidth>{
-//                        0: MaxColumnWidth(
-//                            FractionColumnWidth(0.2), FixedColumnWidth(80)),
-//                        1: FractionColumnWidth(0.8),
-//                      },
-//                      children: getRecordFields(record)
-//                          .map((e) => TableRow(
-//                                children: <Widget>[
-//                                  TableCell(
-//                                    child: Container(
-//                                      color: Colors.transparent,
-//                                      child: Container(
-//                                        padding:
-//                                            EdgeInsets.only(top: 4, bottom: 4),
-//                                        child: Text(
-//                                          e['name'] ?? '',
-//                                          style: Theme.of(context)
-//                                              .textTheme
-//                                              .bodyText1,
-//                                        ),
-//                                      ),
-//                                    ),
-//                                  ),
-//                                  TableCell(
-//                                    child: Container(
-//                                      color: Colors.transparent,
-//                                      child: Text(
-//                                        e['value'] ?? '',
-//                                        style: Theme.of(context)
-//                                            .textTheme
-//                                            .bodyText2,
-//                                      ),
-//                                    ),
-//                                  ),
-//                                ],
-//                              ))
-//                          .toList(),
-//                    ),
-//                  ),
-//                ),
-//              ),
-
               RecordSongs(
                 songs: record.songs,
               ),
@@ -258,4 +259,14 @@ class _RecordSongsState extends State<RecordSongs> {
 
     return _card;
   }
+}
+
+class RecordDetailArguments {
+  int id;
+  Record record;
+
+  RecordDetailArguments({
+    this.id,
+    this.record,
+  });
 }
