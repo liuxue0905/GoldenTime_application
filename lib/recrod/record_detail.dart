@@ -91,9 +91,6 @@ class _RecordDetailPageState extends State<RecordDetailPage> {
                     error: snapshot.error);
               }
               if (snapshot.hasData) {
-//                setState(() {
-//                  record = snapshot.data;
-//                });
                 return RecordDetial(record: snapshot.data);
               }
             } else {

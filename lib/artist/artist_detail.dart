@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_golden_time/api_service.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 
+import '../api_service.dart';
 import '../layout_sw320dp/artist_detail_header_sw320dp.dart';
 import '../layout_sw600dp/artist_detail_header_sw600dp.dart';
 import '../layout_swNdp/artist_detail_header_swndp.dart';
 import '../model/artist.dart';
 import '../util.dart';
+import '../widget_util.dart';
 import 'artist_detail_comps.dart';
 import 'artist_detail_records.dart';
 import 'artist_detail_songs.dart';
@@ -27,6 +29,35 @@ class ArtistDetailPage extends StatefulWidget {
 }
 
 class _ArtistDetailPageState extends State<ArtistDetailPage> {
+
+  Future<Artist> future;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _handleDataSourceChanged();
+  }
+
+  @override
+  void didUpdateWidget(ArtistDetailPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+//    if (oldWidget != widget) {
+//      _handleDataSourceChanged();
+//    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void _handleDataSourceChanged() {
+    setState(() {
+      this.future = ApiService.instance.fetchArtist(widget.artist.id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -37,13 +68,33 @@ class _ArtistDetailPageState extends State<ArtistDetailPage> {
       appBar: AppBar(title: Text(widget.artist?.name ?? args.artist?.name ?? '')),
       body: Container(
         child: FutureBuilder(
-          future: ApiService.instance.fetchArtist(widget.artist.id),
+          future: future,
           builder: (context, snapshot) {
-            if (snapshot.hasError) print(snapshot.error);
+            if (kDebugMode) {
+              print('snapshot.connectionState = ${snapshot.connectionState}');
+              print('snapshot.hasData = ${snapshot.hasData.toString()}');
+              print('snapshot.hasError = ${snapshot.hasError.toString()}');
+              print('snapshot.error = ${snapshot.error.toString()}');
+            }
 
-            return snapshot.hasData
-                ? ArtistDetial(artist: snapshot.data)
-                : Center(child: CircularProgressIndicator());
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return WaitingWidget();
+            } else if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                return FutureErrorWidget(
+                    onPressed: () {
+                      _handleDataSourceChanged();
+                    },
+                    error: snapshot.error);
+              }
+              if (snapshot.hasData) {
+                return ArtistDetial(artist: snapshot.data);
+              }
+            } else {
+              return Center(child: Text(snapshot.connectionState.toString()));
+            }
+
+            return null;
           },
         ),
       ),
