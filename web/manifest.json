@@ -1,11 +1,11 @@
 {
-    "name": "GoldenTime_application",
-    "short_name": "GoldenTime_application",
+    "name": "流金岁月",
+    "short_name": "流金岁月",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "流金岁月",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
