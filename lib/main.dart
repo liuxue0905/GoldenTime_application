@@ -300,15 +300,23 @@ class _MyHomePageState extends State<MyHomePage> {
         if (RouteConfiguration.routeNameHelp == value) {
           return;
         } else if (RouteConfiguration.routeNameAndroid == value) {
-//          String url = 'http://liujin.jios.org:8000/web/android/app-arm64-v8a-release.apk';
-          String url = 'http://liujin.jios.org:8000/web/android/index.html';
-          if (kIsWeb) {}
+          _launchURL();
           return;
         }
 
         setRouteName(value);
       },
     );
+  }
+}
+
+_launchURL() async {
+  const url =
+      'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }
 
@@ -325,15 +333,6 @@ class ScaffoldWrapper extends StatelessWidget {
     this.routeName,
     this.onRouteNameValueChanged,
   }) : super(key: key);
-
-  _launchURL() async {
-    const url = 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
 
   List<Widget> buildListTiles(
       BuildContext context, List<GPMQuickNavItem> items) {

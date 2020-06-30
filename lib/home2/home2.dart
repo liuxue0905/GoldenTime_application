@@ -336,7 +336,7 @@ class ArtistsWidget extends StatelessWidget {
 
     return Container(
       child: Scrollbar(
-        isAlwaysShown: true,
+        isAlwaysShown: false,
         child: StaggeredGridView.countBuilder(
           padding: getListContainerMargin(context),
           crossAxisCount: _crossAxisCount(),

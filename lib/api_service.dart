@@ -90,7 +90,7 @@ class ApiService {
     queryParameters['offset'] = offset.toString();
     queryParameters['limit'] = limit.toString();
 
-    print('getRecords() queryParameters = $queryParameters');
+//    print('getRecords() queryParameters = $queryParameters');
 
     Uri uri = Uri.http(this.uri.authority, '/api/records/', queryParameters);
     print('getRecords() uri = $uri');
@@ -127,7 +127,6 @@ class ApiService {
       queryParameters['type'] = type.toString();
     }
     if (recordIsNull != null) {
-      queryParameters['record_isnull'] = recordIsNull.toString();
       queryParameters['record__isnull'] = recordIsNull.toString();
     }
     if (typeIsNull != null) {
@@ -137,7 +136,7 @@ class ApiService {
     queryParameters['offset'] = offset.toString();
     queryParameters['limit'] = limit.toString();
 
-    print('getArtists() queryParameters = $queryParameters');
+//    print('getArtists() queryParameters = $queryParameters');
 
     Uri uri = Uri.http(this.uri.authority, '/api/artists/', queryParameters);
     print('getArtists() uri = $uri');
@@ -171,7 +170,7 @@ class ApiService {
     queryParameters['offset'] = offset.toString();
     queryParameters['limit'] = limit.toString();
 
-    print('getSongs() queryParameters = $queryParameters');
+//    print('getSongs() queryParameters = $queryParameters');
 
     Uri uri = Uri.http(this.uri.authority, '/api/songs/', queryParameters);
     print('getSongs() uri = $uri');
@@ -202,7 +201,7 @@ class ApiService {
     queryParameters['offset'] = offset.toString();
     queryParameters['limit'] = limit.toString();
 
-    print('getArtistRecords() queryParameters = $queryParameters');
+//    print('getArtistRecords() queryParameters = $queryParameters');
 
     Uri uri = Uri.http(this.uri.authority, '/api/artists/${artistId}/records/', queryParameters);
     print('getArtistRecords() uri = $uri');
@@ -233,7 +232,7 @@ class ApiService {
     queryParameters['offset'] = offset.toString();
     queryParameters['limit'] = limit.toString();
 
-    print('getArtistComps() queryParameters = $queryParameters');
+//    print('getArtistComps() queryParameters = $queryParameters');
 
     Uri uri = Uri.http(this.uri.authority, '/api/artists/${artistId}/comps/', queryParameters);
     print('getArtistComps() uri = $uri');
@@ -264,7 +263,7 @@ class ApiService {
     queryParameters['offset'] = offset.toString();
     queryParameters['limit'] = limit.toString();
 
-    print('getArtistSongs() queryParameters = $queryParameters');
+//    print('getArtistSongs() queryParameters = $queryParameters');
 
     Uri uri = Uri.http(this.uri.authority, '/api/artists/${artistId}/songs/', queryParameters);
     print('getArtistSongs() uri = $uri');
