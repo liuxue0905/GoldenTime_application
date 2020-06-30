@@ -86,7 +86,8 @@ class _RecordsPageState extends State<RecordsPage> {
                     print(
                         'snapshot.connectionState = ${snapshot.connectionState}');
                     print('snapshot.hasData = ${snapshot.hasData.toString()}');
-                    print('snapshot.hasError = ${snapshot.hasError.toString()}');
+                    print(
+                        'snapshot.hasError = ${snapshot.hasError.toString()}');
                     print('snapshot.error = ${snapshot.error.toString()}');
                   }
 
@@ -117,7 +118,6 @@ class _RecordsPageState extends State<RecordsPage> {
                             this.form.format = form.format;
 
                             this.form.offset = 0;
-                            this.form.limit = 20;
                           });
                           _handleDataSourceChanged();
                         },
@@ -232,7 +232,8 @@ class _RecordsListState extends State<RecordsList> {
     }
 
     int _crossAxisCount() {
-      int crossAxisCount = querySize<int>(context, {1250: 4, 1400: 5});
+      int crossAxisCount = querySize<int>(context,
+          {1071: 4, 1072: 5, 1303: 5, 1304: 6, 1535: 6, 1536: 7, 1768: 8});
       if (!isLargeScreen(context)) {
         crossAxisCount = 2;
       }
@@ -293,7 +294,7 @@ class _RecordsListState extends State<RecordsList> {
                       widget.onPageChanged(value);
                     }
                   },
-                  rowsPerPage: 20,
+                  rowsPerPage: widget.form.limit,
                   source: _source,
                   initialFirstRowIndex: widget.form.offset,
                 ),

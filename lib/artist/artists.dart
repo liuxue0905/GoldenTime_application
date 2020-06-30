@@ -114,7 +114,6 @@ class _ArtistsPageState extends State<ArtistsPage> {
                           this.form.recordIsNull = form.recordIsNull;
 
                           this.form.offset = 0;
-                          this.form.limit = 20;
                         });
                         _handleDataSourceChanged();
                       },
@@ -141,7 +140,8 @@ class _ArtistsPageState extends State<ArtistsPage> {
                 selection: 2,
                 onSelectionChanged: (int position) {
                   if (widget.onRouteNameChanged != null) {
-                    widget.onRouteNameChanged(widget.gpmQuickNavItems[position].routeName);
+                    widget.onRouteNameChanged(
+                        widget.gpmQuickNavItems[position].routeName);
                   }
                 },
               ),
@@ -186,7 +186,8 @@ class ArtistsListState extends State<ArtistsList> {
 
   Widget _build(BuildContext context, List<Artist> artists) {
     int _crossAxisCount() {
-      int crossAxisCount = querySize<int>(context, {1250: 4, 1400: 5});
+      int crossAxisCount = querySize<int>(context,
+          {1071: 4, 1072: 5, 1303: 5, 1304: 6, 1535: 6, 1536: 7, 1768: 8});
       if (!isLargeScreen(context)) {
         crossAxisCount = 2;
       }
@@ -258,7 +259,7 @@ class ArtistsListState extends State<ArtistsList> {
                     widget.onPageChanged(value);
                   }
                 },
-                rowsPerPage: 20,
+                rowsPerPage: widget.form.limit,
                 source: _source,
                 initialFirstRowIndex: widget.form.offset,
               ),

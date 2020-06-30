@@ -2,7 +2,7 @@ class FormObject {}
 
 class PaginatedFormObject extends FormObject {
   int offset = 0;
-  int limit = 20;
+  int limit = 40;
 
   @override
   String toString() {
