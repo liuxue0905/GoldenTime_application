@@ -486,6 +486,7 @@ class ScaffoldWrapper extends StatelessWidget {
                 ))
           ],
         ),
+        semanticLabel: 'abc',
       ),
       body: body,
     );

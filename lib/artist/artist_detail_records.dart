@@ -114,7 +114,8 @@ class ArtistRecordsListState extends State<ArtistRecordsList> {
     List<Record> records = widget.pageList.results;
 
     int _crossAxisCount() {
-      int crossAxisCount = querySize<int>(context, {1250: 4, 1400: 5});
+      int crossAxisCount = querySize<int>(context,
+          {1071: 4, 1072: 5, 1303: 5, 1304: 6, 1535: 6, 1536: 7, 1768: 8});
       if (!isLargeScreen(context)) {
         crossAxisCount = 2;
       }
@@ -125,7 +126,8 @@ class ArtistRecordsListState extends State<ArtistRecordsList> {
       Record record = records[index];
       return SJCardRecommended(
         brightness: Brightness.light,
-        url: getRecordCover(record, size: 160 * MediaQuery.of(context).devicePixelRatio),
+        url: getRecordCover(record,
+            size: 160 * MediaQuery.of(context).devicePixelRatio),
         title: record.title,
         subtitle: record.year,
         tag: record.getFormatText(),
@@ -152,7 +154,8 @@ class ArtistRecordsListState extends State<ArtistRecordsList> {
               PaginatedFooter(
                 onPageChanged: (int value) {
                   print('onPageChanged value = $value');
-                  print('onPageChanged widget.onPageChanged = ${widget.onPageChanged}');
+                  print(
+                      'onPageChanged widget.onPageChanged = ${widget.onPageChanged}');
                   if (widget.onPageChanged != null) {
                     widget.onPageChanged(value);
                   }
