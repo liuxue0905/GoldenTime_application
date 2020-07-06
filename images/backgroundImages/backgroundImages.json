@@ -21,6 +21,14 @@
   ],
   "backgroundImages": [
     {
+      "id": null,
+      "background-image": null,
+      "background-color": "#ffffff",
+      "separator-color": "#000000",
+      "header": "Kicking back",
+      "title": "Fun Family Hangout"
+    },
+    {
       "id": "1aN6mX4KtTKKOBfGwSftr-hxuHhHIUyxPoN7R1fEZYwZ02GrVCONCTQxtbLWxF85rUs49HCMaQ",
       "background-image": "https://lh3.googleusercontent.com/1aN6mX4KtTKKOBfGwSftr-hxuHhHIUyxPoN7R1fEZYwZ02GrVCONCTQxtbLWxF85rUs49HCMaQ",
       "background-color": "#531e65",
