@@ -46,7 +46,7 @@ class ColoredNowCard extends StatelessWidget {
           children: <Widget>[
             Container(
 //              child: Image.asset(
-//                'images/colored_now_card.jpg',
+//                '',
 //                fit: BoxFit.cover,
 //              ),
               child: Image.network(backgroundImage ?? ''),

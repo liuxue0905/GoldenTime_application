@@ -42,7 +42,7 @@ class Sw600dpRecordDetailHeaderContainer
               height: 180,
               image: NetworkImage(
                   getImageUrl(url, resize: 'fill', size: 240) ?? ''),
-              placeholder: AssetImage('images/default_album.jpg'),
+              placeholder: AssetImage('images/svg_png/default_album.jpg'),
               fit: BoxFit.cover,
             ),
           ),

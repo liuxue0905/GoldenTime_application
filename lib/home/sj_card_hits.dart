@@ -18,7 +18,7 @@ class SJCardHits extends StatelessWidget {
                   child: AspectRatio(
                     aspectRatio: 1,
                     child: Image.asset(
-                      'images/default_album.jpg',
+                      'images/svg_png/default_album.jpg',
                       fit: BoxFit.cover,
                     ),
                   ),

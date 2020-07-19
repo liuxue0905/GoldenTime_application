@@ -46,7 +46,7 @@ class _PageIndicatorContainerState extends State<PageIndicatorContainer> {
               onPressed: () {},
               tooltip: 'I\'m Feeling Lucky',
               child: Image.asset(
-                'images/ifl.png',
+                'images/svg_png/ifl.png',
                 width: 24,
                 height: 24,
                 color: Colors.white,
@@ -116,7 +116,7 @@ class PageTab extends StatelessWidget {
       );
     } else {
       _icon = Image.asset(
-        'images/sj_dot.png',
+        'images/svg_png/sj_dot.png',
         color: _color,
       );
     }

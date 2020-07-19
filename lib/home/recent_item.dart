@@ -29,7 +29,7 @@ class RecentItem extends StatelessWidget {
                 child: Container(
                   child: FadeInImage(
                     image: NetworkImage(url ?? ''),
-                    placeholder: AssetImage('images/default_album.jpg'),
+                    placeholder: AssetImage('images/svg_png/default_album.jpg'),
                     fit: BoxFit.cover,
                   ),
                 ),

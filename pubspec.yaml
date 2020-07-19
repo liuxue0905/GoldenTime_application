@@ -56,33 +56,24 @@ flutter:
 
   assets:
     - images/lake.jpg
-    - images/illo_default_artistradio_smallcard.png
-    - images/default_album.jpg
-    - images/colored_now_card.jpg
-    - images/background_image/1ee8b6.png
-    - images/background_image/4b2460.png
-    - images/background_image/5dced6.png
-    - images/background_image/19ba6a.png
-    - images/background_image/47c7fe.png
-    - images/background_image/531e65.png
-    - images/background_image/4413ba.png
-    - images/background_image/17316d.png
-    - images/background_image/54215f.png
-    - images/background_image/63230a.png
-    - images/background_image/392291.png
-    - images/background_image/512257.png
-    - images/background_image/532164.png
-    - images/background_image/bfb2ff.png
-    - images/background_image/c6fbe5.png
-    - images/background_image/4bceff.png
-    - images/background_image/12b969.png
-    - images/sj_dot.png
-    - images/ifl.png
+
     - images/home.jpg
 
     - images/svg/default_album.svg
     - images/svg/ifl.svg
     - images/svg/splash_screen.svg
+
+    - images/svg_png/default_album.jpg
+    - images/svg_png/sj_dot.png
+    - images/svg_png/ifl.png
+
+    - images/illo_default_artistradio_smallcard.png
+
+    - images/background_image/1ee8b6.png
+    - images/background_image/19ba6a.png
+    - images/background_image/47c7fe.png
+    - images/background_image/17316d.png
+    - images/background_image/4bceff.png
 
     - images/backgroundImages/backgroundImages.json
     - images/backgroundImages/1aN6mX4KtTKKOBfGwSftr-hxuHhHIUyxPoN7R1fEZYwZ02GrVCONCTQxtbLWxF85rUs49HCMaQ.png

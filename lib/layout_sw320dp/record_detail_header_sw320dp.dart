@@ -49,7 +49,7 @@ class Sw320dpRecordDetailHeaderContainer
               aspectRatio: 1.0,
               child: FadeInImage(
                 image: NetworkImage(getImageUrl(url, resize: 'fill', size: (mediaQuery.size.width * mediaQuery.devicePixelRatio).toInt()) ?? ''),
-                placeholder: AssetImage('images/default_album.jpg'),
+                placeholder: AssetImage('images/svg_png/default_album.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
