@@ -46,15 +46,11 @@ class SJCardRecommended extends StatelessWidget {
                 children: <Widget>[
                   Positioned.fill(
                     child: Container(
-                      color: Colors.black,
+                      child: Image.asset('images/svg_png/default_album.jpg', fit: BoxFit.fill,),
                     ),
                   ),
                   Positioned.fill(
-                    child: FadeInImage(
-                      image: NetworkImage(url),
-                      placeholder: AssetImage('images/svg_png/default_album.jpg'),
-                      fit: BoxFit.cover,
-                    ),
+                    child: Image.network(url, fit: BoxFit.cover,),
                   ),
                   Positioned(
                     bottom: 8.0,

@@ -58,12 +58,11 @@ class SJCardRecommendedTall extends StatelessWidget {
               child: Stack(
                 children: <Widget>[
                   Positioned.fill(
-                    child: Container(color: Colors.black),
+                    child: Image.asset('images/svg_png/default_album.jpg', fit: BoxFit.fill,),
                   ),
                   Positioned.fill(
-                    child: FadeInImage(
-                      image: NetworkImage(url),
-                      placeholder: AssetImage('images/svg_png/default_album.jpg'),
+                    child: Image.network(
+                      url,
                       fit: BoxFit.cover,
                     ),
                   ),
