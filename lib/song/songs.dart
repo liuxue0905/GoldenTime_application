@@ -216,6 +216,19 @@ class SongsListState extends State<SongsList> {
   }
 
   Widget buildDataTable(BuildContext context, List<Song> songs) {
+    // Table(
+    //   border: TableBorder.all(color: Colors.transparent),
+    //   columnWidths: {
+    //     0: FlexColumnWidth(1),
+    //     1: FlexColumnWidth(4),
+    //     2: FlexColumnWidth(4),
+    //
+    //     0: FixedColumnWidth(100.0),// fixed to 100 width
+    //     1: FlexColumnWidth(),
+    //     2: FixedColumnWidth(100.0),//fixed to 100 width
+    //   },
+    //   defaultColumnWidth: IntrinsicColumnWidth(),
+    // );
     Widget dataTable = DataTable(
       columnSpacing: isLargeScreen(context) ? 16 : 56,
       columns: <DataColumn>[
