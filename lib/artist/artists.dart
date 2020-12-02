@@ -227,6 +227,12 @@ class ArtistsListState extends State<ArtistsList> {
       return text;
     }
 
+    print('onPageChanged widget.onPageChanged = ${widget.onPageChanged}');
+    print('onPageChanged widget.form = ${widget.form}');
+    print('onPageChanged widget.form.limit = ${widget.form.limit}');
+    print('onPageChanged widget.form.offset = ${widget.form.offset}');
+    print('onPageChanged _source = ${_source}');
+
     return Container(
       child: SingleChildScrollView(
         child: Container(

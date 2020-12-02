@@ -33,6 +33,7 @@ class SongsPage extends StatefulWidget {
 
 class SongsPageState extends State<SongsPage> {
   SongsFormObject form = SongsFormObject();
+  // SongsFormObject form = SongsFormObject(limit: 50);
   Future<PageList<Song>> future;
 
   @override
@@ -98,7 +99,6 @@ class SongsPageState extends State<SongsPage> {
                             this.form.title = form.title;
 
                             this.form.offset = 0;
-                            this.form.limit = 20;
                           });
                           _handleDataSourceChanged();
                         });
@@ -124,7 +124,8 @@ class SongsPageState extends State<SongsPage> {
                 selection: 3,
                 onSelectionChanged: (int position) {
                   if (widget.onRouteNameChanged != null) {
-                    widget.onRouteNameChanged(widget.gpmQuickNavItems[position].routeName);
+                    widget.onRouteNameChanged(
+                        widget.gpmQuickNavItems[position].routeName);
                   }
                 },
               ),
@@ -198,13 +199,11 @@ class SongsListState extends State<SongsList> {
               PaginatedFooter(
                 onPageChanged: (int value) {
                   print('onPageChanged value = $value');
-                  print(
-                      'onPageChanged widget.onPageChanged = ${widget.onPageChanged}');
                   if (widget.onPageChanged != null) {
                     widget.onPageChanged(value);
                   }
                 },
-                rowsPerPage: 20,
+                rowsPerPage: widget.form.limit,
                 source: _source,
                 initialFirstRowIndex: widget.form.offset,
               ),
@@ -216,19 +215,45 @@ class SongsListState extends State<SongsList> {
   }
 
   Widget buildDataTable(BuildContext context, List<Song> songs) {
-    // Table(
+    // Widget dataTable = Table(
     //   border: TableBorder.all(color: Colors.transparent),
     //   columnWidths: {
-    //     0: FlexColumnWidth(1),
-    //     1: FlexColumnWidth(4),
-    //     2: FlexColumnWidth(4),
-    //
-    //     0: FixedColumnWidth(100.0),// fixed to 100 width
-    //     1: FlexColumnWidth(),
-    //     2: FixedColumnWidth(100.0),//fixed to 100 width
+    //     0: FixedColumnWidth(36.0),
+    //     1: FlexColumnWidth(3),
+    //     2: FlexColumnWidth(1),
+    //     3: FlexColumnWidth(1),
+    //     4: FixedColumnWidth(36.0),
     //   },
-    //   defaultColumnWidth: IntrinsicColumnWidth(),
+    //   // defaultColumnWidth: IntrinsicColumnWidth(),
+    //   children: songs.map((Song song) {
+    //     return TableRow(children: <TableCell>[
+    //       TableCell(
+    //         child: InkWell(
+    //           child: Text((songs.indexOf(song) + 1).toString()),
+    //           onTap: () {},
+    //         ),
+    //       ),
+    //       TableCell(
+    //         child: InkWell(
+    //           child: Text(song.title),
+    //           onTap: () {
+    //             openSong(context, song);
+    //           },
+    //         ),
+    //       ),
+    //       TableCell(child: getArtistsWidget(song.artists)),
+    //       TableCell(
+    //         child: Text(song.record.title),
+    //       ),
+    //       TableCell(
+    //         child: Center(
+    //           child: Icon(Icons.info),
+    //         ),
+    //       ),
+    //     ]);
+    //   }).toList(),
     // );
+
     Widget dataTable = DataTable(
       columnSpacing: isLargeScreen(context) ? 16 : 56,
       columns: <DataColumn>[
@@ -245,7 +270,12 @@ class SongsListState extends State<SongsList> {
       rows: songs.map((Song song) {
         return DataRow(
           cells: <DataCell>[
-            DataCell(Text((songs.indexOf(song) + 1).toString())),
+            DataCell(
+              SizedBox(
+                child: Text((songs.indexOf(song) + 1).toString()),
+                width: 36.0,
+              ),
+            ),
             DataCell(
               Text(song.title),
               onTap: () {

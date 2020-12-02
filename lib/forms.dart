@@ -1,8 +1,10 @@
 class FormObject {}
 
 class PaginatedFormObject extends FormObject {
-  int offset = 0;
-  int limit = 40;
+  int offset;
+  int limit;
+
+  PaginatedFormObject({this.offset = 0, this.limit = 40}):super();
 
   @override
   String toString() {
@@ -16,7 +18,7 @@ class RecordsFormObject extends PaginatedFormObject {
   String year;
   int companyId;
 
-  RecordsFormObject({this.title, this.format, this.year, this.companyId});
+  RecordsFormObject({this.title, this.format, this.year, this.companyId}):super();
 
   @override
   String toString() {
@@ -29,7 +31,7 @@ class ArtistsFormObject extends PaginatedFormObject {
   int type;
   bool recordIsNull;
 
-  ArtistsFormObject({this.name, this.type, this.recordIsNull});
+  ArtistsFormObject({this.name, this.type, this.recordIsNull}):super();
 
   @override
   String toString() {
@@ -40,7 +42,7 @@ class ArtistsFormObject extends PaginatedFormObject {
 class SongsFormObject extends PaginatedFormObject {
   String title;
 
-  SongsFormObject({this.title});
+  SongsFormObject({this.title, int limit = 40}):super(limit: limit);
 
   @override
   String toString() {

@@ -25,7 +25,6 @@ class PaginatedFooter extends StatefulWidget {
   static const int defaultRowsPerPage = 20;
 
   PaginatedFooter({
-    Key key,
     this.initialFirstRowIndex = 0,
     this.onPageChanged,
     this.rowsPerPage = defaultRowsPerPage,
