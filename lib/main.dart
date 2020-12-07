@@ -145,7 +145,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ApiService service = ApiService(host: 'liujin.jios.org', port: 8000);
-    ApiService service = ApiService(host: '127.0.0.1', port: 8000);
+    // ApiService service = ApiService(host: '127.0.0.1', port: 8000);
+    ApiService service = ApiService(host: 'liujinsuiyue.synology.me', port: 8000);
     ApiService.instance = service;
 
     if (kIsWeb) {
